@@ -19,12 +19,6 @@ public class NerdShooter extends Game {
     public void create() {
         shooter = this;
         
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/myfont.ttf"));
-        FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-        parameter.size = 12;
-        text = generator.generateFont(parameter); // font size 12 pixels
-        generator.dispose();
-        
         setScreen(new SplashScreen());
         new CompletedLevel();
     }
