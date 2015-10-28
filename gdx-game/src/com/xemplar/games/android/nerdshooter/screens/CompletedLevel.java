@@ -1,3 +1,23 @@
+/*
+ * NerdShooter is a pseudo libray project for future Xemplar 2D Side Scroller Games.
+ * Copyright (C) 2015  Rohan Loomis
+ *
+ * This file is part of NerdShooter
+ *
+ * NerdShooter is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3 of the License, or
+ * any later version.
+ *
+ * NerdShooter is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 package com.xemplar.games.android.nerdshooter.screens;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.*;
@@ -18,9 +38,6 @@ public class CompletedLevel implements Screen, InputProcessor {
     private int level;
     private String message;
     
-    private float[] colors = {0.5F, 0.5F, 0.5F, 1.0F};
-    private float[] pressedColors = {0.7F, 0.7F, 0.7F, 1.0F};
-    
     private ScreenButton replay;
     private ScreenButton menu;
     
@@ -29,7 +46,6 @@ public class CompletedLevel implements Screen, InputProcessor {
     
     private int width, height;
     private SpriteBatch batch;
-    private ShapeRenderer buttons;
     
     public CompletedLevel(){
         instance = this;
@@ -43,14 +59,9 @@ public class CompletedLevel implements Screen, InputProcessor {
         
         batch.begin();{
             text.draw(batch, message, (width / 2F) - (font / 2F), height - text.getCapHeight());
-            replay.renderText(batch);
-            menu.renderText(batch);
+            replay.render(batch);
+            menu.render(batch);
         } batch.end();
-        
-        buttons.begin(ShapeRenderer.ShapeType.Filled);{
-            replay.renderButton(buttons);
-            menu.renderButton(buttons);
-        } buttons.end();
     }
 
     public void resize(int width, int height) {
@@ -61,10 +72,10 @@ public class CompletedLevel implements Screen, InputProcessor {
         float buttonWidth = (width * (3F / 4F));
         buttonHeight = height / 9F;
         
-        text = new BitmapFont(Gdx.files.internal("font/digital.fnt"));
+        text = new BitmapFont();//Gdx.files.internal("font/digital.fnt"));
 
-        replay = new ScreenButton(text, "Replay", colors, pressedColors, (width / 2F) - (buttonWidth / 2F), buttonHeight + spacer, buttonWidth, buttonHeight);
-        menu = new ScreenButton(text, "Menu", colors, pressedColors, (width / 2F) - (buttonWidth / 2F), replay.y + spacer + buttonHeight, buttonWidth, buttonHeight);
+        replay = new ScreenButton(text, "Replay", (width / 2F) - (buttonWidth / 2F), buttonHeight + spacer, buttonWidth, buttonHeight);
+        menu = new ScreenButton(text, "Menu", (width / 2F) - (buttonWidth / 2F), replay.y + spacer + buttonHeight, buttonWidth, buttonHeight);
     }
 
     public void show() {
@@ -90,7 +101,6 @@ public class CompletedLevel implements Screen, InputProcessor {
         }
         
         batch = new SpriteBatch();
-        buttons = new ShapeRenderer();
         
         Gdx.input.setInputProcessor(this);
     }
@@ -155,14 +165,9 @@ public class CompletedLevel implements Screen, InputProcessor {
         float x = pX;
         float y = height - pY;
 
-        if(replay.isInside(x, y)){
-            replay.setPressed(replay.isInside(x, y));
-        }
-
-        if(menu.isInside(x, y)){
-            menu.setPressed(menu.isInside(x, y));
-        }
-
+        replay.setPressed(replay.isInside(x, y));
+        menu.setPressed(menu.isInside(x, y));
+        
         return false;
     }
 

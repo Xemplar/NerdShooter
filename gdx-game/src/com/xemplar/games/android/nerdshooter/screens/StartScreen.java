@@ -1,3 +1,23 @@
+/*
+ * NerdShooter is a pseudo libray project for future Xemplar 2D Side Scroller Games.
+ * Copyright (C) 2015  Rohan Loomis
+ *
+ * This file is part of NerdShooter
+ *
+ * NerdShooter is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3 of the License, or
+ * any later version.
+ *
+ * NerdShooter is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 package com.xemplar.games.android.nerdshooter.screens;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.*;
@@ -21,16 +41,11 @@ public class StartScreen implements Screen, InputProcessor {
     private ScreenButton level6;
     private ScreenButton exit;
 	
-	private ShapeRenderer buttonRenderer;
-	private SpriteBatch textRenderer;
-	
+	private SpriteBatch buttonRenderer;
 	private BitmapFont text;
 	
 	private float width, height;
     private Array<ScreenButton> buttons = new Array<ScreenButton>();
-    
-	private float[] colors = {0.5F, 0.5F, 0.5F, 1.0F};
-    private float[] pressedColors = {0.7F, 0.7F, 0.7F, 1.0F};
     
 	public StartScreen(){
         instance = this;
@@ -42,17 +57,11 @@ public class StartScreen implements Screen, InputProcessor {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
 		
-		buttonRenderer.begin(ShapeRenderer.ShapeType.Filled); {
+		buttonRenderer.begin(); {
 		    for(ScreenButton button : buttons){
-                button.renderButton(buttonRenderer);
+                button.render(buttonRenderer);
             }
 		} buttonRenderer.end();
-		
-		textRenderer.begin(); {
-		    for(ScreenButton button : buttons){
-                button.renderText(textRenderer);
-            }
-		} textRenderer.end();
 	}
 
 	@Override
@@ -65,18 +74,18 @@ public class StartScreen implements Screen, InputProcessor {
 		buttonHeight = height / 9F;
 		float centerY = (height / 2F) - (buttonHeight / 2F);
         
-        text = new BitmapFont(Gdx.files.internal("font/digital.fnt"));
+        text = new BitmapFont(); //Gdx.files.internal("font/digital.fnt"));
         
-		levelExp = new ScreenButton(text, "External Level", colors, pressedColors, (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
+		levelExp = new ScreenButton(text, "External Level", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
         
-        level1 = new ScreenButton(text, "Level 1", colors, pressedColors, (width / 2F) - ((buttonWidth)), levelExp.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
-		level2 = new ScreenButton(text, "Level 2", colors, pressedColors, (width / 2F) - ((buttonWidth)), level1.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
-        level3 = new ScreenButton(text, "Level 3", colors, pressedColors, (width / 2F) - ((buttonWidth)), level2.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
-		level4 = new ScreenButton(text, "Level 4", colors, pressedColors, level1.x + level1.width + spacer, levelExp.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
-        level5 = new ScreenButton(text, "Level 5", colors, pressedColors, level2.x + level2.width + spacer, level4.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
-        level6 = new ScreenButton(text, "Level 6", colors, pressedColors, level3.x + level3.width + spacer, level5.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
+        level1 = new ScreenButton(text, "Level 1", (width / 2F) - ((buttonWidth)), levelExp.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
+		level2 = new ScreenButton(text, "Level 2", (width / 2F) - ((buttonWidth)), level1.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
+        level3 = new ScreenButton(text, "Level 3", (width / 2F) - ((buttonWidth)), level2.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
+		level4 = new ScreenButton(text, "Level 4", level1.x + level1.width + spacer, levelExp.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
+        level5 = new ScreenButton(text, "Level 5", level2.x + level2.width + spacer, level4.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
+        level6 = new ScreenButton(text, "Level 6", level3.x + level3.width + spacer, level5.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
         
-        exit = new ScreenButton(text, "Exit", colors, pressedColors, (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F), buttonHeight);
+        exit = new ScreenButton(text, "Exit", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F), buttonHeight);
         
         if(Gdx.files.isExternalStorageAvailable()){
             File file = new File(Gdx.files.getExternalStoragePath(), "levelExp.txt");
@@ -99,8 +108,7 @@ public class StartScreen implements Screen, InputProcessor {
 
 	@Override
 	public void show() {
-		buttonRenderer = new ShapeRenderer();
-		textRenderer = new SpriteBatch();
+		buttonRenderer = new SpriteBatch();
         
 		Gdx.input.setInputProcessor(this);
 	}
