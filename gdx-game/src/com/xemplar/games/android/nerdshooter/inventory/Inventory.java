@@ -20,13 +20,13 @@
  */
 package com.xemplar.games.android.nerdshooter.inventory;
 
-import com.xemplar.games.android.nerdshooter.items.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.xemplar.games.android.nerdshooter.screens.*;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.utils.*;
-import com.xemplar.games.android.nerdshooter.entities.*;
-import com.badlogic.gdx.graphics.glutils.*;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Array;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.items.Item;
+import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class Inventory {
     private static float space = 5F;
@@ -108,8 +108,8 @@ public class Inventory {
     }
     
     public void renderGUI(ShapeRenderer renderer, int width, int height, float size){
-        this.drawWidth = (space * (spots + 1)) + (size * spots);
-        this.drawHeight = (space * 2) + size;
+        Inventory.drawWidth = (space * (spots + 1)) + (size * spots);
+        Inventory.drawHeight = (space * 2) + size;
         
         renderer.setColor(0.7F, 0.7F, 0.7F, 1F);
         renderer.rect(width - drawWidth, height - drawHeight, drawWidth, drawHeight);
@@ -124,15 +124,15 @@ public class Inventory {
     }
     
     public void renderItems(SpriteBatch batch, int width, int height, float size){
-        this.drawWidth = (space * (spots + 1)) + (size * spots);
-        this.drawHeight = (space * 2) + size;
+    	Inventory.drawWidth = (space * (spots + 1)) + (size * spots);
+    	Inventory.drawHeight = (space * 2) + size;
         
         float slotY = height - (space + size);
         int amt = items.size;
         
         for(int i = 0; i < amt; i++){
             float x = (width - ((space + size) * i)) - (size + space);
-            TextureRegion region = GameScreen.instance.getTextureAltlas().findRegion(items.get(i).getRegionID());
+            TextureRegion region = GameScreen.getTextureAltlas().findRegion(items.get(i).getRegionID());
 
             batch.draw(region, x, slotY, size, size);
         }

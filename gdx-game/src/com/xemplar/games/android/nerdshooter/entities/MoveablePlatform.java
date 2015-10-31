@@ -19,9 +19,9 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.entities;
-import com.badlogic.gdx.math.*;
-import com.xemplar.games.android.nerdshooter.screens.*;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class MoveablePlatform extends Entity {
     public static enum MovementType{
@@ -29,7 +29,7 @@ public class MoveablePlatform extends Entity {
 	}
 	
 	private MovementType movement = MovementType.SINE;
-	private float equasion = 1;
+	private float xOffset = 1;
 	private float amp, frequency;
 	
 	public MoveablePlatform(Vector2 start, String tex, float amplitude, float frequency, MovementType type){
@@ -40,12 +40,16 @@ public class MoveablePlatform extends Entity {
 	}
 	
 	public float getEquasion(){
-		return equasion;
+		return xOffset;
 	}
 	
 	public void updateEntity(float delta){
-        equasion = amp * MathUtils.sinDeg(frequency * GameScreen.gameTicks);
-		setPosition(new Vector2(spawnPoint.x + equasion, spawnPoint.y));
+		if(movement == MovementType.SINE){
+			xOffset = amp * MathUtils.sinDeg(frequency * GameScreen.gameTicks);
+		} else {
+			xOffset = amp * MathUtils.cosDeg(frequency * GameScreen.gameTicks);
+		}
+		setPosition(new Vector2(spawnPoint.x + xOffset, spawnPoint.y));
 	}
 
     public boolean isCollideable() {

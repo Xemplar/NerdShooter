@@ -20,13 +20,13 @@
  */
 package com.xemplar.games.android.nerdshooter.entities;
 
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.xemplar.games.android.nerdshooter.inventory.*;
-import com.xemplar.games.android.nerdshooter.items.*;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.math.*;
+import com.xemplar.games.android.nerdshooter.inventory.Inventory;
 
 public class Jaxon extends Entity{
     private static final float RUNNING_FRAME_DURATION = 0.06f;

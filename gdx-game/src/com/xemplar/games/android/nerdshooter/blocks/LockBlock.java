@@ -19,12 +19,12 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.blocks;
-import com.badlogic.gdx.math.*;
-import com.xemplar.games.android.nerdshooter.entities.*;
-import com.xemplar.games.android.nerdshooter.items.*;
+import com.badlogic.gdx.math.Vector2;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.entities.Jaxon;
+import com.xemplar.games.android.nerdshooter.items.Item;
 
 public class LockBlock extends Block{
-    private static int keyBegin = 0;
     private boolean isLocked = true;
     public Item lockID;
     

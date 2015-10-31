@@ -19,33 +19,37 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.screens;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.Input.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.graphics.glutils.*;
-import com.badlogic.gdx.utils.*;
-import com.xemplar.games.android.nerdshooter.*;
-import com.xemplar.games.android.nerdshooter.screens.*;
-import java.io.*;
+import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
+
+import java.io.File;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
+import com.xemplar.games.android.nerdshooter.NerdShooter;
 
 public class StartScreen implements Screen, InputProcessor {
     public static StartScreen instance;
 	private float buttonHeight;
 	
-	private ScreenButton levelExp;
-	private ScreenButton level1;
-	private ScreenButton level2;
-    private ScreenButton level3;
-    private ScreenButton level4;
-    private ScreenButton level5;
-    private ScreenButton level6;
-    private ScreenButton exit;
+	protected ScreenButton levelExp;
+	protected ScreenButton level1;
+	protected ScreenButton level2;
+	protected ScreenButton level3;
+	protected ScreenButton level4;
+	protected ScreenButton level5;
+	protected ScreenButton level6;
+    protected ScreenButton exit;
 	
-	private SpriteBatch buttonRenderer;
-	private BitmapFont text;
+    protected SpriteBatch buttonRenderer;
+    protected BitmapFont text;
 	
-	private float width, height;
-    private Array<ScreenButton> buttons = new Array<ScreenButton>();
+	protected float width, height;
+	protected Array<ScreenButton> buttons = new Array<ScreenButton>();
     
 	public StartScreen(){
         instance = this;
@@ -55,7 +59,7 @@ public class StartScreen implements Screen, InputProcessor {
         NerdShooter.shooter.setCurrentScreen(NerdShooter.START_SCREEN);
         
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
-        Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 		
 		buttonRenderer.begin(); {
 		    for(ScreenButton button : buttons){
@@ -68,13 +72,13 @@ public class StartScreen implements Screen, InputProcessor {
 	public void resize(int width, int height) {
 		this.width = width;
 		this.height = height;
+
+		buttonHeight = height / 9F;
 		
         float spacer = 10F;
 		float buttonWidth = (width * ((3F / 4F) / 2F));
-		buttonHeight = height / 9F;
-		float centerY = (height / 2F) - (buttonHeight / 2F);
         
-        text = new BitmapFont(); //Gdx.files.internal("font/digital.fnt"));
+        text = NerdShooter.label;
         
 		levelExp = new ScreenButton(text, "External Level", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
         

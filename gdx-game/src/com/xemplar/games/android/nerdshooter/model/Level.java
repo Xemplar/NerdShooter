@@ -20,16 +20,21 @@
  */
 package com.xemplar.games.android.nerdshooter.model;
 
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.files.*;
-import com.badlogic.gdx.math.*;
-import com.xemplar.games.android.nerdshooter.items.*;
-import java.io.*;
-import java.security.*;
-import com.xemplar.games.android.nerdshooter.blocks.*;
-import com.xemplar.games.android.nerdshooter.entities.*;
-import com.xemplar.games.android.nerdshooter.screens.*;
-import com.badlogic.gdx.utils.*;
+import java.io.File;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.xemplar.games.android.nerdshooter.blocks.Block;
+import com.xemplar.games.android.nerdshooter.blocks.DeathBlock;
+import com.xemplar.games.android.nerdshooter.blocks.ExitBlock;
+import com.xemplar.games.android.nerdshooter.blocks.ItemBlock;
+import com.xemplar.games.android.nerdshooter.blocks.LockBlock;
+import com.xemplar.games.android.nerdshooter.blocks.SlabBlock;
+import com.xemplar.games.android.nerdshooter.blocks.SlabDeathBlock;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.items.Item;
 
 public class Level {
 	public Vector2 jaxonStart;
@@ -180,6 +185,7 @@ public class Level {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void addExtra(int x, int y, String id){
 		extras[x + y * width] = new Block(new Vector2(x, y), id);
 	}
@@ -471,10 +477,4 @@ public class Level {
         
 		blocks[x + y * width] = block;
 	}
-    
-    private enum Type{
-        Block,
-        Lock,
-        Item;
-    }
 }

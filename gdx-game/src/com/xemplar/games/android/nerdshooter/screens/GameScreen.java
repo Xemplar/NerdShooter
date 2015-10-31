@@ -20,20 +20,30 @@
  */
 package com.xemplar.games.android.nerdshooter.screens;
 
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.Input.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.graphics.glutils.*;
-import com.badlogic.gdx.math.*;
-import com.badlogic.gdx.utils.*;
-import com.xemplar.games.android.nerdshooter.blocks.*;
-import com.xemplar.games.android.nerdshooter.controller.*;
-import com.xemplar.games.android.nerdshooter.entities.*;
-import com.xemplar.games.android.nerdshooter.items.*;
-import com.xemplar.games.android.nerdshooter.model.*;
-import com.xemplar.games.android.nerdshooter.view.*;
-import com.xemplar.games.android.nerdshooter.*;
-import com.xemplar.games.android.nerdshooter.utils.*;
+import static com.badlogic.gdx.graphics.GL20.GL_BLEND;
+import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
+import static com.badlogic.gdx.graphics.GL20.GL_ONE_MINUS_SRC_ALPHA;
+import static com.badlogic.gdx.graphics.GL20.GL_SRC_ALPHA;
+
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
+import com.xemplar.games.android.nerdshooter.NerdShooter;
+import com.xemplar.games.android.nerdshooter.blocks.ExitBlock;
+import com.xemplar.games.android.nerdshooter.controller.JaxonController;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.model.World;
+import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
+import com.xemplar.games.android.nerdshooter.utils.XPMLItem;
+import com.xemplar.games.android.nerdshooter.view.WorldRenderer;
 
 public class GameScreen implements Screen, InputProcessor {
 	public static boolean useGameDebugRenderer = false;
@@ -44,7 +54,6 @@ public class GameScreen implements Screen, InputProcessor {
     public World world;
     public float buttonSize = 0F;
     
-    private Array<Block> blocks;
     private static int levelNum;
     
     private WorldRenderer renderer;
@@ -65,7 +74,8 @@ public class GameScreen implements Screen, InputProcessor {
         
 		atlas = new TextureAtlas(Gdx.files.internal("textures/nerdshooter.pack"));
 		
-		font = new BitmapFont();
+		font = NerdShooter.gen.generateFont(NerdShooter.params);
+		font.setColor(1, 1, 1, 1);
 		
         if(level == -1){
             GameScreen.useGameDebugRenderer = true;
@@ -78,8 +88,6 @@ public class GameScreen implements Screen, InputProcessor {
 		controlUp = atlas.findRegion("HUDJump");
 		
 		world = new World(level);
-		blocks = world.getBlocks(world.getLevel().getWidth(), world.getLevel().getHeight());
-        
 		button = new ShapeRenderer();
 		batch = new SpriteBatch();
 		
@@ -106,7 +114,7 @@ public class GameScreen implements Screen, InputProcessor {
         long seconds = (long)((gameTicks / 60D) * 10L);
         
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
-        Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 		
         controller.update(delta);
 		updateEntities(delta);
@@ -114,8 +122,8 @@ public class GameScreen implements Screen, InputProcessor {
 		
         button.begin(ShapeRenderer.ShapeType.Filled);{
             if (Gdx.app.getType().equals(Application.ApplicationType.Android)){
-                Gdx.gl.glEnable(Gdx.gl20.GL_BLEND);
-                Gdx.gl.glBlendFunc(Gdx.gl20.GL_SRC_ALPHA, Gdx.gl20.GL_ONE_MINUS_SRC_ALPHA);
+                Gdx.gl.glEnable(GL_BLEND);
+                Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
                 button.setColor(0.0F, 0.5F, 0.5F, 0.5F);
                 button.rect(left.x, left.y, left.width, left.height);
@@ -155,7 +163,7 @@ public class GameScreen implements Screen, InputProcessor {
         renderer.setSize(width, height);
         this.width = width;
         this.height = height;
-		buttonSize = height / 6F;
+		buttonSize = height / NerdShooter.BUTTON_HEIGHT;
 		
 		left.set(buttonSize / 2F, buttonSize / 2F, buttonSize, buttonSize);
 		right.set(buttonSize * 2, buttonSize / 2F, buttonSize, buttonSize);
@@ -180,38 +188,69 @@ public class GameScreen implements Screen, InputProcessor {
     }
 	
     public boolean keyDown(int keycode) {
-        if (keycode == Keys.LEFT)
-		    controller.leftPressed(-1);
-			
-        if (keycode == Keys.RIGHT)
-			controller.rightPressed(-1);
-			
-        if (keycode == Keys.Z)
-			controller.jumpPressed(-1);
-		
-        if (keycode == Keys.X)
-			controller.firePressed(-1);
-	    
-        if ((keycode == Keys.BACK) || (keycode == Keys.ESCAPE)){
-            finishLevel(ExitBlock.EXIT_NOCLEAR);
-        }
-            
+    	if(NerdShooter.shooter.useKeys){
+    		if (keycode == NerdShooter.shooter.keys[0]){
+		    	controller.leftPressed(-1);
+    		}
+        	if (keycode == NerdShooter.shooter.keys[1]){
+		    	controller.rightPressed(-1);
+        	}
+        	if (keycode == NerdShooter.shooter.keys[2]){
+		    	controller.jumpPressed(-1);
+        	}
+        	if (keycode == NerdShooter.shooter.keys[3]){
+		    	controller.firePressed(-1);
+        	}
+    	} else {
+    		if (keycode == Keys.LEFT){
+		    	controller.leftPressed(-1);
+    		}
+        	if (keycode == Keys.RIGHT){
+        		controller.rightPressed(-1);
+        	}
+        	if (keycode == Keys.Z){
+				controller.jumpPressed(-1);
+        	}
+        	if (keycode == Keys.X){
+				controller.firePressed(-1);
+        	}
+    	}
+    	
+    	if ((keycode == Keys.BACK) || (keycode == Keys.ESCAPE)){
+        	finishLevel(ExitBlock.EXIT_NOCLEAR);
+    	}
+    	
         return true;
     }
 	
     public boolean keyUp(int keycode) {
-        if (keycode == Keys.LEFT)
-		    controller.leftReleased();
-			
-        if (keycode == Keys.RIGHT)
-		    controller.rightReleased();
-		
-        if (keycode == Keys.Z)
-		    controller.jumpReleased();
-		
-        if (keycode == Keys.X)
-		    controller.fireReleased();
-            
+    	if(NerdShooter.shooter.useKeys){
+    		if (keycode == NerdShooter.shooter.keys[0]){
+		    	controller.leftReleased();
+    		}
+        	if (keycode == NerdShooter.shooter.keys[1]){
+		    	controller.rightReleased();
+        	}
+        	if (keycode == NerdShooter.shooter.keys[2]){
+		    	controller.jumpReleased();
+        	}
+        	if (keycode == NerdShooter.shooter.keys[3]){
+		    	controller.fireReleased();
+        	}
+    	} else {
+    		if (keycode == Keys.LEFT){
+		    	controller.leftReleased();
+    		}
+        	if (keycode == Keys.RIGHT){
+		    	controller.rightReleased();
+        	}
+        	if (keycode == Keys.Z){
+		    	controller.jumpReleased();
+        	}
+        	if (keycode == Keys.X){
+		    	controller.fireReleased();
+        	}
+    	}
         return true;
     }
 	

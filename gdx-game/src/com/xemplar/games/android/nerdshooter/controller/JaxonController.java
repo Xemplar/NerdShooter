@@ -19,12 +19,18 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.controller;
-import com.badlogic.gdx.math.*;
-import com.badlogic.gdx.utils.*;
-import com.xemplar.games.android.nerdshooter.blocks.*;
-import com.xemplar.games.android.nerdshooter.entities.*;
-import com.xemplar.games.android.nerdshooter.model.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
+import com.xemplar.games.android.nerdshooter.blocks.Block;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.entities.Jaxon;
+import com.xemplar.games.android.nerdshooter.entities.MoveablePlatform;
+import com.xemplar.games.android.nerdshooter.model.World;
 
 public class JaxonController {
     enum Keys {
@@ -161,8 +167,8 @@ public class JaxonController {
 			if (touchedMovingPlatform == null)
 				touchedMovingPlatform = jaxon.getPosition();
 
-			Block b;
-			if ((b = world.getBlock(new Vector2(jaxon.getPosition().x, jaxon.getPosition().y - 1F))) instanceof MoveablePlatform) {
+			Block b = world.getBlock(new Vector2(jaxon.getPosition().x, jaxon.getPosition().y - 1F));
+			if (b instanceof MoveablePlatform) {
 				jaxon.setPosition(new Vector2(touchedMovingPlatform.x, touchedMovingPlatform.y));
 			}
 		} else {

@@ -20,11 +20,11 @@
  */
 package com.xemplar.games.android.nerdshooter.entities;
 
-import com.badlogic.gdx.math.*;
-import com.badlogic.gdx.utils.*;
-import com.xemplar.games.android.nerdshooter.blocks.*;
-import com.xemplar.games.android.nerdshooter.inventory.*;
-import com.xemplar.games.android.nerdshooter.items.*;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Timer;
+import com.xemplar.games.android.nerdshooter.blocks.Block;
+import com.xemplar.games.android.nerdshooter.inventory.Inventory;
 
 public abstract class Entity extends Block{
 	public enum State {

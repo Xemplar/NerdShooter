@@ -19,8 +19,7 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.utils;
-import com.badlogic.gdx.utils.*;
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.utils.Array;
 
 public final class XPMLEncoder {
     private static final String lineSep = "<line_sep>";

@@ -19,13 +19,20 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.screens;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.Input.*;
-import com.xemplar.games.android.nerdshooter.utils.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.xemplar.games.android.nerdshooter.blocks.*;
-import com.badlogic.gdx.graphics.glutils.*;
-import com.xemplar.games.android.nerdshooter.*;
+import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
+import static com.xemplar.games.android.nerdshooter.NerdShooter.gen;
+import static com.xemplar.games.android.nerdshooter.NerdShooter.params;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.xemplar.games.android.nerdshooter.NerdShooter;
+import com.xemplar.games.android.nerdshooter.blocks.ExitBlock;
+import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
+import com.xemplar.games.android.nerdshooter.utils.XPMLItem;
 
 public class CompletedLevel implements Screen, InputProcessor {
     public static final String KEY_COMPLETED_TIME = "comp";
@@ -37,6 +44,7 @@ public class CompletedLevel implements Screen, InputProcessor {
     private double completed;
     private int level;
     private String message;
+    private boolean set = false;
     
     private ScreenButton replay;
     private ScreenButton menu;
@@ -53,9 +61,10 @@ public class CompletedLevel implements Screen, InputProcessor {
     
     public void render(float delta) {
         Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
-        Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 		
-        float font = text.getBounds(message).width;
+        NerdShooter.layout.setText(text, message);
+        float font = NerdShooter.layout.width;
         
         batch.begin();{
             text.draw(batch, message, (width / 2F) - (font / 2F), height - text.getCapHeight());
@@ -72,10 +81,13 @@ public class CompletedLevel implements Screen, InputProcessor {
         float buttonWidth = (width * (3F / 4F));
         buttonHeight = height / 9F;
         
-        text = new BitmapFont();//Gdx.files.internal("font/digital.fnt"));
+        text = gen.generateFont(params);
+        text.setColor(0, 0, 0, 1);
+        
+        set = false;
 
-        replay = new ScreenButton(text, "Replay", (width / 2F) - (buttonWidth / 2F), buttonHeight + spacer, buttonWidth, buttonHeight);
-        menu = new ScreenButton(text, "Menu", (width / 2F) - (buttonWidth / 2F), replay.y + spacer + buttonHeight, buttonWidth, buttonHeight);
+        replay = new ScreenButton(NerdShooter.label, "Replay", (width / 2F) - (buttonWidth / 2F), buttonHeight + spacer, buttonWidth, buttonHeight);
+        menu = new ScreenButton(NerdShooter.label, "Menu", (width / 2F) - (buttonWidth / 2F), replay.y + spacer + buttonHeight, buttonWidth, buttonHeight);
     }
 
     public void show() {
@@ -92,7 +104,7 @@ public class CompletedLevel implements Screen, InputProcessor {
                 message = "Didn't Finish Level " + level;
                 break;
             case ExitBlock.EXIT_NORMAL:
-                message = "Completed Level " + level + "in\n" + completed + " seconds.";
+                message = "Completed Level " + level + " in\n" + completed + " seconds.";
                 break;
             default:
                 message = "Hacker";
@@ -122,6 +134,8 @@ public class CompletedLevel implements Screen, InputProcessor {
     }
     
     public boolean touchDown(int pX, int pY, int pointer, int button) {
+    	set = true;
+    	
         float x = pX;
         float y = height - pY;
 
@@ -133,7 +147,7 @@ public class CompletedLevel implements Screen, InputProcessor {
         }
         
         if(menu.isInside(x, y)){
-            replay.setPressed(true);
+            menu.setPressed(true);
             value |= true;
         }
         
@@ -146,13 +160,13 @@ public class CompletedLevel implements Screen, InputProcessor {
 
         boolean value = false;
 
-        if(replay.isInside(x, y)){
+        if(replay.isInside(x, y) && set){
             replay.setPressed(false);
             NerdShooter.shooter.setScreen(new GameScreen(level));
             value |= true;
         }
 
-        if(menu.isInside(x, y)){
+        if(menu.isInside(x, y) && set){
             menu.setPressed(false);
             NerdShooter.shooter.setScreen(StartScreen.instance);
             value |= true;

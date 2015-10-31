@@ -20,22 +20,26 @@
  */
 package com.xemplar.games.android.nerdshooter.view;
 
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.graphics.glutils.*;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
-import com.badlogic.gdx.math.*;
-import com.xemplar.games.android.nerdshooter.model.*;
-import java.util.*;
-import com.xemplar.games.android.nerdshooter.blocks.*;
-import com.xemplar.games.android.nerdshooter.entities.*;
-import com.badlogic.gdx.utils.*;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.xemplar.games.android.nerdshooter.blocks.Block;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.entities.Jaxon;
+import com.xemplar.games.android.nerdshooter.model.World;
 
 public class WorldRenderer {
 	private static final float CAMERA_WIDTH = 12f;
     private static final float CAMERA_HEIGHT = 7f;
-	
+
+    public int width;
+    public int height;
+    
     private World world;
     private OrthographicCamera cam;
 	private Vector2 center = new Vector2();
@@ -46,8 +50,6 @@ public class WorldRenderer {
     private SpriteBatch spriteBatch;
 	
     private boolean debug = false;
-    private int width;
-    private int height;
     private float ppuX;
     private float ppuY;
 	
@@ -95,10 +97,10 @@ public class WorldRenderer {
 	}
 	
     private void drawBlocks() {
-        for (Block block : world.getBlocks((int) CAMERA_WIDTH, (int) CAMERA_HEIGHT)) {
-            if(!block.isHidden()){
-                block.render(spriteBatch, ppuX, ppuY);
-            }
+    	Array<Block> blocks = world.getVisbleBlocks((int) CAMERA_WIDTH, (int) CAMERA_HEIGHT);
+    	
+        for (Block block : blocks) {
+            block.render(spriteBatch, ppuX, ppuY);
         }
     }
 
@@ -132,13 +134,11 @@ public class WorldRenderer {
 		debugRenderer.end();
 	}
 	
-	private int count = 0;
-	
 	public void setSize (int w, int h) {
         this.width = w;
         this.height = h;
-        ppuX = 1;//(float)width / CAMERA_WIDTH;
-        ppuY = 1;//(float)height / CAMERA_HEIGHT;
+        ppuX = 1;
+        ppuY = 1;
     }
 }
 

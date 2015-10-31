@@ -24,7 +24,8 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.*;
 
 public class SlabHazardBlock extends HazardBlock {
-    private int hurtAmount = 0;
+    @SuppressWarnings("unused")
+	private int hurtAmount = 0;
     public SlabHazardBlock(Vector2 pos, String regionID, float width, float height, boolean top, int removeHealth){
         super(pos, regionID, width, height, removeHealth);
         this.hurtAmount = removeHealth;

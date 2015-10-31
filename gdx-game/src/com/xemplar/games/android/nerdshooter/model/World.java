@@ -94,6 +94,45 @@ public class World {
         return blocks;
     }
 	
+    public Array<Block> getVisbleBlocks(int width, int height) {
+    	int x = (int)jaxon.getPosition().x - width;
+        int y = (int)jaxon.getPosition().y - height;
+        if (x < 0) {
+            x = 0;
+        }
+        if (y < 0) {
+            y = 0;
+        }
+		
+        int x2 = x + 2 * width;
+        int y2 = y + 2 * height;
+		
+        if (x2 > level.getWidth()) {
+            x2 = level.getWidth() - 1;
+        }
+        if (y2 > level.getHeight()) {
+            y2 = level.getHeight() - 1;
+        }
+		
+        Array<Block> blocks = new Array<Block>();
+        Block block = null;
+		
+        for (int col = x; col <= x2; col++) {
+            for (int row = y; row <= y2; row++) {
+				if(col >= level.getWidth()) continue;
+				if(row >= level.getHeight()) continue;
+				
+                block = level.getBlocks()[col + row * level.getWidth()];
+                if (block != null) {
+                	if(!block.isHidden()){
+                		blocks.add(block);
+                	}
+                }
+            }
+        }
+        return blocks;
+	}
+    
 	public World(int levelNum){
         level = new Level(levelNum);
 		jaxon = new Jaxon(level.jaxonStart);

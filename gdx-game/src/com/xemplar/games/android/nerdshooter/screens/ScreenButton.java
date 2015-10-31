@@ -19,15 +19,17 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.screens;
-import com.badlogic.gdx.math.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.glutils.*;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.xemplar.games.android.nerdshooter.NerdShooter;
 
 public class ScreenButton {
     private Rectangle bounds = new Rectangle();
-    private boolean pressed, use;
+    private boolean pressed;
     private String text = "";
     private Texture tex_not_pressed;
     private Texture tex_pressed;
@@ -131,6 +133,9 @@ public class ScreenButton {
             batch.draw(tex_not_pressed, x, y, width, height);
         }
         
-        font.draw(batch, text, bounds.getX() + (bounds.getHeight() * 2F), bounds.getY() + ((bounds.getHeight() / 2F) + (font.getLineHeight() / 4F)));
+        NerdShooter.layout.setText(NerdShooter.label, text);
+        float width = NerdShooter.layout.width;
+        
+        font.draw(batch, text, bounds.getX() + ((bounds.width / 2) - (width / 2)), bounds.getY() + ((bounds.getHeight() / 2F) + (font.getLineHeight() / 4F)));
     }
 }

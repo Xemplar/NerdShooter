@@ -19,11 +19,8 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.items;
-import com.xemplar.games.android.nerdshooter.model.*;
-import com.xemplar.games.android.nerdshooter.entities.*;
-import com.xemplar.games.android.nerdshooter.blocks.*;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.xemplar.games.android.nerdshooter.blocks.ItemBlock;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
 
 public class Item {
     public static Item BLUE_KEY = new Item(0, "keyBlue");

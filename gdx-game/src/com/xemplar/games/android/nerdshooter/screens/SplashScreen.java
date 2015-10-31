@@ -19,22 +19,37 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.screens;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.files.*;
-import com.badlogic.gdx.utils.*;
-import com.xemplar.games.android.nerdshooter.*;
+import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
+import static com.xemplar.games.android.nerdshooter.NerdShooter.gen;
+import static com.xemplar.games.android.nerdshooter.NerdShooter.params;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.utils.Timer;
+import com.xemplar.games.android.nerdshooter.NerdShooter;
 
 public class SplashScreen implements Screen {
+	private static final String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+,<.>/?";
     private float width, height, logoSize, logoX;
     private SpriteBatch batch;
     private Texture logo;
-    private BitmapFont text;
+    private BitmapFont label;
     
     public SplashScreen(){
         batch = new SpriteBatch();
-        text = new BitmapFont();//Gdx.files.internal("font/digital.fnt"));
+        
+        gen = new FreeTypeFontGenerator(Gdx.files.internal("font/font.ttf"));
+        params = new FreeTypeFontParameter();
+        
+        NerdShooter.label = label = gen.generateFont(params);
+        NerdShooter.text = gen.generateFont(params);
         
         FileHandle handle = Gdx.files.internal("logo.png");
         logo = new Texture(handle);
@@ -42,19 +57,31 @@ public class SplashScreen implements Screen {
     
     public void render(float delta) {
         Gdx.gl.glClearColor(1.0F, 1.0F, 1.0F, 1F);
-        Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 		
-        float line = text.getLineHeight();
+        float line = label.getLineHeight();
         
         batch.begin();{
             batch.draw(logo, logoX, height - logoSize, logoSize, logoSize);
-            text.draw(batch, "Made By Xemplar", width / 10F, line + 5);
+            label.draw(batch, "Made By Xemplar", width / 10F, line + 5);
         } batch.end();
     }
 
     public void resize(int width, int height) {
         this.width = width;
         this.height = height;
+        
+        params.characters = chars;
+        params.shadowOffsetX = 1;
+        params.shadowOffsetY = 1;
+        
+        params.size = (int) (((float)height / NerdShooter.BUTTON_HEIGHT) / 2);
+        params.color = new Color(0, 0, 0, 1);
+        NerdShooter.label = gen.generateFont(params);
+        
+        params.size = (int) (((float)height / NerdShooter.BUTTON_HEIGHT) / 3);
+        params.color = new Color(1, 1, 1, 1);
+        NerdShooter.text = gen.generateFont(params);
         
         this.logoSize = height / 2F;
         this.logoX = (width / 2F) - (logoSize / 2F);
