@@ -106,6 +106,12 @@ public class Block {
 		return spawnPoint;
 	}
     
+	public Block copy(){
+		Block b = new Block(position, regionID);
+		
+		return b;
+	}
+	
     public void render(SpriteBatch batch, float ppuX, float ppuY){
         if(!isHidden()){
             batch.draw(getTexture(), getPosition().x * ppuX, getPosition().y * ppuY, getWidth() * ppuX, getHeight() * ppuY);
