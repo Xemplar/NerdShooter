@@ -42,9 +42,6 @@ public class Inventory {
         this.spots = spots;
         
         this.stacks = new Array<ItemStack>();
-        for(int i = 0; i < spots; i++){
-        	stacks.add(new ItemStack(null));
-        }
     }
     
     public ItemStack getItem(int spot){
@@ -107,7 +104,13 @@ public class Inventory {
     	boolean full = true;
     	int spot = -1;
     	
-    	for(int i = 0; i < spots; i++){
+    	if(stacks.size == 0){
+    		Array<Item> items = new Array<Item>();
+    		items.add(item);
+    		stacks.add(new ItemStack(items));
+    	}
+    	
+    	for(int i = 0; i < stacks.size; i++){
     		ItemStack current = stacks.get(i);
     		
     		if(current.getID() == item.id){
@@ -153,7 +156,5 @@ public class Inventory {
         for(int i = 0; i < spots; i++){
             float x = (width - ((space + size) * i)) - (size + space);
         }
-        
-        System.out.println("Ended: 0");
     }
 }
