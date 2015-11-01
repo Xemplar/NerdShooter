@@ -3,6 +3,7 @@ package com.xemplar.games.android.nerdshooter.items;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
 import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class ItemStack {
@@ -118,6 +119,12 @@ public class ItemStack {
 		}
 		
 		return item;
+	}
+	
+	public void returnStackToBlock(Entity master){
+		for(int i = 0; i < items.size; i++){
+			items.get(0).returnToBlock(master);
+		}
 	}
 	
 	public String getRegionID(){

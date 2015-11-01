@@ -49,7 +49,7 @@ public class Item {
     }
     
     public void returnToBlock(Entity e){
-        e.inventory.removeItem(e.inventory.invHasItem(this));
+        e.inventory.removeItem(this);
         if(block != null){
             block.returnItem();
         }

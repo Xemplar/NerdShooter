@@ -65,12 +65,10 @@ public class Inventory {
     }
     
     public void clear(){
-        while(hasItems()){
-        	ItemStack current = stacks.get(0);
-        	for(int i = 0; i < current.getCount(); i++){
-        		current.getItem(0).returnToBlock(master);
-        	}
+        for(int i = 0; i < stacks.size; i++){
+    		stacks.get(i).returnStackToBlock(master);
         }
+        stacks.clear();
     }
     
     public int invHasItem(Item item){
@@ -93,42 +91,69 @@ public class Inventory {
         return -1;
     }
     
+    public boolean removeItem(Item item){
+        if(stacks.size == 0) return false;
+        
+        for(ItemStack stack : stacks){
+        	if(stack.getID() == item.id){
+        		int amount = stack.getCount();
+        		if(amount == 1){
+        			stacks.removeValue(stack, false);
+        			return true;
+        		} else {
+        			stack.remove(1);
+        			return true;
+        		}
+        	}
+        }
+        
+        return false;
+    }
+    
     public boolean removeItem(int spot){
         if(spot > stacks.size) return false;
         if(spot == -1) return false;
-        stacks.removeIndex(spot);
+        ItemStack stack = stacks.get(spot);
+        int num = stack.getCount();
+        if(num == 1){
+            stacks.removeIndex(spot);
+        } else {
+        	stacks.get(spot).remove(1);
+        }
         return true;
     }
     
     public boolean addItem(Item item){
-    	boolean full = true;
-    	int spot = -1;
-    	
     	if(stacks.size == 0){
     		Array<Item> items = new Array<Item>();
     		items.add(item);
     		stacks.add(new ItemStack(items));
-    	}
-    	
-    	for(int i = 0; i < stacks.size; i++){
-    		ItemStack current = stacks.get(i);
     		
-    		if(current.getID() == item.id){
-    			full &= current.isFull();
+    		return true;
+    	} else {
+    		boolean found = false;
+    		int pos = 0;
+    		for(int i = 0; i < stacks.size; i++){
+    			found |= (stacks.get(i).getID() == item.id && !stacks.get(i).isFull());
+    			
+    			if(found){
+    				pos = i;
+    				break;
+    			}
     		}
     		
-    		if(!full){
-    			spot = i;
-    			break;
+    		if(found){
+    			stacks.get(pos).add(item);
+    			return true;
+    		} else if(stacks.size == spots){
+    			return false;
+    		} else {
+    			Array<Item> items = new Array<Item>();
+        		items.add(item);
+        		stacks.add(new ItemStack(items));
+        		return true;
     		}
     	}
-    	
-        if(full){
-            return false;
-        } else {
-            stacks.get(spot).add(item);
-            return true;
-        }
     }
     
     public void renderGUI(ShapeRenderer renderer, int width, int height, float size){
@@ -153,8 +178,9 @@ public class Inventory {
         
         float slotY = height - (space + size);
         
-        for(int i = 0; i < spots; i++){
+        for(int i = 0; i < stacks.size; i++){
             float x = (width - ((space + size) * i)) - (size + space);
+            stacks.get(i).render(batch, (int)x, (int)slotY, (int)size);
         }
     }
 }
