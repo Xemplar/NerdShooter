@@ -21,12 +21,11 @@
 package com.xemplar.games.android.nerdshooter.screens;
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
-import java.io.File;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -92,8 +91,8 @@ public class StartScreen implements Screen, InputProcessor {
         exit = new ScreenButton(text, "Exit", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F), buttonHeight);
         
         if(Gdx.files.isExternalStorageAvailable()){
-            File file = new File(Gdx.files.getExternalStoragePath(), "levelExp.txt");
-            
+            FileHandle file = new FileHandle(Gdx.files.getExternalStoragePath() + "levelExp.txt");
+            System.out.println(file.path());
             if(file.exists()){
                 buttons.add(levelExp.setActionNumber(-1));
             }

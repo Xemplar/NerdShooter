@@ -24,15 +24,15 @@ import com.badlogic.gdx.math.*;
 import com.xemplar.games.android.nerdshooter.entities.*;
 
 public class DeathBlock extends Block {
-    public DeathBlock(Vector2 pos, String regionID){
+    protected DeathBlock(Vector2 pos, String regionID){
         super(pos, regionID);
     }
     
-    public DeathBlock(Vector2 pos, String regionID, float size){
+    protected DeathBlock(Vector2 pos, String regionID, float size){
         super(pos, regionID, size);
     }
     
-    public DeathBlock(Vector2 pos, String regionID, float width, float height){
+    protected DeathBlock(Vector2 pos, String regionID, float width, float height){
         super(pos, regionID, width, height);
     }
     
@@ -43,4 +43,9 @@ public class DeathBlock extends Block {
     public void onTouch(Entity e) {
         e.kill();
     }
+    
+    public DeathBlock clone(Vector2 pos){
+		DeathBlock b = new DeathBlock(pos, regionID, bounds.width, bounds.height);
+		return b;
+	}
 }

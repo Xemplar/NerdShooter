@@ -19,6 +19,98 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.model;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_center;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_clift_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_clift_left_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_clift_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_clift_right_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_half;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_half_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_half_mid;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_half_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_mid;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_center;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_clift_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_clift_left_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_clift_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_clift_right_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_half;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_half_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_half_mid;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_half_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_mid;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.exit;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_center;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_clift_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_clift_left_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_clift_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_clift_right_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_half;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_half_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_half_mid;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_half_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_mid;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.key_blue;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.key_green;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.key_red;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.key_yellow;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.lock_blue;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.lock_green;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.lock_red;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.lock_yellow;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.misc_lava;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.misc_lava_mid;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.misc_lava_top;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.misc_water;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.misc_water_mid;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.misc_water_top;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_center;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_clift_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_clift_left_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_clift_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_clift_right_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_half;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_half_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_half_mid;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_half_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_mid;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_center;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_clift_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_clift_left_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_clift_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_clift_right_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_half;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_half_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_half_mid;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_half_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_mid;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_center;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_clift_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_clift_left_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_clift_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_clift_right_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_half;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_half_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_half_mid;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_half_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_mid;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_right;
 
 import java.io.File;
 
@@ -27,14 +119,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.xemplar.games.android.nerdshooter.blocks.Block;
-import com.xemplar.games.android.nerdshooter.blocks.DeathBlock;
-import com.xemplar.games.android.nerdshooter.blocks.ExitBlock;
-import com.xemplar.games.android.nerdshooter.blocks.ItemBlock;
-import com.xemplar.games.android.nerdshooter.blocks.LockBlock;
-import com.xemplar.games.android.nerdshooter.blocks.SlabBlock;
-import com.xemplar.games.android.nerdshooter.blocks.SlabDeathBlock;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
-import com.xemplar.games.android.nerdshooter.items.Item;
 
 public class Level {
 	public Vector2 jaxonStart;
@@ -149,7 +234,7 @@ public class Level {
                 } else if(ids[row][col].equals("00") || ids[row][col].equals("0")){
                     continue;
                 } else {
-                    addBlock(col, (row - (height - 1)) * -1, ids[row][col]);
+                	addBlock(col, (row - (height - 1)) * -1, ids[row][col]);
                 }
             }
         }
@@ -187,294 +272,209 @@ public class Level {
 	
 	@SuppressWarnings("unused")
 	private void addExtra(int x, int y, String id){
-		extras[x + y * width] = new Block(new Vector2(x, y), id);
+		//extras[x + y * width] = new Block(new Vector2(x, y), id);
 	}
 	
 	private void addBlock(int x, int y, String id){
-        String output = "grass";
-        Block block = new Block(new Vector2(x, y), "grass");
-        
-        if(id.equals("gm")){
-            output = "grassMid";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("gr")){
-            output = "grassRight";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("gl")){
-            output = "grassLeft";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("gc")){
-            output = "grassCenter";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("gs")){
-            output = "grass";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("gcl")){
-            output = "grassCliftLeft";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("gcla")){
-            output = "grassCliftLeftAlt";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("gcr")){
-            output = "grassCliftRight";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("gcra")){
-            output = "grassCliftRightAlt";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("gss")){
-            output = "grassHalf";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("gsl")){
-            output = "grassHalfLeft";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("gsm")){
-            output = "grassHalfMid";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("gsr")){
-            output = "grassHalfRight";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        }else if(id.equals("rm")){
-            output = "stoneMid";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("rr")){
-            output = "stoneRight";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("rl")){
-            output = "stoneLeft";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("rc")){
-            output = "stoneCenter";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("rs")){
-            output = "stone";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("rcl")){
-            output = "stoneCliftLeft";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("rcla")){
-            output = "stoneCliftLeftAlt";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("rcr")){
-            output = "stoneCliftRight";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("rcra")){
-            output = "stoneCliftRightAlt";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("rss")){
-            output = "stoneHalf";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("rsl")){
-            output = "stoneHalfLeft";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("rsm")){
-            output = "stoneHalfMid";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("rsr")){
-            output = "stoneHalfRight";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        }else if(id.equals("cm")){
-            output = "castleMid";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("cr")){
-            output = "castleRight";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("cl")){
-            output = "castleLeft";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("cc")){
-            output = "castleCenter";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("cs")){
-            output = "castle";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("ccl")){
-            output = "castleCliftLeft";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("ccla")){
-            output = "castleCliftLeftAlt";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("ccr")){
-            output = "castleCliftRight";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("ccra")){
-            output = "castleCliftRightAlt";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("css")){
-            output = "castleHalf";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("csl")){
-            output = "castleHalfLeft";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("csm")){
-            output = "castleHalfMid";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("csr")){
-            output = "castleHalfRight";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        }else if(id.equals("sm")){
-            output = "snowMid";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("sr")){
-            output = "snowRight";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("sl")){
-            output = "snowLeft";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("sc")){
-            output = "snowCenter";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("ss")){
-            output = "snow";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("scl")){
-            output = "snowCliftLeft";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("scla")){
-            output = "snowCliftLeftAlt";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("scr")){
-            output = "snowCliftRight";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("scra")){
-            output = "snowCliftRightAlt";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("sss")){
-            output = "snowHalf";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("ssl")){
-            output = "snowHalfLeft";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("ssm")){
-            output = "snowHalfMid";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("ssr")){
-            output = "snowHalfRight";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        }else if(id.equals("dm")){
-            output = "dirtMid";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("dr")){
-            output = "dirtRight";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("dl")){
-            output = "dirtLeft";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("dc")){
-            output = "dirtCenter";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("ds")){
-            output = "dirt";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("dcl")){
-            output = "dirtCliftLeft";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("dcla")){
-            output = "dirtCliftLeftAlt";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("dcr")){
-            output = "dirtCliftRight";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("dcra")){
-            output = "dirtCliftRightAlt";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("dss")){
-            output = "dirtHalf";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("dsl")){
-            output = "dirtHalfLeft";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("dsm")){
-            output = "dirtHalfMid";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("dsr")){
-            output = "dirtHalfRight";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        }else if(id.equals("nm")){
-            output = "sandMid";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("nr")){
-            output = "sandRight";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("nl")){
-            output = "sandLeft";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("nc")){
-            output = "sandCenter";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("ns")){
-            output = "sand";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("ncl")){
-            output = "sandCliftLeft";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("ncla")){
-            output = "sandCliftLeftAlt";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("ncr")){
-            output = "sandCliftRight";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("ncra")){
-            output = "sandCliftRightAlt";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("nss")){
-            output = "sandHalf";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("nsl")){
-            output = "sandHalfLeft";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("nsm")){
-            output = "sandHalfMid";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("nsr")){
-            output = "sandHalfRight";
-            block = new SlabBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, true);
-        } else if(id.equals("lav")){
-            output = "lava";
-            block = new DeathBlock(new Vector2(x, y), output);
-        } else if(id.equals("lvt")){
-            output = "lavaTop";
-            block = new SlabDeathBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, false);
-        } else if(id.equals("ltm")){
-            output = "lavaTop_mid";
-            block = new SlabDeathBlock(new Vector2(x, y), output, Block.WIDTH, Block.HEIGHT / 2F, false);
-        } else if(id.equals("wat")){
-            output = "water";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("wtt")){
-            output = "waterTop";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("wtm")){
-            output = "waterTop_mid";
-            block = new Block(new Vector2(x, y), output);
-        } else if(id.equals("kb")){
-            output = "keyBlue";
-            block = new ItemBlock(new Vector2(x, y), 0.5F, Item.BLUE_KEY.clone());
-        } else if(id.equals("kr")){
-            output = "keyRed";
-            block = new ItemBlock(new Vector2(x, y), 0.5F, Item.RED_KEY.clone());
-        } else if(id.equals("kg")){
-            output = "keyGreen";
-            block = new ItemBlock(new Vector2(x, y), 0.5F, Item.GREEN_KEY.clone());
-        } else if(id.equals("ky")){
-            output = "keyYellow";
-            block = new ItemBlock(new Vector2(x, y), 0.5F, Item.YELLOW_KEY.clone());
-        } else if(id.equals("lb")){
-            output = "lock_blue";
-            block = new LockBlock(new Vector2(x, y), output, Item.BLUE_KEY);
-        } else if(id.equals("lr")){
-            output = "lock_red";
-            block = new LockBlock(new Vector2(x, y), output, Item.RED_KEY);
-        } else if(id.equals("lg")){
-            output = "lock_green";
-            block = new LockBlock(new Vector2(x, y), output, Item.GREEN_KEY);
-        } else if(id.equals("ly")){
-            output = "lock_yellow";
-            block = new LockBlock(new Vector2(x, y), output, Item.YELLOW_KEY);
-        } else if(id.equals("ext")){
-            output = "exit";
-            block = new ExitBlock(new Vector2(x, y), output, ExitBlock.EXIT_NORMAL);
-        }
-        
+		Vector2 pos = new Vector2(x, y);
+		Block block = parseID(id).clone(pos);
+		
 		blocks[x + y * width] = block;
+	}
+	
+	private Block parseID(String id){
+        id = id.toLowerCase();
+        id = id.trim();
+        
+		switch(id){
+			case "gm" :
+        		return grass_mid;
+        	case "gr" :
+        		return grass_right;
+        	case "gl" :
+        		return grass_left;
+        	case "gc" :
+        		return grass_center;
+        	case "gs" :
+        		return grass;
+        	case "gcl" :
+        		return grass_clift_left;
+        	case "gcla" :
+        		return grass_clift_left_a;
+        	case "gcr" :
+        		return grass_clift_right;
+        	case "gcra" :
+        		return grass_clift_right_a;
+        	case "gss" :
+        		return grass_half;
+        	case "gsl" :
+        		return grass_half_left;
+        	case "gsm" :
+        		return grass_half_mid;
+        	case "gsr" :
+        		return grass_half_right;
+        	case "rm" :
+        		return stone_mid;
+        	case "rr" :
+        		return stone_right;
+        	case "rl" :
+        		return stone_left;
+        	case "rc" :
+        		return stone_center;
+        	case "rs" :
+        		return stone;
+        	case "rcl" :
+        		return stone_clift_left;
+        	case "rcla" :
+        		return stone_clift_left_a;
+        	case "rcr" :
+        		return stone_clift_right;
+        	case "rcra" :
+        		return stone_clift_right_a;
+        	case "rss" :
+        		return stone_half;
+        	case "rsl" :
+        		return stone_half_left;
+        	case "rsm" :
+        		return stone_half_mid;
+        	case "rsr" :
+        		return stone_half_right;
+        	case "cm" :
+        		return castle_mid;
+        	case "cr" :
+        		return castle_right;
+        	case "cl" :
+        		return castle_left;
+        	case "cc" :
+        		return castle_center;
+        	case "cs" :
+        		return castle;
+        	case "ccl" :
+        		return castle_clift_left;
+        	case "ccla" :
+        		return castle_clift_left_a;
+        	case "ccr" :
+        		return castle_clift_right;
+        	case "ccra" :
+        		return castle_clift_right_a;
+        	case "css" :
+        		return castle_half;
+        	case "csl" :
+        		return castle_half_left;
+        	case "csm" :
+        		return castle_half_mid;
+        	case "csr" :
+        		return castle_half_right;
+        	case "sm" :
+        		return snow_mid;
+        	case "sr" :
+        		return snow_right;
+        	case "sl" :
+        		return snow_left;
+        	case "sc" :
+        		return snow_center;
+        	case "ss" :
+        		return snow;
+        	case "scl" :
+        		return snow_clift_left;
+        	case "scla" :
+        		return snow_clift_left_a;
+        	case "scr" :
+        		return snow_clift_right;
+        	case "scra" :
+        		return snow_clift_right_a;
+        	case "sss" :
+        		return snow_half;
+        	case "ssl" :
+        		return snow_half_left;
+        	case "ssm" :
+        		return snow_half_mid;
+        	case "ssr" :
+        		return snow_half_right;
+        	case "dm" :
+            	return dirt_mid;
+        	case "dr" :
+        		return dirt_right;
+        	case "dl" :
+        		return dirt_left;
+        	case "dc" :
+        		return dirt_center;
+        	case "ds" :
+        		return dirt_mid;
+        	case "dcl" :
+        		return dirt_clift_left;
+        	case "dcla" :
+        		return dirt_clift_left_a;
+        	case "dcr" :
+        		return dirt_clift_right;
+        	case "dcra" :
+        		return dirt_clift_right_a;
+        	case "dss" :
+        		return dirt_half;
+        	case "dsl" :
+        		return dirt_half_left;
+        	case "dsm" :
+        		return dirt_half_mid;
+        	case "dsr" :
+        		return dirt_half_right;
+        	case "nm" :
+        		return sand_mid;
+        	case "nr" :
+        		return sand_right;
+        	case "nl" :
+        		return sand_left;
+        	case "nc" :
+        		return sand_center;
+        	case "ns" :
+        		return sand;
+        	case "ncl" :
+        		return sand_clift_left;
+        	case "ncla" :
+        		return sand_clift_left_a;
+        	case "ncr" :
+        		return sand_clift_right;
+        	case "ncra" :
+        		return sand_clift_right_a;
+        	case "nss" :
+        		return sand_half;
+        	case "nsl" :
+        		return sand_half_left;
+        	case "nsm" :
+        		return sand_half_mid;
+        	case "nsr" :
+        		return sand_half_right;
+        	case "lav" :
+            	return misc_lava;
+        	case "lvt" :
+        		return misc_lava_top;
+        	case "ltm" :
+        		return misc_lava_mid;
+        	case "wat" :
+        		return misc_water;
+        	case "wtt" :
+        		return misc_water_top;
+        	case "wtm" :
+        		return misc_water_mid;
+        	case "kb" :
+            	return key_blue;
+        	case "kr" :
+        		return key_red;
+        	case "kg" :
+        		return key_green;
+        	case "ky" :
+        		return key_yellow;
+        	case "lb" :
+        		return lock_blue;
+        	case "lr" :
+        		return lock_red;
+        	case "lg" :
+        		return lock_green;
+        	case "ly" :
+        		return lock_yellow;
+        	case "ext" :
+        		return exit;
+        	default:
+        	return grass;
+        }
 	}
 }

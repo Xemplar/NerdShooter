@@ -28,7 +28,7 @@ public class LockBlock extends Block{
     private boolean isLocked = true;
     public Item lockID;
     
-    public LockBlock(Vector2 pos, String regionID, Item lockID){
+    protected LockBlock(Vector2 pos, String regionID, Item lockID){
         super(pos, regionID);
         this.lockID = lockID;
     }
@@ -57,4 +57,9 @@ public class LockBlock extends Block{
             }
         }
     }
+    
+    public LockBlock clone(Vector2 pos){
+		LockBlock b = new LockBlock(pos, regionID, lockID);
+		return b;
+	}
 }

@@ -79,6 +79,9 @@ public class SplashScreen implements Screen {
         params.color = new Color(0, 0, 0, 1);
         NerdShooter.label = gen.generateFont(params);
         
+        label = gen.generateFont(params);
+        label.setColor(0, 0, 0, 1);
+        
         params.size = (int) (((float)height / NerdShooter.BUTTON_HEIGHT) / 3);
         params.color = new Color(1, 1, 1, 1);
         NerdShooter.text = gen.generateFont(params);

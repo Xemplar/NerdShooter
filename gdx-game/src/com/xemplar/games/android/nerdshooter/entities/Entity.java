@@ -49,8 +49,8 @@ public abstract class Entity extends Block{
     public Entity(Vector2 position, int health) {
 		super(position, "tochLit");
         this.position = position;
-        this.bounds.height = WIDTH;
-        this.bounds.width = HEIGHT;
+        this.bounds.height = 1F;
+        this.bounds.width = 1F;
 		this.bounds.x = position.x;
 		this.bounds.y = position.y;
         this.health = health;
@@ -70,13 +70,7 @@ public abstract class Entity extends Block{
     }
     
 	public Entity(Vector2 position, String regionID, int health){
-		super(position, regionID);
-        this.health = health;
-        this.position = position;
-        this.bounds.height = WIDTH;
-        this.bounds.width = HEIGHT;
-		this.bounds.x = position.x;
-		this.bounds.y = position.y;
+		this(position, health);
 		
 		this.regionID = regionID;
 	}

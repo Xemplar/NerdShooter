@@ -124,9 +124,9 @@ public class World {
 				
                 block = level.getBlocks()[col + row * level.getWidth()];
                 if (block != null) {
-                	if(!block.isHidden()){
+                	//if(!block.isHidden()){
                 		blocks.add(block);
-                	}
+                	//}
                 }
             }
         }

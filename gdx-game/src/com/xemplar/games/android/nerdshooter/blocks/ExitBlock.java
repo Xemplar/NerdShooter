@@ -30,7 +30,7 @@ public class ExitBlock extends Block {
     
     private int exitCode;
     
-    public ExitBlock(Vector2 position, String regionID, int exitCode){
+    protected ExitBlock(Vector2 position, String regionID, int exitCode){
         super(position, regionID);
         this.exitCode = exitCode;
     }
@@ -47,4 +47,9 @@ public class ExitBlock extends Block {
         System.out.println("Done");
         GameScreen.finishLevel(exitCode);
     }
+    
+    public ExitBlock clone(Vector2 pos){
+		ExitBlock b = new ExitBlock(pos, regionID, exitCode);
+		return b;
+	}
 }

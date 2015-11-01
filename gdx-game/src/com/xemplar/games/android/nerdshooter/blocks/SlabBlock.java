@@ -24,12 +24,21 @@ import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.g2d.*;
 
 public class SlabBlock extends Block {
-    public SlabBlock(Vector2 pos, String regionID, float width, float height, boolean top){
+	protected boolean top;
+	
+    protected SlabBlock(Vector2 pos, String regionID, float width, float height, boolean top){
         super(pos, regionID, width, height);
+        
+        this.top = top;
         
         if(top) bounds.y = bounds.y + getHeight();
     }
-
+    
+    public SlabBlock clone(Vector2 pos){
+		SlabBlock b = new SlabBlock(pos, regionID, bounds.width, bounds.height, top);
+		return b;
+	}
+    
     public void render(SpriteBatch batch, float ppuX, float ppuY) {
         if(!isHidden()){
             batch.draw(getTexture(), getPosition().x * ppuX, getPosition().y * ppuY, getWidth() * ppuX, getHeight() * ppuY / getHeight());

@@ -22,16 +22,28 @@ package com.xemplar.games.android.nerdshooter.blocks;
 
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.*;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
 
-public class SlabHazardBlock extends HazardBlock {
-    @SuppressWarnings("unused")
-	private int hurtAmount = 0;
-    public SlabHazardBlock(Vector2 pos, String regionID, float width, float height, boolean top, int removeHealth){
-        super(pos, regionID, width, height, removeHealth);
+public class SlabHazardBlock extends SlabBlock {
+	protected int hurtAmount = 0;
+	
+    protected SlabHazardBlock(Vector2 pos, String regionID, float width, float height, boolean top, int removeHealth){
+        super(pos, regionID, width, height, top);
         this.hurtAmount = removeHealth;
-        
-        if(top) bounds.y = bounds.y + getHeight();
     }
+    
+    public boolean isTouchable() {
+        return true;
+    }
+    
+    public void onTouch(Entity e) {
+        e.hurt(hurtAmount);
+    }
+    
+    public SlabHazardBlock clone(Vector2 pos){
+    	SlabHazardBlock b = new SlabHazardBlock(pos, regionID, bounds.width, bounds.height, top, hurtAmount);
+		return b;
+	}
     
     public void render(SpriteBatch batch, float ppuX, float ppuY) {
         if(!isHidden()){

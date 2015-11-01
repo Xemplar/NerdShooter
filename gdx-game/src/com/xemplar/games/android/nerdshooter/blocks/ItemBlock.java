@@ -25,16 +25,16 @@ import com.xemplar.games.android.nerdshooter.items.*;
 import com.xemplar.games.android.nerdshooter.entities.*;
 
 public class ItemBlock extends Block{
-    private Item item;
-    private boolean canBeTaken = true;
+    protected Item item;
+    protected boolean canBeTaken = true;
     
-    public ItemBlock(Vector2 pos, Item item){
+    protected ItemBlock(Vector2 pos, Item item){
         super(pos, item.regionID);
         this.item = item;
         this.item.setBlock(this);
     }
     
-    public ItemBlock(Vector2 pos, float size, Item item){
+    protected ItemBlock(Vector2 pos, float size, Item item){
         super(pos, item.regionID);
         this.bounds.width = size;
         this.bounds.height = size;
@@ -42,7 +42,7 @@ public class ItemBlock extends Block{
         this.item.setBlock(this);
     }
 
-    public ItemBlock(Vector2 pos, float width, float height, Item item){
+    protected ItemBlock(Vector2 pos, float width, float height, Item item){
         super(pos, item.regionID);
         this.bounds.width = width;
         this.bounds.height = height;
@@ -72,4 +72,9 @@ public class ItemBlock extends Block{
             canBeTaken = false;
         }
     }
+    
+    public ItemBlock clone(Vector2 pos){
+		ItemBlock b = new ItemBlock(pos, bounds.width, bounds.height, item.clone());
+		return b;
+	}
 }

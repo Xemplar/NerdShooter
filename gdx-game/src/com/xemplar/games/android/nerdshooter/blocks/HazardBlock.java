@@ -24,18 +24,19 @@ import com.badlogic.gdx.math.*;
 import com.xemplar.games.android.nerdshooter.entities.*;
 
 public class HazardBlock extends Block {
-    private int hurtAmount = 0;
-    public HazardBlock(Vector2 pos, String regionID, int removeHealth){
+    protected int hurtAmount = 0;
+    
+    protected HazardBlock(Vector2 pos, String regionID, int removeHealth){
         super(pos, regionID);
         this.hurtAmount = removeHealth;
     }
     
-    public HazardBlock(Vector2 pos, String regionID, float width, float height, int removeHealth){
+    protected HazardBlock(Vector2 pos, String regionID, float width, float height, int removeHealth){
         super(pos, regionID, width, height);
         this.hurtAmount = removeHealth;
     }
     
-    public HazardBlock(Vector2 pos, String regionID, float size, int removeHealth){
+    protected HazardBlock(Vector2 pos, String regionID, float size, int removeHealth){
         super(pos, regionID, size);
         this.hurtAmount = removeHealth;
     }
@@ -47,4 +48,9 @@ public class HazardBlock extends Block {
     public void onTouch(Entity e) {
         e.hurt(hurtAmount);
     }
+    
+    public HazardBlock clone(Vector2 pos){
+		HazardBlock b = new HazardBlock(pos, regionID, bounds.width, bounds.height, hurtAmount);
+		return b;
+	}
 }
