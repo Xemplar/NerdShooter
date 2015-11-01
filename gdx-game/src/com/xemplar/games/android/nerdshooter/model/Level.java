@@ -21,10 +21,10 @@
 package com.xemplar.games.android.nerdshooter.model;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.castle;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_center;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_clift_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_clift_left_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_clift_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_clift_right_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_cliff_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_cliff_left_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_cliff_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_cliff_right_a;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_half;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_half_left;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_half_mid;
@@ -33,10 +33,10 @@ import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_left;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_mid;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_right;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_center;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_clift_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_clift_left_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_clift_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_clift_right_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_cliff_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_cliff_left_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_cliff_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_cliff_right_a;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_half;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_half_left;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_half_mid;
@@ -47,10 +47,10 @@ import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_right;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.exit;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.grass;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_center;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_clift_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_clift_left_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_clift_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_clift_right_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_cliff_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_cliff_left_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_cliff_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_cliff_right_a;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_half;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_half_left;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_half_mid;
@@ -74,10 +74,10 @@ import static com.xemplar.games.android.nerdshooter.blocks.Block.misc_water_mid;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.misc_water_top;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.sand;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_center;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_clift_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_clift_left_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_clift_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_clift_right_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_cliff_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_cliff_left_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_cliff_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_cliff_right_a;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_half;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_half_left;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_half_mid;
@@ -87,10 +87,10 @@ import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_mid;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_right;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.snow;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_center;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_clift_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_clift_left_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_clift_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_clift_right_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_cliff_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_cliff_left_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_cliff_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_cliff_right_a;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_half;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_half_left;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_half_mid;
@@ -100,10 +100,10 @@ import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_mid;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_right;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.stone;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_center;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_clift_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_clift_left_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_clift_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_clift_right_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_cliff_left;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_cliff_left_a;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_cliff_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_cliff_right_a;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_half;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_half_left;
 import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_half_mid;
@@ -298,13 +298,13 @@ public class Level {
         	case "gs" :
         		return grass;
         	case "gcl" :
-        		return grass_clift_left;
+        		return grass_cliff_left;
         	case "gcla" :
-        		return grass_clift_left_a;
+        		return grass_cliff_left_a;
         	case "gcr" :
-        		return grass_clift_right;
+        		return grass_cliff_right;
         	case "gcra" :
-        		return grass_clift_right_a;
+        		return grass_cliff_right_a;
         	case "gss" :
         		return grass_half;
         	case "gsl" :
@@ -324,13 +324,13 @@ public class Level {
         	case "rs" :
         		return stone;
         	case "rcl" :
-        		return stone_clift_left;
+        		return stone_cliff_left;
         	case "rcla" :
-        		return stone_clift_left_a;
+        		return stone_cliff_left_a;
         	case "rcr" :
-        		return stone_clift_right;
+        		return stone_cliff_right;
         	case "rcra" :
-        		return stone_clift_right_a;
+        		return stone_cliff_right_a;
         	case "rss" :
         		return stone_half;
         	case "rsl" :
@@ -350,13 +350,13 @@ public class Level {
         	case "cs" :
         		return castle;
         	case "ccl" :
-        		return castle_clift_left;
+        		return castle_cliff_left;
         	case "ccla" :
-        		return castle_clift_left_a;
+        		return castle_cliff_left_a;
         	case "ccr" :
-        		return castle_clift_right;
+        		return castle_cliff_right;
         	case "ccra" :
-        		return castle_clift_right_a;
+        		return castle_cliff_right_a;
         	case "css" :
         		return castle_half;
         	case "csl" :
@@ -376,13 +376,13 @@ public class Level {
         	case "ss" :
         		return snow;
         	case "scl" :
-        		return snow_clift_left;
+        		return snow_cliff_left;
         	case "scla" :
-        		return snow_clift_left_a;
+        		return snow_cliff_left_a;
         	case "scr" :
-        		return snow_clift_right;
+        		return snow_cliff_right;
         	case "scra" :
-        		return snow_clift_right_a;
+        		return snow_cliff_right_a;
         	case "sss" :
         		return snow_half;
         	case "ssl" :
@@ -402,13 +402,13 @@ public class Level {
         	case "ds" :
         		return dirt_mid;
         	case "dcl" :
-        		return dirt_clift_left;
+        		return dirt_cliff_left;
         	case "dcla" :
-        		return dirt_clift_left_a;
+        		return dirt_cliff_left_a;
         	case "dcr" :
-        		return dirt_clift_right;
+        		return dirt_cliff_right;
         	case "dcra" :
-        		return dirt_clift_right_a;
+        		return dirt_cliff_right_a;
         	case "dss" :
         		return dirt_half;
         	case "dsl" :
@@ -428,13 +428,13 @@ public class Level {
         	case "ns" :
         		return sand;
         	case "ncl" :
-        		return sand_clift_left;
+        		return sand_cliff_left;
         	case "ncla" :
-        		return sand_clift_left_a;
+        		return sand_cliff_left_a;
         	case "ncr" :
-        		return sand_clift_right;
+        		return sand_cliff_right;
         	case "ncra" :
-        		return sand_clift_right_a;
+        		return sand_cliff_right_a;
         	case "nss" :
         		return sand_half;
         	case "nsl" :

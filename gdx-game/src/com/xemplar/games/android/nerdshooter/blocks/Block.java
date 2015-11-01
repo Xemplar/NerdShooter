@@ -38,10 +38,10 @@ public class Block {
 		public static Block grass_right = new Block(empty, "grassRight");
 		public static Block grass_center = new Block(empty, "grassCenter");
 		
-		public static Block grass_clift_left = new Block(empty, "grassCliftLeft");
-		public static Block grass_clift_right = new Block(empty, "grassCliftRight");
-		public static Block grass_clift_left_a = new Block(empty, "grassCliftLeftAlt");
-		public static Block grass_clift_right_a = new Block(empty, "grassCliftRightAlt");
+		public static Block grass_cliff_left = new Block(empty, "grassCliffLeft");
+		public static Block grass_cliff_right = new Block(empty, "grassCliffRight");
+		public static Block grass_cliff_left_a = new Block(empty, "grassCliffLeftAlt");
+		public static Block grass_cliff_right_a = new Block(empty, "grassCliffRightAlt");
 		
 		public static SlabBlock grass_half = new SlabBlock(empty, "grassHalf", 1F, 0.5F, true);
 		public static SlabBlock grass_half_mid = new SlabBlock(empty, "grassHalfMid", 1F, 0.5F, true);
@@ -55,10 +55,10 @@ public class Block {
 		public static Block stone_right = new Block(empty, "stoneRight");
 		public static Block stone_center = new Block(empty, "stoneCenter");
 				
-		public static Block stone_clift_left = new Block(empty, "stoneCliftLeft");
-		public static Block stone_clift_right = new Block(empty, "stoneCliftRight");
-		public static Block stone_clift_left_a = new Block(empty, "stoneCliftLeftAlt");
-		public static Block stone_clift_right_a = new Block(empty, "stoneCliftRightAlt");
+		public static Block stone_cliff_left = new Block(empty, "stoneCliffLeft");
+		public static Block stone_cliff_right = new Block(empty, "stoneCliffRight");
+		public static Block stone_cliff_left_a = new Block(empty, "stoneCliffLeftAlt");
+		public static Block stone_cliff_right_a = new Block(empty, "stoneCliffRightAlt");
 				
 		public static SlabBlock stone_half = new SlabBlock(empty, "stoneHalf", 1F, 0.5F, true);
 		public static SlabBlock stone_half_mid = new SlabBlock(empty, "stoneHalfMid", 1F, 0.5F, true);
@@ -72,10 +72,10 @@ public class Block {
 		public static Block castle_right = new Block(empty, "castleRight");
 		public static Block castle_center = new Block(empty, "castleCenter");
 		
-		public static Block castle_clift_left = new Block(empty, "castleCliftLeft");
-		public static Block castle_clift_right = new Block(empty, "castleCliftRight");
-		public static Block castle_clift_left_a = new Block(empty, "castleCliftLeftAlt");
-		public static Block castle_clift_right_a = new Block(empty, "castleCliftRightAlt");
+		public static Block castle_cliff_left = new Block(empty, "castleCliffLeft");
+		public static Block castle_cliff_right = new Block(empty, "castleCliffRight");
+		public static Block castle_cliff_left_a = new Block(empty, "castleCliffLeftAlt");
+		public static Block castle_cliff_right_a = new Block(empty, "castleCliffRightAlt");
 		
 		public static SlabBlock castle_half = new SlabBlock(empty, "castleHalf", 1F, 0.5F, true);
 		public static SlabBlock castle_half_mid = new SlabBlock(empty, "castleHalfMid", 1F, 0.5F, true);
@@ -89,10 +89,10 @@ public class Block {
 		public static Block snow_right = new Block(empty, "snowRight");
 		public static Block snow_center = new Block(empty, "snowCenter");
 		
-		public static Block snow_clift_left = new Block(empty, "snowCliftLeft");
-		public static Block snow_clift_right = new Block(empty, "snowCliftRight");
-		public static Block snow_clift_left_a = new Block(empty, "snowCliftLeftAlt");
-		public static Block snow_clift_right_a = new Block(empty, "snowCliftRightAlt");
+		public static Block snow_cliff_left = new Block(empty, "snowCliffLeft");
+		public static Block snow_cliff_right = new Block(empty, "snowCliffRight");
+		public static Block snow_cliff_left_a = new Block(empty, "snowCliffLeftAlt");
+		public static Block snow_cliff_right_a = new Block(empty, "snowCliffRightAlt");
 				
 		public static SlabBlock snow_half = new SlabBlock(empty, "snowHalf", 1F, 0.5F, true);
 		public static SlabBlock snow_half_mid = new SlabBlock(empty, "snowHalfMid", 1F, 0.5F, true);
@@ -106,10 +106,10 @@ public class Block {
 		public static Block dirt_right = new Block(empty, "dirtRight");
 		public static Block dirt_center = new Block(empty, "dirtCenter");
 				
-		public static Block dirt_clift_left = new Block(empty, "dirtCliftLeft");
-		public static Block dirt_clift_right = new Block(empty, "dirtCliftRight");
-		public static Block dirt_clift_left_a = new Block(empty, "dirtCliftLeftAlt");
-		public static Block dirt_clift_right_a = new Block(empty, "dirtCliftRightAlt");
+		public static Block dirt_cliff_left = new Block(empty, "dirtCliffLeft");
+		public static Block dirt_cliff_right = new Block(empty, "dirtCliffRight");
+		public static Block dirt_cliff_left_a = new Block(empty, "dirtCliffLeftAlt");
+		public static Block dirt_cliff_right_a = new Block(empty, "dirtCliffRightAlt");
 				
 		public static SlabBlock dirt_half = new SlabBlock(empty, "dirtHalf", 1F, 0.5F, true);
 		public static SlabBlock dirt_half_mid = new SlabBlock(empty, "dirtHalfMid", 1F, 0.5F, true);
@@ -123,10 +123,10 @@ public class Block {
 		public static Block sand_right = new Block(empty, "sandRight");
 		public static Block sand_center = new Block(empty, "sandCenter");
 		
-		public static Block sand_clift_left = new Block(empty, "sandCliftLeft");
-		public static Block sand_clift_right = new Block(empty, "sandCliftRight");
-		public static Block sand_clift_left_a = new Block(empty, "sandCliftLeftAlt");
-		public static Block sand_clift_right_a = new Block(empty, "sandCliftRightAlt");
+		public static Block sand_cliff_left = new Block(empty, "sandCliffLeft");
+		public static Block sand_cliff_right = new Block(empty, "sandCliffRight");
+		public static Block sand_cliff_left_a = new Block(empty, "sandCliffLeftAlt");
+		public static Block sand_cliff_right_a = new Block(empty, "sandCliffRightAlt");
 		
 		public static SlabBlock sand_half = new SlabBlock(empty, "sandHalf", 1F, 0.5F, true);
 		public static SlabBlock sand_half_mid = new SlabBlock(empty, "sandHalfMid", 1F, 0.5F, true);
