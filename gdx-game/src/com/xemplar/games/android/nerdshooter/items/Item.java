@@ -23,23 +23,25 @@ import com.xemplar.games.android.nerdshooter.blocks.ItemBlock;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 
 public class Item {
-    public static Item BLUE_KEY = new Item(0, "keyBlue");
-    public static Item RED_KEY = new Item(1, "keyRed");
-    public static Item GREEN_KEY = new Item(2, "keyGreen");
-    public static Item YELLOW_KEY = new Item(3, "keyYellow");
+    public static Item BLUE_KEY = new Item(0, 2, "keyBlue");
+    public static Item RED_KEY = new Item(1, 2, "keyRed");
+    public static Item GREEN_KEY = new Item(2, 2, "keyGreen");
+    public static Item YELLOW_KEY = new Item(3, 2, "keyYellow");
     
     public int id;
+    public int maxStack;
     public String regionID;
     
     private ItemBlock block;
     
-    private Item(int id, String regionID){
+    private Item(int id, int maxStack, String regionID){
         this.id = id;
+        this.maxStack = maxStack;
         this.regionID = regionID;
     }
     
     public Item clone(){
-        return new Item(id, regionID);
+        return new Item(id, maxStack, regionID);
     }
     
     public void setBlock(ItemBlock b){

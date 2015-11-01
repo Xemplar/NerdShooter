@@ -21,12 +21,11 @@
 package com.xemplar.games.android.nerdshooter.inventory;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 import com.xemplar.games.android.nerdshooter.items.Item;
-import com.xemplar.games.android.nerdshooter.screens.GameScreen;
+import com.xemplar.games.android.nerdshooter.items.ItemStack;
 
 public class Inventory {
     private static float space = 5F;
@@ -36,44 +35,50 @@ public class Inventory {
     
     private Entity master;
     private int spots;
-    private Array<Item> items;
+    private Array<ItemStack> stacks;
     
     public Inventory(Entity master, int spots){
         this.master = master;
         this.spots = spots;
         
-        this.items = new Array<Item>();
-    }
-    
-    public Item getItem(int spot){
-        if(items.size < spot){
-            return null;
-        } else {
-            return items.get(spot);
+        this.stacks = new Array<ItemStack>();
+        for(int i = 0; i < spots; i++){
+        	stacks.add(new ItemStack(null));
         }
     }
     
-    public Array<Item> getItems(){
-        return items;
+    public ItemStack getItem(int spot){
+        if(stacks.size < spot){
+            return null;
+        } else {
+            return stacks.get(spot);
+        }
+    }
+    
+    public Array<ItemStack> getItems(){
+        return stacks;
     }
     
     public boolean hasSpace(){
-        return items.size < spots;
+        return stacks.size < spots;
     }
     
     public boolean hasItems(){
-        return items.size > 0;
+        return stacks.size > 0;
     }
     
     public void clear(){
         while(hasItems()){
-            items.get(0).returnToBlock(master);
+        	ItemStack current = stacks.get(0);
+        	for(int i = 0; i < current.getCount(); i++){
+        		current.getItem(0).returnToBlock(master);
+        	}
         }
     }
     
     public int invHasItem(Item item){
-        for(int i = 0; i < items.size; i++){
-            if(items.get(i).id == item.id){
+        for(int i = 0; i < stacks.size; i++){
+            if(stacks.get(i).getID() == item.id){
                 return i;
             }
         }
@@ -82,8 +87,8 @@ public class Inventory {
     }
     
     public int invHasItem(int itemID){
-        for(int i = 0; i < items.size; i++){
-            if(items.get(i).id == itemID){
+        for(int i = 0; i < stacks.size; i++){
+            if(stacks.get(i).getID() == itemID){
                 return i;
             }
         }
@@ -92,17 +97,33 @@ public class Inventory {
     }
     
     public boolean removeItem(int spot){
-        if(spot > items.size) return false;
+        if(spot > stacks.size) return false;
         if(spot == -1) return false;
-        items.removeIndex(spot);
+        stacks.removeIndex(spot);
         return true;
     }
     
     public boolean addItem(Item item){
-        if(items.size == spots){
+    	boolean full = true;
+    	int spot = -1;
+    	
+    	for(int i = 0; i < spots; i++){
+    		ItemStack current = stacks.get(i);
+    		
+    		if(current.getID() == item.id){
+    			full &= current.isFull();
+    		}
+    		
+    		if(!full){
+    			spot = i;
+    			break;
+    		}
+    	}
+    	
+        if(full){
             return false;
         } else {
-            items.add(item);
+            stacks.get(spot).add(item);
             return true;
         }
     }
@@ -128,13 +149,11 @@ public class Inventory {
     	Inventory.drawHeight = (space * 2) + size;
         
         float slotY = height - (space + size);
-        int amt = items.size;
         
-        for(int i = 0; i < amt; i++){
+        for(int i = 0; i < spots; i++){
             float x = (width - ((space + size) * i)) - (size + space);
-            TextureRegion region = GameScreen.getTextureAltlas().findRegion(items.get(i).getRegionID());
-
-            batch.draw(region, x, slotY, size, size);
         }
+        
+        System.out.println("Ended: 0");
     }
 }
