@@ -176,7 +176,6 @@ public class GameScreen implements Screen, InputProcessor {
     }
 	
     public void pause() {
-		
     }
 	
     public void resume() {

@@ -23,6 +23,7 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
@@ -49,7 +50,9 @@ public class StartScreen implements Screen, InputProcessor {
 	
 	protected float width, height;
 	protected Array<ScreenButton> buttons = new Array<ScreenButton>();
-    
+
+    private Music aud;
+	
 	public StartScreen(){
         instance = this;
 	}
@@ -113,6 +116,11 @@ public class StartScreen implements Screen, InputProcessor {
 	public void show() {
 		buttonRenderer = new SpriteBatch();
         
+		if(aud == null){
+			aud = Gdx.audio.newMusic(Gdx.files.internal("music/Game.mp3"));
+	        aud.play();
+		}
+		
 		Gdx.input.setInputProcessor(this);
 	}
 
@@ -125,15 +133,14 @@ public class StartScreen implements Screen, InputProcessor {
 	public void pause() {
 		
 	}
-
-	@Override
+	
 	public void resume() {
 		
 	}
-
-	@Override
+	
 	public void dispose() {
 		Gdx.input.setInputProcessor(null);
+		aud.dispose();
 	}
 	
     public void doAction(int action){

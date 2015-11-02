@@ -65,10 +65,15 @@ public class Inventory {
     }
     
     public void clear(){
+    	Array<Item> items = new Array<Item>();
         for(int i = 0; i < stacks.size; i++){
-    		stacks.get(i).returnStackToBlock(master);
+    		items.addAll(stacks.get(i).remove(stacks.get(i).getCount()));
         }
         stacks.clear();
+        for(int i = 0; i < items.size; i++){
+        	items.get(i).returnToBlock(master);
+        }
+        items.clear();
     }
     
     public int invHasItem(Item item){
