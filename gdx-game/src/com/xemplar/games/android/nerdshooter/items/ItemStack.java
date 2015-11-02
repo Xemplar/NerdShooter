@@ -23,6 +23,7 @@ package com.xemplar.games.android.nerdshooter.items;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.xemplar.games.android.nerdshooter.NerdShooter;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
@@ -165,7 +166,7 @@ public class ItemStack {
 	public void render(SpriteBatch batch, int x, int y, int size){
 		TextureRegion region = GameScreen.getTextureAltlas().findRegion(this.getRegionID());
         
-        //NerdShooter.text.draw(batch, stacks.get(i).getCount() + "", x, slotY);
+        NerdShooter.text.draw(batch, getCount() + "", x, y + (size / 4));
         batch.draw(region, x, y, size, size);
 	}
 }

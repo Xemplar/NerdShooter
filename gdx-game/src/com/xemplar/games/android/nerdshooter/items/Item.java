@@ -23,10 +23,10 @@ import com.xemplar.games.android.nerdshooter.blocks.ItemBlock;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 
 public class Item {
-    public static Item BLUE_KEY = new Item(0, 2, "keyBlue");
-    public static Item RED_KEY = new Item(1, 2, "keyRed");
-    public static Item GREEN_KEY = new Item(2, 2, "keyGreen");
-    public static Item YELLOW_KEY = new Item(3, 2, "keyYellow");
+    public static Item BLUE_KEY = new Item(0, 8, "keyBlue");
+    public static Item RED_KEY = new Item(1, 8, "keyRed");
+    public static Item GREEN_KEY = new Item(2, 8, "keyGreen");
+    public static Item YELLOW_KEY = new Item(3, 8, "keyYellow");
     
     public int id;
     public int maxStack;
