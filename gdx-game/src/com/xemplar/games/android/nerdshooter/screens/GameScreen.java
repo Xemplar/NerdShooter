@@ -41,7 +41,7 @@ import com.xemplar.games.android.nerdshooter.NerdShooter;
 import com.xemplar.games.android.nerdshooter.blocks.ExitBlock;
 import com.xemplar.games.android.nerdshooter.controller.JaxonController;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
-import com.xemplar.games.android.nerdshooter.entities.Projectile;
+import com.xemplar.games.android.nerdshooter.entities.OutputDevice;
 import com.xemplar.games.android.nerdshooter.model.World;
 import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
 import com.xemplar.games.android.nerdshooter.utils.XPMLItem;
@@ -118,13 +118,13 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 		
+        if(gameTicks == 1){
+        	World.spawnEntity(new OutputDevice(new Vector2(1, 1), "water", 10));
+        }
+        
         controller.update(delta);
 		updateEntities(delta);
         renderer.render();
-		
-        if(gameTicks == 100){
-        	world.getEntities().add(new Projectile(new Vector2(1, 12), 2.0F, 270F, 1));
-        }
         
         button.begin(ShapeRenderer.ShapeType.Filled);{
             if (Gdx.app.getType().equals(Application.ApplicationType.Android)){
@@ -357,7 +357,7 @@ public class GameScreen implements Screen, InputProcessor {
 				continue;
 			}
 			
-			if(e.getPosition().y > height){
+			if(e.getPosition().y > h){
 				world.getEntities().removeValue(e, false);
 				continue;
 			}

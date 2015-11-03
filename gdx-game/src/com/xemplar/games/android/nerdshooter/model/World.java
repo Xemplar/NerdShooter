@@ -20,10 +20,13 @@
  */
 package com.xemplar.games.android.nerdshooter.model;
 
-import com.badlogic.gdx.math.*;
-import com.badlogic.gdx.utils.*;
-import com.xemplar.games.android.nerdshooter.blocks.*;
-import com.xemplar.games.android.nerdshooter.entities.*;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.xemplar.games.android.nerdshooter.blocks.Block;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.entities.Jaxon;
+import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class World {
 	private Array<Rectangle> collisionRects = new Array<Rectangle>();
@@ -44,6 +47,14 @@ public class World {
 
 	public Array<Entity> getEntities(){
 		return level.getEntities();
+	}
+	
+	public static void spawnEntity(Entity e){
+		GameScreen.instance.world.getLevel().getEntities().add(e);
+	}
+	
+	public static void despawnEntity(Entity e){
+		GameScreen.instance.world.getLevel().getEntities().removeValue(e, false);
 	}
 	
 	public Block getBlock(Vector2 pos){

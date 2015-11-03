@@ -29,7 +29,7 @@ import com.xemplar.games.android.nerdshooter.entities.*;
 import com.xemplar.games.android.nerdshooter.items.Item;
 
 public class Block {
-	private static final Vector2 empty = new Vector2(2, 2);
+	protected static final Vector2 empty = new Vector2(2, 2);
 	//Block Definitions
 		//Grass
 		public static Block grass = new Block(empty, "grass");

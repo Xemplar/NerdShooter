@@ -255,7 +255,11 @@ public class JaxonController {
             }
         }
         jaxonRect.y = jaxon.getPosition().y;
-
+        
+        for(Entity e : world.getEntities()){
+    		world.getCollisionRects().add(e.getBounds());
+    	}
+        
         jaxon.getVelocity().scl(1 / delta);
     }
 
