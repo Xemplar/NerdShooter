@@ -41,7 +41,7 @@ public class Jaxon extends Entity{
     private Animation walkRightAnimation;
     
     public Jaxon(Vector2 startPosistion){
-		super(startPosistion, 1.0F / 2F, 1.0F / 3F, 8);
+		super(startPosistion, 1.0F / 1.5F, 1.0F / 1.5F, 8);
         
         drawX = (getWidth() / 2F) - (1.0F / 2F);
         drawX = (drawX < 0) ? -drawX : drawX;
@@ -75,6 +75,28 @@ public class Jaxon extends Entity{
             walkRightFrames[i].flip(true, false);
         }
         walkRightAnimation = new Animation(RUNNING_FRAME_DURATION, walkRightFrames);
+        
+//    	jaxonIdleLeft = new TextureRegion(new Texture(Gdx.files.internal("sanic.png")));
+//
+//        jaxonIdleRight = new TextureRegion(jaxonIdleLeft);
+//        jaxonIdleRight.flip(true, false);
+//
+//        TextureRegion[] walkLeftFrames = new TextureRegion[4];
+//
+//        walkLeftFrames[0] = new TextureRegion(new Texture(Gdx.files.internal("sanic.png")));
+//        walkLeftFrames[1] = new TextureRegion(new Texture(Gdx.files.internal("sanic.png")));
+//        walkLeftFrames[2] = new TextureRegion(new Texture(Gdx.files.internal("sanic.png")));
+//        walkLeftFrames[3] = new TextureRegion(new Texture(Gdx.files.internal("sanic.png")));
+//
+//        walkLeftAnimation = new Animation(RUNNING_FRAME_DURATION, walkLeftFrames);
+//
+//        TextureRegion[] walkRightFrames = new TextureRegion[4];
+//
+//        for (int i = 0; i < 4; i++) {
+//            walkRightFrames[i] = new TextureRegion(walkLeftFrames[i]);
+//            walkRightFrames[i].flip(true, false);
+//        }
+//        walkRightAnimation = new Animation(RUNNING_FRAME_DURATION, walkRightFrames);
     }
     
     public boolean hasInventory() {
@@ -107,7 +129,7 @@ public class Jaxon extends Entity{
         }
         
         if(!isHidden()){
-            batch.draw(jaxonFrame, (getPosition().x - drawX) * ppuX, getPosition().y * ppuY, (1.0F / 2F) * ppuX, (1.0F / 2F) * ppuY);
+            batch.draw(jaxonFrame, (getPosition().x - drawX) * ppuX, getPosition().y * ppuY, (1.0F / 1.5F) * ppuX, (1.0F / 1.5F) * ppuY);
         }
     }
 }

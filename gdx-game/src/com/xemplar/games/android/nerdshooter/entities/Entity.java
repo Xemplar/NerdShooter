@@ -165,7 +165,7 @@ public abstract class Entity extends Block{
     public abstract void updateEntity(float delta);
     
     public void update(float delta){
-        if(isDead()){
+        if(isDead() && !(this instanceof Projectile)){
             if(hasInventory() && inventory.hasItems()){
                 inventory.clear();
             }

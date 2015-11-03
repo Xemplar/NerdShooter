@@ -36,10 +36,12 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
 import com.xemplar.games.android.nerdshooter.blocks.ExitBlock;
 import com.xemplar.games.android.nerdshooter.controller.JaxonController;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.entities.Projectile;
 import com.xemplar.games.android.nerdshooter.model.World;
 import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
 import com.xemplar.games.android.nerdshooter.utils.XPMLItem;
@@ -120,6 +122,10 @@ public class GameScreen implements Screen, InputProcessor {
 		updateEntities(delta);
         renderer.render();
 		
+        if(gameTicks == 100){
+        	world.getEntities().add(new Projectile(new Vector2(1, 12), 2.0F, 270F, 1));
+        }
+        
         button.begin(ShapeRenderer.ShapeType.Filled);{
             if (Gdx.app.getType().equals(Application.ApplicationType.Android)){
                 Gdx.gl.glEnable(GL_BLEND);
@@ -333,6 +339,29 @@ public class GameScreen implements Screen, InputProcessor {
 	
 	public void updateEntities(float delta){
 		for(Entity e : world.getEntities()){
+			int w = world.getLevel().getWidth();
+			int h = world.getLevel().getHeight();
+			
+			if(e.getPosition().x + 1 < 0){
+				world.getEntities().removeValue(e, false);
+				continue;
+			}
+			
+			if(e.getPosition().x > w){
+				world.getEntities().removeValue(e, false);
+				continue;
+			}
+			
+			if(e.getPosition().y + 1 < 0){
+				world.getEntities().removeValue(e, false);
+				continue;
+			}
+			
+			if(e.getPosition().y > height){
+				world.getEntities().removeValue(e, false);
+				continue;
+			}
+			
 			e.update(delta);
 		}
 	}

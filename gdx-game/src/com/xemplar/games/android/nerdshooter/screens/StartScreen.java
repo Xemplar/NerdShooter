@@ -117,7 +117,7 @@ public class StartScreen implements Screen, InputProcessor {
 		buttonRenderer = new SpriteBatch();
         
 		if(aud == null){
-			aud = Gdx.audio.newMusic(Gdx.files.internal("music/Game.mp3"));
+			aud = Gdx.audio.newMusic(Gdx.files.internal("music/Game.mp3"));//SANIC.mp3"));
 	        aud.play();
 		}
 		
