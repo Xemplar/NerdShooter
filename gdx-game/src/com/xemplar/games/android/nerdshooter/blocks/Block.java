@@ -1,5 +1,5 @@
 /*
- * NerdShooter is a pseudo libray project for future Xemplar 2D Side Scroller Games.
+ * NerdShooter is a pseudo library project for future Xemplar 2D Side Scroller Games.
  * Copyright (C) 2015  Rohan Loomis
  *
  * This file is part of NerdShooter
@@ -22,11 +22,17 @@ package com.xemplar.games.android.nerdshooter.blocks;
 
 import java.util.Random;
 
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.math.*;
-import com.xemplar.games.android.nerdshooter.screens.*;
-import com.xemplar.games.android.nerdshooter.entities.*;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.xemplar.games.android.nerdshooter.NerdShooter;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
 import com.xemplar.games.android.nerdshooter.items.Item;
+import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class Block {
 	protected static final Vector2 empty = new Vector2(2, 2);
@@ -156,7 +162,31 @@ public class Block {
 		
 	//Start Class
 	public long id = 0L;
-    
+	protected static Pixmap mapR = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
+	protected static Pixmap mapY = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
+	protected static Pixmap mapB = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
+	
+	protected static TextureRegion texR;
+	protected static TextureRegion texY;
+	protected static TextureRegion texB;
+	
+	static{
+		mapR.setColor(1, 0.5F, 1F, 1);
+		mapR.fill();
+		
+		texR = new TextureRegion(new Texture(mapR));
+		
+		mapY.setColor(1, 1, 0.5F, 1);
+		mapY.fill();
+		
+		texY = new TextureRegion(new Texture(mapY));
+		
+		mapB.setColor(0.5F, 0.5F, 1, 1);
+		mapB.fill();
+		
+		texB = new TextureRegion(new Texture(mapB));
+	}
+	
 	public String regionID;
 	
     protected Vector2 position = new Vector2();
@@ -220,7 +250,19 @@ public class Block {
     }
     
 	public TextureRegion getTexture(){
-		return GameScreen.getTextureAltlas().findRegion(regionID);
+		if(!NerdShooter.sanic){
+			return GameScreen.getTextureAltlas().findRegion(regionID);
+		} 
+		
+		int ran = MathUtils.random(3);
+		switch(ran){
+		case 1:
+			return texB;
+		case 2:
+			return texY;
+		default:
+			return texR;
+		}
 	}
 	
 	public Rectangle getBounds(){

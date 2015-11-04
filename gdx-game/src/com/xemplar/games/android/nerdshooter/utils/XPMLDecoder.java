@@ -1,5 +1,5 @@
 /*
- * NerdShooter is a pseudo libray project for future Xemplar 2D Side Scroller Games.
+ * NerdShooter is a pseudo library project for future Xemplar 2D Side Scroller Games.
  * Copyright (C) 2015  Rohan Loomis
  *
  * This file is part of NerdShooter

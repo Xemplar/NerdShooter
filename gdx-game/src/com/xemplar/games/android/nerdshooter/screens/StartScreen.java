@@ -1,5 +1,5 @@
 /*
- * NerdShooter is a pseudo libray project for future Xemplar 2D Side Scroller Games.
+ * NerdShooter is a pseudo library project for future Xemplar 2D Side Scroller Games.
  * Copyright (C) 2015  Rohan Loomis
  *
  * This file is part of NerdShooter
@@ -117,8 +117,12 @@ public class StartScreen implements Screen, InputProcessor {
 		buttonRenderer = new SpriteBatch();
         
 		if(aud == null){
-			aud = Gdx.audio.newMusic(Gdx.files.internal("music/Game.mp3"));//SANIC.mp3"));
-	        aud.play();
+			if(!NerdShooter.sanic){
+				aud = Gdx.audio.newMusic(Gdx.files.internal("music/Game.mp3"));
+			} else {
+				aud = Gdx.audio.newMusic(Gdx.files.internal("music/SANIC.mp3"));
+			}
+			aud.play();
 		}
 		
 		Gdx.input.setInputProcessor(this);
