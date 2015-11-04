@@ -119,7 +119,7 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 		
         if(gameTicks == 1){
-        	World.spawnEntity(new OutputDevice(new Vector2(1, 1), "water", 10));
+        	//World.spawnEntity(new OutputDevice(new Vector2(1, 1), "water", 10));
         }
         
         controller.update(delta);

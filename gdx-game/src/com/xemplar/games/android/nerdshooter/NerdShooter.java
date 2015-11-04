@@ -36,7 +36,7 @@ public class NerdShooter extends Game {
     public static final int GAME_SCREEN = 0x000002;
     
     public static final String COMP_DATA = "compData";
-    public static boolean sanic = true;
+    public static boolean sanic = false;
     public Boolean useKeys;
     public int[] keys;
     
