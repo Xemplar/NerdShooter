@@ -28,10 +28,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.xemplar.games.android.nerdshooter.NerdShooter;
 import com.xemplar.games.android.nerdshooter.blocks.Block;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 import com.xemplar.games.android.nerdshooter.entities.Jaxon;
 import com.xemplar.games.android.nerdshooter.model.World;
+import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class WorldRenderer {
 	private static final float CAMERA_WIDTH = 12f;
@@ -68,9 +70,12 @@ public class WorldRenderer {
 		spriteBatch.setProjectionMatrix(cam.combined);
 		
 		spriteBatch.begin();
-          drawBlocks();
-		  drawEntities();
-          drawJaxon();
+			if(NerdShooter.sanic){
+				spriteBatch.draw(GameScreen.tex, cam.position.x - (CAMERA_WIDTH / 2F), cam.position.y  - (CAMERA_HEIGHT / 2F), CAMERA_WIDTH, CAMERA_HEIGHT);
+			}
+			drawBlocks();
+			drawEntities();
+			drawJaxon();
 		spriteBatch.end();
 		
 		if (debug) drawDebug();

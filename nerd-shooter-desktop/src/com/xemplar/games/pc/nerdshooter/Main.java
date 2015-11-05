@@ -20,6 +20,8 @@
  */
 package com.xemplar.games.pc.nerdshooter;
 
+import javax.swing.JOptionPane;
+
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
@@ -34,11 +36,13 @@ public class Main{
 		int[] keys = new int[]{Keys.LEFT, Keys.RIGHT, Keys.SPACE, Keys.Z};
 		data.setData(keys);
 		
+		JOptionPane.showMessageDialog(null, "Play Sanic You Fuckers");
+		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.allowSoftwareMode = true;
 		config.fullscreen = false;
-		config.width = 600;
-		config.height = 350;
+		config.width = 1024;
+		config.height = 600;
 		
         new LwjglApplication(new NerdShooter(), config);
     }

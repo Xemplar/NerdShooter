@@ -37,7 +37,7 @@ import com.xemplar.games.android.nerdshooter.NerdShooter;
 
 public class SplashScreen implements Screen {
 	private static final String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+,<.>/?";
-    private float width, height, logoSize, logoX;
+    private float width, logoSize, logoX;
     private SpriteBatch batch;
     private Texture logo;
     private BitmapFont label;
@@ -62,14 +62,13 @@ public class SplashScreen implements Screen {
         float line = label.getLineHeight();
         
         batch.begin();{
-            batch.draw(logo, logoX, height - logoSize, logoSize, logoSize);
-            label.draw(batch, "Made By Xemplar", width / 10F, line + 5);
+            batch.draw(logo, logoX, logoSize, logoSize, logoSize);
+            label.draw(batch, "XEMPLAR\n    &\n  CRYOGENERIX", width / 10F, (line * 3 + 5));
         } batch.end();
     }
 
     public void resize(int width, int height) {
         this.width = width;
-        this.height = height;
         
         params.characters = chars;
         params.shadowOffsetX = 1;

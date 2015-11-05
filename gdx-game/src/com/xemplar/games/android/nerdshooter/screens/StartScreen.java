@@ -51,7 +51,7 @@ public class StartScreen implements Screen, InputProcessor {
 	protected float width, height;
 	protected Array<ScreenButton> buttons = new Array<ScreenButton>();
 
-    private Music aud;
+    private static Music aud;
 	
 	public StartScreen(){
         instance = this;
@@ -128,6 +128,17 @@ public class StartScreen implements Screen, InputProcessor {
 		Gdx.input.setInputProcessor(this);
 	}
 
+	public static void reloadMusic(){
+		aud.stop();
+		aud = null;
+		if(!NerdShooter.sanic){
+			aud = Gdx.audio.newMusic(Gdx.files.internal("music/Game.mp3"));
+		} else {
+			aud = Gdx.audio.newMusic(Gdx.files.internal("music/SANIC.mp3"));
+		}
+		aud.play();
+	}
+	
 	@Override
 	public void hide() {
 		Gdx.input.setInputProcessor(null);

@@ -30,18 +30,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
 import com.xemplar.games.android.nerdshooter.blocks.ExitBlock;
 import com.xemplar.games.android.nerdshooter.controller.JaxonController;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
-import com.xemplar.games.android.nerdshooter.entities.OutputDevice;
 import com.xemplar.games.android.nerdshooter.model.World;
 import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
 import com.xemplar.games.android.nerdshooter.utils.XPMLItem;
@@ -52,11 +51,13 @@ public class GameScreen implements Screen, InputProcessor {
     public static GameScreen instance;
     public static long gameTicks = 0L;
 	private static TextureAtlas atlas;
-	private Rectangle left, right, jump;
+	private Rectangle left, right, jump, sanic;
     public World world;
     public float buttonSize = 0F;
     
     private static int levelNum;
+    public static Texture tex;
+    public static int numPressed = 0;
     
     private WorldRenderer renderer;
     private JaxonController controller;
@@ -74,6 +75,7 @@ public class GameScreen implements Screen, InputProcessor {
         
         levelNum = level;
         
+        tex = new Texture(Gdx.files.internal("scatt.jpg"));
 		atlas = new TextureAtlas(Gdx.files.internal("textures/nerdshooter.pack"));
 		
 		font = NerdShooter.gen.generateFont(NerdShooter.params);
@@ -97,6 +99,7 @@ public class GameScreen implements Screen, InputProcessor {
 		right = new Rectangle();
 		
 		jump = new Rectangle();
+		sanic = new Rectangle();
 	}
 	
     public void show() {
@@ -117,10 +120,6 @@ public class GameScreen implements Screen, InputProcessor {
         
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
-		
-        if(gameTicks == 1){
-        	//World.spawnEntity(new OutputDevice(new Vector2(1, 1), "water", 10));
-        }
         
         controller.update(delta);
 		updateEntities(delta);
@@ -175,6 +174,7 @@ public class GameScreen implements Screen, InputProcessor {
 		right.set(buttonSize * 2, buttonSize / 2F, buttonSize, buttonSize);
 		
 		jump.set(width - (buttonSize * 3/2), buttonSize / 2F, buttonSize, buttonSize);
+		sanic.set(width - buttonSize, height - buttonSize, buttonSize, buttonSize);
     }
 	
     public void hide() {
@@ -223,6 +223,16 @@ public class GameScreen implements Screen, InputProcessor {
     	
     	if ((keycode == Keys.BACK) || (keycode == Keys.ESCAPE)){
         	finishLevel(ExitBlock.EXIT_NOCLEAR);
+    	}
+    	
+    	if (keycode == Keys.S && NerdShooter.sanic){
+        	NerdShooter.sanic = false;
+        	world.getJaxon().loadTextures();
+        	StartScreen.reloadMusic();
+    	} else if (keycode == Keys.S && !NerdShooter.sanic){
+        	NerdShooter.sanic = true;
+        	world.getJaxon().loadTextures();
+        	StartScreen.reloadMusic();
     	}
     	
         return true;
@@ -279,6 +289,25 @@ public class GameScreen implements Screen, InputProcessor {
 			}
 		
 			return true;
+		}
+		
+		if(sanic.contains(x, (y - height) * -1)){
+			if (NerdShooter.sanic){
+	        	NerdShooter.sanic = false;
+	        	world.getJaxon().loadTextures();
+	        	StartScreen.reloadMusic();
+	        	
+	        	numPressed = 0;
+	    	} else if (!NerdShooter.sanic){
+	    		System.out.println(numPressed);
+	    		if(numPressed == 2){
+	    			NerdShooter.sanic = true;
+	        		world.getJaxon().loadTextures();
+	        		StartScreen.reloadMusic();
+	    		}
+	    		
+	    		numPressed++;
+	    	}
 		}
 		return false;
     }

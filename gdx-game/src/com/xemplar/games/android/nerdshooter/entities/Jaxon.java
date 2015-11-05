@@ -53,7 +53,7 @@ public class Jaxon extends Entity{
         loadTextures();
 	}
     
-    private void loadTextures() {
+    public void loadTextures() {
     	if(!NerdShooter.sanic){
     		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("textures/nerdshooter.pack"));
 
