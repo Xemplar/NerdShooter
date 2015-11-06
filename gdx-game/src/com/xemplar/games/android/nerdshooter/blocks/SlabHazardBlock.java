@@ -20,11 +20,36 @@
  */
 package com.xemplar.games.android.nerdshooter.blocks;
 
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.*;
-import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.*;
+import com.xemplar.games.android.nerdshooter.entities.*;
+import com.xemplar.games.android.nerdshooter.screens.*;
 
 public class SlabHazardBlock extends SlabBlock {
+    private static TextureRegion texR;
+    private static TextureRegion texY;
+    private static TextureRegion texB;
+
+    static{
+        Pixmap mapR = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
+        Pixmap mapY = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
+        Pixmap mapB = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
+
+        mapR.setColor(1, 0.5F, 1F, 1);
+        mapR.fillRectangle(0, 4, 8, 4);
+        texR = new TextureRegion(new Texture(mapR));
+
+        mapY.setColor(1, 1, 0.5F, 1);
+        mapY.fillRectangle(0, 4, 8, 4);
+        texY = new TextureRegion(new Texture(mapY));
+
+        mapB.setColor(0.5F, 0.5F, 1, 1);
+        mapB.fillRectangle(0, 4, 8, 4);
+        texB = new TextureRegion(new Texture(mapB));
+	}
+    
 	protected int hurtAmount = 0;
 	
     protected SlabHazardBlock(Vector2 pos, String regionID, float width, float height, boolean top, int removeHealth){
@@ -39,6 +64,22 @@ public class SlabHazardBlock extends SlabBlock {
     public void onTouch(Entity e) {
         e.hurt(hurtAmount);
     }
+    
+    public TextureRegion getTexture(){
+        if(!NerdShooter.sanic){
+            return GameScreen.getTextureAltlas().findRegion(regionID);
+        } 
+
+        int ran = MathUtils.random(3);
+        switch(ran){
+        case 1:
+            return texB;
+        case 2:
+            return texY;
+        default:
+            return texR;
+        }
+	}
     
     public SlabHazardBlock clone(Vector2 pos){
     	SlabHazardBlock b = new SlabHazardBlock(pos, regionID, bounds.width, bounds.height, top, hurtAmount);

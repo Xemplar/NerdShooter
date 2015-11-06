@@ -162,28 +162,26 @@ public class Block {
 		
 	//Start Class
 	public long id = 0L;
-	protected static Pixmap mapR = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
-	protected static Pixmap mapY = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
-	protected static Pixmap mapB = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
-	
-	protected static TextureRegion texR;
-	protected static TextureRegion texY;
-	protected static TextureRegion texB;
+    
+	private static TextureRegion texR;
+	private static TextureRegion texY;
+	private static TextureRegion texB;
 	
 	static{
+        Pixmap mapR = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
+        Pixmap mapY = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
+        Pixmap mapB = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
+        
 		mapR.setColor(1, 0.5F, 1F, 1);
 		mapR.fill();
-		
 		texR = new TextureRegion(new Texture(mapR));
-		
+        
 		mapY.setColor(1, 1, 0.5F, 1);
 		mapY.fill();
-		
 		texY = new TextureRegion(new Texture(mapY));
 		
 		mapB.setColor(0.5F, 0.5F, 1, 1);
 		mapB.fill();
-		
 		texB = new TextureRegion(new Texture(mapB));
 	}
 	
@@ -294,4 +292,3 @@ public class Block {
         }   
     }
 }
-
