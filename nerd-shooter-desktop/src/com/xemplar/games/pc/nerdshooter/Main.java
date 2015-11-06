@@ -20,8 +20,6 @@
  */
 package com.xemplar.games.pc.nerdshooter;
 
-import javax.swing.JOptionPane;
-
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
@@ -35,8 +33,6 @@ public class Main{
 		data = InterScreenData.getInstance("desktop_keys");
 		int[] keys = new int[]{Keys.LEFT, Keys.RIGHT, Keys.SPACE, Keys.Z};
 		data.setData(keys);
-		
-		JOptionPane.showMessageDialog(null, "Play Sanic You Fuckers");
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.allowSoftwareMode = true;
