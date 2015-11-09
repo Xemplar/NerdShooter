@@ -23,34 +23,35 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
+import com.xemplar.games.android.nerdshooter.screens.ui.Button;
 
 public class StartScreen implements Screen, InputProcessor {
     public static StartScreen instance;
 	private float buttonHeight;
 	
-	protected ScreenButton levelExp;
-	protected ScreenButton level1;
-	protected ScreenButton level2;
-	protected ScreenButton level3;
-	protected ScreenButton level4;
-	protected ScreenButton level5;
-	protected ScreenButton level6;
-	protected ScreenButton options;
-    protected ScreenButton exit;
+	protected Button levelExp;
+	protected Button level1;
+	protected Button level2;
+	protected Button level3;
+	protected Button level4;
+	protected Button level5;
+	protected Button level6;
+	protected Button options;
+    protected Button exit;
 	
     protected SpriteBatch buttonRenderer;
     protected BitmapFont text;
 	
 	protected float width, height;
-	protected Array<ScreenButton> buttons = new Array<ScreenButton>();
+	protected Array<Button> buttons = new Array<Button>();
 
     private static Music aud;
 	
@@ -59,20 +60,19 @@ public class StartScreen implements Screen, InputProcessor {
 	}
 	
 	public void render(float delta) {
-        NerdShooter.shooter.setCurrentScreen(NerdShooter.START_SCREEN);
-        
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 		
 		buttonRenderer.begin(); {
-		    for(ScreenButton button : buttons){
+		    for(Button button : buttons){
                 button.render(buttonRenderer);
             }
 		} buttonRenderer.end();
 	}
 
-	@Override
 	public void resize(int width, int height) {
+		NerdShooter.shooter.setCurrentScreen(NerdShooter.START_SCREEN);
+		
 		this.width = width;
 		this.height = height;
 
@@ -83,17 +83,17 @@ public class StartScreen implements Screen, InputProcessor {
         
         text = NerdShooter.label;
         
-		levelExp = new ScreenButton(text, "External Level", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
+		levelExp = new Button(text, "External Level", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
         
-        level1 = new ScreenButton(text, "Level 1", (width / 2F) - ((buttonWidth)), levelExp.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
-		level2 = new ScreenButton(text, "Level 2", (width / 2F) - ((buttonWidth)), level1.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
-        level3 = new ScreenButton(text, "Level 3", (width / 2F) - ((buttonWidth)), level2.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
-		level4 = new ScreenButton(text, "Level 4", level1.x + level1.width + spacer, levelExp.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
-        level5 = new ScreenButton(text, "Level 5", level2.x + level2.width + spacer, level4.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
-        level6 = new ScreenButton(text, "Level 6", level3.x + level3.width + spacer, level5.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
+        level1 = new Button(text, "Level 1", (width / 2F) - ((buttonWidth)), levelExp.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
+		level2 = new Button(text, "Level 2", (width / 2F) - ((buttonWidth)), level1.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
+        level3 = new Button(text, "Level 3", (width / 2F) - ((buttonWidth)), level2.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
+		level4 = new Button(text, "Level 4", level1.x + level1.width + spacer, levelExp.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
+        level5 = new Button(text, "Level 5", level2.x + level2.width + spacer, level4.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
+        level6 = new Button(text, "Level 6", level3.x + level3.width + spacer, level5.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
         
-        options = new ScreenButton(text, "Options", (width / 2F) - (buttonWidth), (spacer * 2) + buttonHeight, (buttonWidth * 2F), buttonHeight);
-        exit = new ScreenButton(text, "Exit", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F), buttonHeight);
+        options = new Button(text, "Options", (width / 2F) - (buttonWidth), (spacer * 2) + buttonHeight, (buttonWidth * 2F), buttonHeight);
+        exit = new Button(text, "Exit", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F), buttonHeight);
         
         if(Gdx.files.isExternalStorageAvailable()){
             FileHandle file = new FileHandle(Gdx.files.getExternalStoragePath() + "levelExp.txt");

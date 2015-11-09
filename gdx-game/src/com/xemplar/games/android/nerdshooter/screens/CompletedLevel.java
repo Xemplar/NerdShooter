@@ -31,6 +31,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
 import com.xemplar.games.android.nerdshooter.blocks.ExitBlock;
+import com.xemplar.games.android.nerdshooter.screens.ui.Button;
 import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
 import com.xemplar.games.android.nerdshooter.utils.XPMLItem;
 
@@ -46,8 +47,8 @@ public class CompletedLevel implements Screen, InputProcessor {
     private String message;
     private boolean set = false;
     
-    private ScreenButton replay;
-    private ScreenButton menu;
+    private Button replay;
+    private Button menu;
     
     private BitmapFont text;
     private float buttonHeight;
@@ -86,8 +87,8 @@ public class CompletedLevel implements Screen, InputProcessor {
         
         set = false;
 
-        replay = new ScreenButton(NerdShooter.label, "Replay", (width / 2F) - (buttonWidth / 2F), buttonHeight + spacer, buttonWidth, buttonHeight);
-        menu = new ScreenButton(NerdShooter.label, "Menu", (width / 2F) - (buttonWidth / 2F), replay.y + spacer + buttonHeight, buttonWidth, buttonHeight);
+        replay = new Button(NerdShooter.label, "Replay", (width / 2F) - (buttonWidth / 2F), buttonHeight + spacer, buttonWidth, buttonHeight);
+        menu = new Button(NerdShooter.label, "Menu", (width / 2F) - (buttonWidth / 2F), replay.y + spacer + buttonHeight, buttonWidth, buttonHeight);
     }
 
     public void show() {
