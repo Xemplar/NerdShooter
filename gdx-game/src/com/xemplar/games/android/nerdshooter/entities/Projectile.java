@@ -27,19 +27,14 @@ import com.badlogic.gdx.math.Vector2;
 public class Projectile extends Entity {
 	//Projectile Definitions
 	
-		public static Projectile bush = new Projectile(empty, "bush", 2.0F, 90F, 1);
+		public static Projectile bush = new Projectile(empty, "bush", 1);
 	
 	// Start Class
 	protected float speed, deg;
 	
-	public Projectile(Vector2 position, String regionID, float speed, float deg, int health) {
+	public Projectile(Vector2 position, String regionID, int health) {
 		super(position, regionID, health);
-		float velX = (float) (MathUtils.cosDeg(deg) * speed);
-		float velY = (float) (MathUtils.sinDeg(deg) * speed);
 		
-		this.speed = speed;
-		this.deg = deg;
-		this.velocity.set(velX, velY);
 	}
 
 	public boolean hasInventory() {
@@ -58,8 +53,19 @@ public class Projectile extends Entity {
 		return true;
 	}
 	
-	public Projectile clone(Vector2 pos){
-		return new Projectile(pos, regionID, speed, deg, health);
+	protected void setVelocity(float speed, float deg){
+		float velX = (float) (MathUtils.cosDeg(deg) * speed);
+		float velY = (float) (MathUtils.sinDeg(deg) * speed);
+		
+		this.speed = speed;
+		this.deg = deg;
+		this.velocity.set(velX, velY);
+	}
+	
+	public Projectile launch(Vector2 pos, float speed, float deg){
+		Projectile pro = new Projectile(pos, regionID, health);
+		pro.setVelocity(speed, deg);
+		return pro;
 	}
 	
 	public void updateEntity(float delta) {

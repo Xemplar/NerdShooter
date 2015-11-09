@@ -37,8 +37,8 @@ public class Main{
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.allowSoftwareMode = true;
 		config.fullscreen = false;
-		config.width = 1024;
-		config.height = 600;
+		config.width = 600;
+		config.height = 350;
 		
         new LwjglApplication(new NerdShooter(), config);
     }

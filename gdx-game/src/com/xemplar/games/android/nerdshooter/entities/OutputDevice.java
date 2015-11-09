@@ -34,7 +34,7 @@ public class OutputDevice extends Entity{
 	}
 	
 	public OutputDevice(Vector2 position, String regionID, int health) {
-		super(position, regionID, 10F, 90F, health);
+		super(position, regionID, health);
 	}
 	
 	public boolean hasInventory() {
@@ -49,7 +49,11 @@ public class OutputDevice extends Entity{
 		long ticks = GameScreen.gameTicks;
 		
 		if(ticks % 100 == 0){
-			World.spawnEntity(Projectile.bush);
+			World.spawnEntity(Projectile.bush.launch(position.cpy(), 2F, 0F));
+			World.spawnEntity(Projectile.bush.launch(position.cpy(), 2F, 90F));
+			World.spawnEntity(Projectile.bush.launch(position.cpy(), 2F, 45F));
+			World.spawnEntity(Projectile.bush.launch(position.cpy(), 2F, 22.5F));
+			World.spawnEntity(Projectile.bush.launch(position.cpy(), 2F, 45F + 22.5F));
 		}
 	}
 
