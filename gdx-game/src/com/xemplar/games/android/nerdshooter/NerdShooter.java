@@ -21,15 +21,22 @@
 package com.xemplar.games.android.nerdshooter;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.xemplar.games.android.nerdshooter.screens.CompletedLevel;
+import com.xemplar.games.android.nerdshooter.screens.OptionsScreen;
 import com.xemplar.games.android.nerdshooter.screens.SplashScreen;
 import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
 
 public class NerdShooter extends Game {
+	public static boolean PREF_AUDIO = false;
+	public static boolean PREF_LEFTY = false;
+	
+	public static Preferences prefs;
 	public static final float BUTTON_HEIGHT = 6F;
 	
     public static final int START_SCREEN = 0x000001;
@@ -53,6 +60,9 @@ public class NerdShooter extends Game {
         shooter = this;
         
         layout = new GlyphLayout();
+        prefs = Gdx.app.getPreferences("settings");
+        
+        reloadSettings();
         
         keys = (int[])InterScreenData.getInstance("desktop_keys").getData();
         if(keys != null){
@@ -63,6 +73,12 @@ public class NerdShooter extends Game {
         
         setScreen(new SplashScreen());
         new CompletedLevel();
+        new OptionsScreen();
+    }
+    
+    public static void reloadSettings(){
+    	PREF_AUDIO = Boolean.parseBoolean(prefs.getString("audio", Boolean.toString(false)));
+        PREF_LEFTY = Boolean.parseBoolean(prefs.getString("lefty", Boolean.toString(false)));
     }
     
     public int getCurrentScreen(){

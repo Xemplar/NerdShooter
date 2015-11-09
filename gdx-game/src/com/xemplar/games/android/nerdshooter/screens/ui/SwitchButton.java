@@ -20,6 +20,34 @@
  */
 package com.xemplar.games.android.nerdshooter.screens.ui;
 
-public class SwitchButton {
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+public class SwitchButton extends Button implements Saveable{
+	protected String key;
+	
+	public SwitchButton(BitmapFont font, float x, float y, float width, float height, String key) {
+		super(font, "No", x, y, width, height);
+		this.key = key;
+	}
+	
+	public void toggle(){
+		this.pressed = !this.pressed;
+		this.text = this.pressed ? "Yes" : "No";
+	}
+	
+	public SwitchButton setPressed(boolean pressed){
+		return this;
+	}
 
+	public String getSaveState() {
+		return Boolean.toString(pressed);
+	}
+	
+	public String getKey(){
+		return this.key;
+	}
+	
+	public void setFromSave(String state) {
+		this.pressed = Boolean.parseBoolean(state);
+		this.text = this.pressed ? "Yes" : "No";
+	}
 }

@@ -30,6 +30,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
 import com.xemplar.games.android.nerdshooter.screens.ui.Button;
+import com.xemplar.games.android.nerdshooter.screens.ui.Label;
+import com.xemplar.games.android.nerdshooter.screens.ui.SwitchButton;
+import com.xemplar.games.android.nerdshooter.screens.ui.View;
 
 public class OptionsScreen implements Screen, InputProcessor {
     public static OptionsScreen instance;
@@ -38,13 +41,28 @@ public class OptionsScreen implements Screen, InputProcessor {
     protected SpriteBatch buttonRenderer;
     protected BitmapFont text;
 
-	protected Array<Button> buttons = new Array<Button>();
+    protected Label lbl_audio;
+    protected Label lbl_lefty;
+    protected SwitchButton audio;
+    protected SwitchButton lefty;
+    protected Button back;
+    
+	protected Array<View> views = new Array<View>();
 	protected float width, height;
 
+	public OptionsScreen(){
+		instance = this;
+	}
+	
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 		
+        buttonRenderer.begin(); {
+		    for(View view : views){
+                view.render(buttonRenderer);
+            }
+		} buttonRenderer.end();
 	}
 	
 	public void resize(int width, int height) {
@@ -57,9 +75,29 @@ public class OptionsScreen implements Screen, InputProcessor {
 		float buttonWidth = (width * ((3F / 4F) / 2F));
         
         text = NerdShooter.label;
+        
+        lbl_audio = new Label(NerdShooter.text, "Audio", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), buttonWidth, buttonHeight);
+        lbl_lefty = new Label(NerdShooter.text, "Lefty", (width / 2F) - (buttonWidth), height - ((buttonHeight + spacer) * 2), buttonWidth, buttonHeight);
+        
+        audio = new SwitchButton(text, lbl_audio.x + (lbl_audio.width * 3F/2F) + spacer, height - (buttonHeight + spacer), buttonWidth / 2F, buttonHeight, "audio");
+        lefty = new SwitchButton(text, lbl_lefty.x + (lbl_lefty.width * 3F/2F) + spacer, height - ((buttonHeight + spacer) * 2), buttonWidth / 2F, buttonHeight, "lefty");
+        
+        back = new Button(text, "Back", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F), buttonHeight);
+        back.setActionNumber(1);
+        
+        views.clear();
+        
+        views.add(lbl_audio);
+        views.add(lbl_lefty);
+        views.add(audio);
+        views.add(lefty);
+        views.add(back);
+        
+        loadSettings();
 	}
 
 	public void show() {
+		buttonRenderer = new SpriteBatch();
 		Gdx.input.setInputProcessor(this);
 	}
 	public void dispose() {
@@ -76,19 +114,109 @@ public class OptionsScreen implements Screen, InputProcessor {
 	public void resume() {
 		
 	}
-
-	public boolean touchDown(int pX, int pY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
+	
+	public void loadSettings(){
+		Array<View> saveAbles = new Array<View>();
+		for(View v : views){
+			if(v instanceof SwitchButton){
+				saveAbles.add(v);
+			}
+		}
+		
+		for(View v : saveAbles){
+			if(v instanceof SwitchButton){
+				SwitchButton b = (SwitchButton)v;
+				String pref = NerdShooter.prefs.getString(b.getKey());
+				if(pref != null){
+					b.setFromSave(pref);
+				}
+			}
+		}
 	}
-
-	public boolean touchDragged(int pX, int pY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
+	
+	public void saveSettings(){
+		Array<View> saveAbles = new Array<View>();
+		for(View v : views){
+			if(v instanceof SwitchButton){
+				saveAbles.add(v);
+			}
+		}
+		
+		for(View v : saveAbles){
+			if(v instanceof SwitchButton){
+				SwitchButton b = (SwitchButton)v;
+				NerdShooter.prefs.putString(b.getKey(), b.getSaveState());
+			}
+		}
+		NerdShooter.prefs.flush();
+		NerdShooter.reloadSettings();
+	}
+	
+	public void doAction(int action){
+        if(action == 1){
+        	saveSettings();
+        	NerdShooter.shooter.setScreen(StartScreen.instance);
+        }
+    }
+	
+	public boolean touchDown(int pX, int pY, int pointer, int button) {
+        float x = pX;
+        float y = height - pY;
+        
+        boolean value = false;
+        
+        for(int i = 0; i < views.size; i++){
+        	View current = views.get(i);
+            if(current.isInside(x, y)){
+            	if(current instanceof SwitchButton){
+            		continue;
+            	} else if(current instanceof Button){
+            		((Button)current).setPressed(true);
+            	}
+                value |= true;
+            }
+        }
+        
+        return value;
 	}
 
 	public boolean touchUp(int pX, int pY, int pointer, int button) {
-		// TODO Auto-generated method stub
+		float x = pX;
+        float y = height - pY;
+
+        boolean value = false;
+
+        for(int i = 0; i < views.size; i++){
+        	View current = views.get(i);
+            if(current.isInside(x, y)){
+            	if(current instanceof SwitchButton){
+            		((SwitchButton)current).toggle();
+            	} else if(current instanceof Button){
+            		((Button)current).setPressed(false);
+                    doAction(((Button)current).getAction());
+            	}
+                value |= true;
+            }
+        }
+
+        return value;
+	}
+
+	public boolean touchDragged(int pX, int pY, int pointer) {
+        float x = pX;
+        float y = height - pY;
+        
+        for(int i = 0; i < views.size; i++){
+        	View current = views.get(i);
+            if(current.isInside(x, y)){
+            	if(current instanceof SwitchButton){
+            		continue;
+            	} else if(current instanceof Button){
+            		((Button)current).setPressed(current.isInside(x, y));
+            	}
+            }
+        }
+        
 		return false;
 	}
 	

@@ -23,12 +23,13 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.xemplar.games.android.nerdshooter.NerdShooter;
 
 public class Button extends Label{
-    private boolean pressed;
-    private Texture tex_not_pressed;
-    private Texture tex_pressed;
-    private int action;
+    protected boolean pressed;
+    protected Texture tex_not_pressed;
+    protected Texture tex_pressed;
+    protected int action;
     
     public Button(BitmapFont font, String text, float x, float y, float width, float height){
         super(font, text, x, y, width, height);
@@ -102,6 +103,9 @@ public class Button extends Label{
             batch.draw(tex_not_pressed, x, y, width, height);
         }
         
-        super.render(batch);
+        NerdShooter.layout.setText(NerdShooter.label, text);
+        float width = NerdShooter.layout.width;
+        
+        font.draw(batch, text, bounds.getX() + ((bounds.width / 2) - (width / 2)), bounds.getY() + ((bounds.getHeight() / 2F) + (font.getLineHeight() / 4F)));
     }
 }

@@ -175,6 +175,18 @@ public class GameScreen implements Screen, InputProcessor {
 		
 		jump.set(width - (buttonSize * 3/2), buttonSize / 2F, buttonSize, buttonSize);
 		sanic.set(width - buttonSize, height - buttonSize, buttonSize, buttonSize);
+		
+		if(!NerdShooter.PREF_LEFTY){
+			left.set(buttonSize / 2F, buttonSize / 2F, buttonSize, buttonSize);
+			right.set(buttonSize * 2, buttonSize / 2F, buttonSize, buttonSize);
+			
+			jump.set(width - (buttonSize * 3/2), buttonSize / 2F, buttonSize, buttonSize);
+		} else {
+			left.set(width - (buttonSize * 3), buttonSize / 2F, buttonSize, buttonSize);
+			right.set(width - (buttonSize * 3/2), buttonSize / 2F, buttonSize, buttonSize);
+			
+			jump.set(buttonSize / 2F, buttonSize / 2F, buttonSize, buttonSize);
+		}
     }
 	
     public void hide() {

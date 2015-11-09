@@ -94,6 +94,8 @@ public class StartScreen implements Screen, InputProcessor {
         
         options = new Button(text, "Options", (width / 2F) - (buttonWidth), (spacer * 2) + buttonHeight, (buttonWidth * 2F), buttonHeight);
         exit = new Button(text, "Exit", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F), buttonHeight);
+
+        buttons.clear();
         
         if(Gdx.files.isExternalStorageAvailable()){
             FileHandle file = new FileHandle(Gdx.files.getExternalStoragePath() + "levelExp.txt");
@@ -119,7 +121,13 @@ public class StartScreen implements Screen, InputProcessor {
 	public void show() {
 		buttonRenderer = new SpriteBatch();
         
-		if(aud == null){
+		if(aud != null && !NerdShooter.PREF_AUDIO){
+			aud.stop();
+			aud.dispose();
+			aud = null;
+		}
+		
+		if(aud == null && NerdShooter.PREF_AUDIO){
 			if(!NerdShooter.sanic){
 				aud = Gdx.audio.newMusic(Gdx.files.internal("music/Game.mp3"));
 			} else {
@@ -133,15 +141,18 @@ public class StartScreen implements Screen, InputProcessor {
 	}
 
 	public static void reloadMusic(){
-		aud.stop();
-		aud = null;
-		if(!NerdShooter.sanic){
-			aud = Gdx.audio.newMusic(Gdx.files.internal("music/Game.mp3"));
-		} else {
-			aud = Gdx.audio.newMusic(Gdx.files.internal("music/SANIC.mp3"));
+		if(NerdShooter.PREF_AUDIO){
+			aud.stop();
+			aud.dispose();
+			aud = null;
+			if(!NerdShooter.sanic){
+				aud = Gdx.audio.newMusic(Gdx.files.internal("music/Game.mp3"));
+			} else {
+				aud = Gdx.audio.newMusic(Gdx.files.internal("music/SANIC.mp3"));
+			}
+			aud.play();
+			aud.setLooping(true);
 		}
-		aud.play();
-		aud.setLooping(true);
 	}
 	
 	@Override
@@ -167,7 +178,7 @@ public class StartScreen implements Screen, InputProcessor {
         if(action == -2){
             Gdx.app.exit();
         } else if(action == -3){
-        	NerdShooter.shooter.setScreen(new GameScreen(action));
+        	NerdShooter.shooter.setScreen(OptionsScreen.instance);
         } else {
             NerdShooter.shooter.setScreen(new GameScreen(action));
         }
