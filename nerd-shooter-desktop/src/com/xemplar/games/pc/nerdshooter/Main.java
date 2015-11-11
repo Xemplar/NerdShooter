@@ -20,6 +20,8 @@
  */
 package com.xemplar.games.pc.nerdshooter;
 
+import javax.swing.JOptionPane;
+
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
@@ -28,11 +30,20 @@ import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
 
 public class Main{
 	private static InterScreenData data;
+	private static String[] res = new String[]{"640, 360", "1024, 576", "1280, 720"};
 	
 	public static void main (String[] args) {
 		data = InterScreenData.getInstance("desktop_keys");
 		int[] keys = new int[]{Keys.LEFT, Keys.RIGHT, Keys.SPACE, Keys.Z};
 		data.setData(keys);
+		
+		String favoritePizza = (String) JOptionPane.showInputDialog(null, 
+		        "What is your favorite pizza?",
+		        "Favorite Pizza",
+		        JOptionPane.QUESTION_MESSAGE, 
+		        null, 
+		        res, 
+		        res[0]);
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.allowSoftwareMode = true;
