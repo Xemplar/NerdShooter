@@ -21,6 +21,7 @@
 package com.xemplar.games.pc.nerdshooter;
 
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -37,19 +38,27 @@ public class Main{
 		int[] keys = new int[]{Keys.LEFT, Keys.RIGHT, Keys.SPACE, Keys.Z};
 		data.setData(keys);
 		
-		String favoritePizza = (String) JOptionPane.showInputDialog(null, 
-		        "What is your favorite pizza?",
-		        "Favorite Pizza",
+		try{
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch(Exception e){
+			
+		}
+		
+		String[] options = ((String) JOptionPane.showInputDialog(null, 
+		        "Setup",
+		        "Screen Resolution",
 		        JOptionPane.QUESTION_MESSAGE, 
 		        null, 
 		        res, 
-		        res[0]);
+		        res[0])).split(", ");
+		
+		
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.allowSoftwareMode = true;
 		config.fullscreen = false;
-		config.width = 600;
-		config.height = 350;
+		config.width = Integer.parseInt(options[0]);
+		config.height = Integer.parseInt(options[1]);
 		
         new LwjglApplication(new NerdShooter(), config);
     }
