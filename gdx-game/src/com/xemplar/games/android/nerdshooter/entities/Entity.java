@@ -22,15 +22,27 @@ package com.xemplar.games.android.nerdshooter.entities;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Timer;
 import com.xemplar.games.android.nerdshooter.blocks.Block;
 import com.xemplar.games.android.nerdshooter.inventory.Inventory;
+import com.xemplar.games.android.nerdshooter.model.World;
+import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public abstract class Entity extends Block{
 	public enum State {
         IDLE, WALKING, JUMPING, DYING
 	}
 
+	private Array<Block> collidable = new Array<Block>();
+	
+	private Pool<Rectangle> rectPool = new Pool<Rectangle>() {
+		protected Rectangle newObject() {
+			return new Rectangle();
+		}
+	};
+	
     public static final float SPEED = 5f;  // unit per second
     public static final float JUMP_VELOCITY = 1f;
     public static final int UNLIMITED = 0xF00000;
@@ -149,7 +161,8 @@ public abstract class Entity extends Block{
     
     public void onKill(){}
     
-    public void hurt(int amt){
+    public final void hurt(int amt){
+    	System.out.println(health);
         if(!isDead()){
             this.health = this.health - amt;
         }
@@ -161,6 +174,10 @@ public abstract class Entity extends Block{
     
     public boolean isDead(){
         return health <= 0;
+    }
+    
+    public boolean collideWithOthers(){
+        return false;
     }
     
     public abstract boolean hasInventory();
@@ -180,8 +197,65 @@ public abstract class Entity extends Block{
             }
         }
         
+        if(collideWithOthers()){
+        	checkCollisionWithBlocks(delta);
+        }
+        
         if(!isHidden()){
             updateEntity(delta);
+        }
+    }
+    
+    private void checkCollisionWithBlocks(float delta) {
+		World world = GameScreen.instance.world;
+		
+        Rectangle thisRect = rectPool.obtain();
+        thisRect.set(this.getBounds().x, this.getBounds().y, this.getBounds().width, this.getBounds().height);
+
+        populateCollidableBlocks();
+        world.getCollisionRects().clear();
+
+        for (Block block : collidable) {
+            if (block == null) continue;
+
+            if (thisRect.overlaps(block.getBounds()) && (block.isTouchable())) {
+                block.onTouch(this);
+            }
+        }
+
+        populateCollidableBlocks();
+
+        for (Block block : collidable) {
+            if (block == null) continue;
+			if (thisRect.overlaps(block.getBounds()) && (block.isTouchable())) {
+                block.onTouch(this);
+            }
+        }
+    }
+
+    private void populateCollidableBlocks() {
+    	World world = GameScreen.instance.world;
+    	
+        collidable.clear();
+
+        Vector2 pos = this.getPosition().cpy();
+        
+        int size = world.getEntities().size;
+        for(int i = 0; i < size; i++){
+            Entity current = world.getEntities().get(i);
+            
+            if(current.isHidden()){
+            	continue;
+            }
+            
+            if (current.isCollideable() || current.isTouchable()) {
+                float xDist = Math.abs(current.getPosition().x - pos.x);
+                float yDist = Math.abs(current.getPosition().y - pos.y);
+
+                if (xDist < 1F && yDist < 1F) {
+                    collidable.add(current);
+                }
+            }
         }
     }
     
