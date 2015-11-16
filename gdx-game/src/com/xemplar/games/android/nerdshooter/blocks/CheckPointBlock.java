@@ -20,6 +20,7 @@
  */
 package com.xemplar.games.android.nerdshooter.blocks;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 
@@ -33,11 +34,23 @@ public class CheckPointBlock extends Block{
 		return true;
 	}
 	
+	public boolean isCollideable(){
+		return false;
+	}
+	
 	public void onTouch(Entity e){
-		e.setCheckPoint(position);
+		e.setCheckPoint(position.cpy().add(0, 0.25F));
 	}
 	
 	public final boolean isHidden(){
 		return true;
+	}
+	
+	public CheckPointBlock clone(Vector2 pos){
+		return new CheckPointBlock(pos);
+	}
+	
+	public void render(SpriteBatch batch){
+		
 	}
 }

@@ -71,14 +71,14 @@ public abstract class Entity extends Block{
 	
     public Entity(Vector2 position, float size, int health) {
         this(position, health);
-        this.bounds.height = size;
-        this.bounds.width = size;
+        this.bounds.height = new Float(size);
+        this.bounds.width = new Float(size);
     }
     
     public Entity(Vector2 position, float width, float height, int health) {
         this(position, health);
-        this.bounds.height = width;
-        this.bounds.width = height;
+        this.bounds.height = new Float(width);
+        this.bounds.width = new Float(height);
     }
     
 	public Entity(Vector2 position, String regionID, int health){
@@ -89,14 +89,14 @@ public abstract class Entity extends Block{
 
     public Entity(Vector2 position, String regionID, float size, int health){
         this(position, regionID, health);
-        this.bounds.height = size;
-        this.bounds.width = size;
+        this.bounds.height = new Float(size);
+        this.bounds.width = new Float(size);
 	}
     
     public Entity(Vector2 position, String regionID, float width, float height, int health){
         this(position, regionID, health);
-        this.bounds.height = width;
-        this.bounds.width = height;
+        this.bounds.height = new Float(width);
+        this.bounds.width = new Float(height);
 	}
     
     public void setState(State newState) {

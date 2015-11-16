@@ -44,7 +44,7 @@ public class Wall extends Entity{
 	}
 	
 	public boolean collideWithOthers(){
-        return true;
+        return !isDead();
     }
 	
 	public void updateEntity(float delta) {

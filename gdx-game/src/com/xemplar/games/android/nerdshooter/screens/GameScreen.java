@@ -128,9 +128,9 @@ public class GameScreen implements Screen, InputProcessor {
         long seconds = (long)((gameTicks / 60D) * 10L);
         
         if(gameTicks == 1L){
-//        	world.setBlock(3, 1, Block.ammo);
-//        	world.setBlock(3, 2, Block.launcher);
-//        	World.spawnEntity(new Wall(new Vector2(7, 1), "window", 20));
+        	world.setBlock(3, 1, Block.ammo);
+        	world.setBlock(3, 2, Block.launcher);
+        	World.spawnEntity(new Wall(new Vector2(7, 1), "window", 20));
         }
         
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);

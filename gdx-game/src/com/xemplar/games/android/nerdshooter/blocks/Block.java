@@ -153,6 +153,8 @@ public class Block {
 		public static ItemBlock key_green = new ItemBlock(empty, 0.5F, Item.GREEN_KEY.clone());
 		public static ItemBlock key_yellow = new ItemBlock(empty, 0.5F, Item.YELLOW_KEY.clone());
 		
+		public static CheckPointBlock checkPoint = new CheckPointBlock(empty);
+		
 		public static ItemBlock launcher = new ItemBlock(empty, 0.5F, Item.launch.clone());
 		public static ItemBlock ammo = new ItemBlock(empty, 0.5F, Item.ammo.clone(), 50);
 		

@@ -19,98 +19,7 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.model;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_center;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_cliff_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_cliff_left_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_cliff_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_cliff_right_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_half;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_half_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_half_mid;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_half_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_mid;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.castle_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_center;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_cliff_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_cliff_left_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_cliff_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_cliff_right_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_half;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_half_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_half_mid;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_half_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_mid;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.dirt_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.exit;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_center;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_cliff_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_cliff_left_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_cliff_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_cliff_right_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_half;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_half_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_half_mid;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_half_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_mid;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.grass_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.key_blue;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.key_green;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.key_red;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.key_yellow;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.lock_blue;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.lock_green;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.lock_red;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.lock_yellow;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.misc_lava;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.misc_lava_mid;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.misc_lava_top;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.misc_water;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.misc_water_mid;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.misc_water_top;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_center;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_cliff_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_cliff_left_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_cliff_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_cliff_right_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_half;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_half_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_half_mid;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_half_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_mid;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.sand_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_center;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_cliff_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_cliff_left_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_cliff_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_cliff_right_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_half;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_half_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_half_mid;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_half_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_mid;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.snow_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_center;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_cliff_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_cliff_left_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_cliff_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_cliff_right_a;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_half;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_half_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_half_mid;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_half_right;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_left;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_mid;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.stone_right;
+import static com.xemplar.games.android.nerdshooter.blocks.Block.*;
 
 import java.io.File;
 
@@ -473,8 +382,44 @@ public class Level {
         		return lock_yellow;
         	case "ext" :
         		return exit;
-        	default:
-        	return grass;
+        	case "ch" :
+        		return checkPoint;
+        	default:{
+        		Block b = getEntity(id);
+        		if(b != null && b instanceof Entity){
+        			World.spawnEntity((Entity)b);
+        		} else if(b != null){
+        			return b;
+        		} else {
+        			return grass;
+        		}
+        	}
         }
+		
+		return null;
+	}
+	
+	public Block getEntity(String id){
+		Entity b = null;
+		if(id.charAt(0) == 'e'){
+			String parse = id.substring(1);
+			String[] options = parse.split("t");
+			int name = Integer.parseInt(options[0]);
+			
+			switch(name){
+			case 0:{
+				return launcher;
+			}
+			case 1:{
+				int qnt = Integer.parseInt(options[1]);
+				return ammo.clone(empty, qnt);
+			}
+			case 2:{
+				
+			} break;
+			}
+		}
+		
+		return b;
 	}
 }

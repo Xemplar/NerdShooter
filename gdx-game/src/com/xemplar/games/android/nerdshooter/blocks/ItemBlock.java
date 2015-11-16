@@ -132,4 +132,9 @@ public class ItemBlock extends Block{
 		ItemBlock b = new ItemBlock(pos, bounds.width, bounds.height, stack.getMock(), stack.getCount());
 		return b;
 	}
+    
+    public ItemBlock clone(Vector2 pos, int qnt){
+		ItemBlock b = new ItemBlock(pos, bounds.width, bounds.height, stack.getMock(), qnt);
+		return b;
+	}
 }
