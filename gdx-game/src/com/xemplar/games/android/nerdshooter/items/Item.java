@@ -21,6 +21,7 @@
 package com.xemplar.games.android.nerdshooter.items;
 import com.xemplar.games.android.nerdshooter.blocks.ItemBlock;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.entities.Projectile;
 
 public class Item {
     public static Item BLUE_KEY = new Item(0, 8, "keyBlue");
@@ -28,13 +29,16 @@ public class Item {
     public static Item GREEN_KEY = new Item(2, 8, "keyGreen");
     public static Item YELLOW_KEY = new Item(3, 8, "keyYellow");
     
+    public static Launcher launch = new Launcher(4, "lava");
+    public static Ammo ammo = new Ammo(5, 100, Projectile.bullet);
+    
     public int id;
     public int maxStack;
     public String regionID;
     
-    private ItemBlock block;
+    protected ItemBlock block;
     
-    private Item(int id, int maxStack, String regionID){
+    protected Item(int id, int maxStack, String regionID){
         this.id = id;
         this.maxStack = maxStack;
         this.regionID = regionID;

@@ -47,7 +47,7 @@ public abstract class Entity extends Block{
     protected boolean facingLeft = true;
     
     public Entity(Vector2 position, int health) {
-		super(position, "tochLit");
+		super(position, "");
         this.position = position;
         this.bounds.height = 1F;
         this.bounds.width = 1F;
@@ -144,7 +144,10 @@ public abstract class Entity extends Block{
     
     public void kill(){
         this.health = 0;
+        onKill();
     }
+    
+    public void onKill(){}
     
     public void hurt(int amt){
         if(!isDead()){

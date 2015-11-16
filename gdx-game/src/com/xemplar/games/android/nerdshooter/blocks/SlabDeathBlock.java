@@ -20,37 +20,29 @@
  */
 package com.xemplar.games.android.nerdshooter.blocks;
 
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.math.*;
-import com.xemplar.games.android.nerdshooter.*;
-import com.xemplar.games.android.nerdshooter.entities.*;
-import com.xemplar.games.android.nerdshooter.screens.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.xemplar.games.android.nerdshooter.NerdShooter;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class SlabDeathBlock extends SlabBlock {
-    private static TextureRegion texR;
-    private static TextureRegion texY;
+	private static TextureRegion texR;
+	private static TextureRegion texY;
 	private static TextureRegion texB;
-    
+
     static{
-        Pixmap mapR = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
-        Pixmap mapY = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
-        Pixmap mapB = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
-
-        mapR.setColor(1, 0.5F, 1F, 1);
-        mapR.fillRectangle(0, 4, 8, 4);
-        texR = new TextureRegion(new Texture(mapR));
-
-        mapY.setColor(1, 1, 0.5F, 1);
-        mapY.fillRectangle(0, 4, 8, 4);
-        texY = new TextureRegion(new Texture(mapY));
-
-        mapB.setColor(0.5F, 0.5F, 1, 1);
-        mapB.fillRectangle(0, 4, 8, 4);
-        texB = new TextureRegion(new Texture(mapB));
+    	TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("textures/nerdshooter.atlas"));
+        texR = atlas.findRegion("sanic_half_bg0");
+        texY = atlas.findRegion("sanic_half_bg1");
+        texB = atlas.findRegion("sanic_half_bg2");
 	}
-    
-    protected SlabDeathBlock(Vector2 pos, String regionID, float width, float height, boolean top){
+	
+	protected SlabDeathBlock(Vector2 pos, String regionID, float width, float height, boolean top){
         super(pos, regionID, width, height, top);
     }
     
@@ -61,6 +53,11 @@ public class SlabDeathBlock extends SlabBlock {
     public void onTouch(Entity e) {
         e.kill();
     }
+    
+    public SlabDeathBlock clone(Vector2 pos){
+    	SlabDeathBlock b = new SlabDeathBlock(pos, regionID, bounds.width, bounds.height, top);
+		return b;
+	}
     
     public TextureRegion getTexture(){
         if(!NerdShooter.sanic){
@@ -78,13 +75,8 @@ public class SlabDeathBlock extends SlabBlock {
         }
 	}
     
-    public SlabDeathBlock clone(Vector2 pos){
-    	SlabDeathBlock b = new SlabDeathBlock(pos, regionID, bounds.width, bounds.height, top);
-		return b;
-	}
-    
     public void render(SpriteBatch batch, float ppuX, float ppuY) {
-        if(!isHidden()){
+        if(!isHidden() && getTexture() != null){
             batch.draw(getTexture(), getPosition().x * ppuX, getPosition().y * ppuY, getWidth() * ppuX, getHeight() * ppuY / getHeight());
         }
     }

@@ -30,6 +30,10 @@ import com.xemplar.games.android.nerdshooter.blocks.Block;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 import com.xemplar.games.android.nerdshooter.entities.Jaxon;
 import com.xemplar.games.android.nerdshooter.entities.MoveablePlatform;
+import com.xemplar.games.android.nerdshooter.items.Equippable;
+import com.xemplar.games.android.nerdshooter.items.Fireable;
+import com.xemplar.games.android.nerdshooter.items.Item;
+import com.xemplar.games.android.nerdshooter.items.ItemStack;
 import com.xemplar.games.android.nerdshooter.model.World;
 
 public class JaxonController {
@@ -40,7 +44,7 @@ public class JaxonController {
     private static final long LONG_JUMP_PRESS = 150l;
     private static final float ACCELERATION = 22f;
     private static final float GRAVITY = -20f;
-    private static final float MAX_JUMP_SPEED = 7f;
+    private static final float JUMP_HEIGHT = 7.25f;
     private static final float DAMP = 0.90f;
     private static final float MAX_VEL = 4f;
 
@@ -194,6 +198,20 @@ public class JaxonController {
         }
 
         jaxon.update(delta);
+        
+        if(isFireDown){
+        	int selected = jaxon.inventory.getSelectedItem();
+        	if(selected != -1){
+        		ItemStack stack = jaxon.inventory.getItem(selected);
+        		if(stack != null){
+        			Item mock = stack.getMock();
+            		if(mock instanceof Fireable){
+            			((Equippable) mock).onEquip(jaxon);
+            			((Fireable) mock).onFire();
+            		}
+        		}
+        	}
+        }
     }
 
     private void checkCollisionWithBlocks(float delta) {
@@ -239,7 +257,6 @@ public class JaxonController {
 
         for (Block block : collidable) {
             if (block == null) continue;
-
 			if (jaxonRect.overlaps(block.getBounds()) && (block.isTouchable())) {
                 block.onTouch(jaxon);
             }
@@ -255,11 +272,6 @@ public class JaxonController {
             }
         }
         jaxonRect.y = jaxon.getPosition().y;
-        
-        for(Entity e : world.getEntities()){
-    		world.getCollisionRects().add(e.getBounds());
-    	}
-        
         jaxon.getVelocity().scl(1 / delta);
     }
 
@@ -272,37 +284,21 @@ public class JaxonController {
             Block current = blocks[i];
             
 			if (current != null) {
-                if (current.isCollideable()) {
+                if (current.isCollideable() || current.isTouchable()) {
 				    float xDist = Math.abs(current.getPosition().x - pos.x);
 				    float yDist = Math.abs(current.getPosition().y - pos.y);
 
 				    if (xDist < 1F && yDist < 1F) {
 					    collidable.add(current);
 				    }
-                } else if (blocks[i].isTouchable()) {
-                    float xDist = Math.abs(current.getPosition().x - pos.x);
-                    float yDist = Math.abs(current.getPosition().y - pos.y);
-
-                    if (xDist < 1F && yDist < 1F) {
-                        collidable.add(current);
-				    }
                 }
 			}
 		}
         
         int size = world.getEntities().size;
-        
         for(int i = 0; i < size; i++){
             Entity current = world.getEntities().get(i);
-            
-            if (current.isCollideable()) {
-                float xDist = Math.abs(current.getPosition().x - pos.x);
-                float yDist = Math.abs(current.getPosition().y - pos.y);
-
-                if (xDist < 1F && yDist < 1F) {
-                    collidable.add(current);
-                }
-            } else if (current.isTouchable()) {
+            if (current.isCollideable() || current.isTouchable()) {
                 float xDist = Math.abs(current.getPosition().x - pos.x);
                 float yDist = Math.abs(current.getPosition().y - pos.y);
 
@@ -320,14 +316,14 @@ public class JaxonController {
 				jumpingPressed = true;
 				jumpPressedTime = System.currentTimeMillis();
 				jaxon.setState(Jaxon.State.JUMPING);
-				jaxon.getVelocity().y = MAX_JUMP_SPEED; 
+				jaxon.getVelocity().y = JUMP_HEIGHT; 
 				grounded = false;
 			} else {
 				if (jumpingPressed && ((System.currentTimeMillis() - jumpPressedTime) >= LONG_JUMP_PRESS)) {
 					jumpingPressed = false;
 				} else {
 					if (jumpingPressed) {
-						jaxon.getVelocity().y = MAX_JUMP_SPEED;
+						jaxon.getVelocity().y = JUMP_HEIGHT;
 					}
 				}
 			}

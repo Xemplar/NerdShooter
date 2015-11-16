@@ -22,9 +22,9 @@ package com.xemplar.games.android.nerdshooter.blocks;
 
 import java.util.Random;
 
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -153,6 +153,9 @@ public class Block {
 		public static ItemBlock key_green = new ItemBlock(empty, 0.5F, Item.GREEN_KEY.clone());
 		public static ItemBlock key_yellow = new ItemBlock(empty, 0.5F, Item.YELLOW_KEY.clone());
 		
+		public static ItemBlock launcher = new ItemBlock(empty, 0.5F, Item.launch.clone());
+		public static ItemBlock ammo = new ItemBlock(empty, 0.5F, Item.ammo.clone());
+		
 		public static LockBlock lock_blue = new LockBlock(empty, "lock_blue", Item.BLUE_KEY);
 		public static LockBlock lock_red = new LockBlock(empty, "lock_red", Item.RED_KEY);
 		public static LockBlock lock_green = new LockBlock(empty, "lock_green", Item.GREEN_KEY);
@@ -168,21 +171,10 @@ public class Block {
 	private static TextureRegion texB;
 	
 	static{
-        Pixmap mapR = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
-        Pixmap mapY = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
-        Pixmap mapB = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
-        
-		mapR.setColor(1, 0.5F, 1F, 1);
-		mapR.fill();
-		texR = new TextureRegion(new Texture(mapR));
-        
-		mapY.setColor(1, 1, 0.5F, 1);
-		mapY.fill();
-		texY = new TextureRegion(new Texture(mapY));
-		
-		mapB.setColor(0.5F, 0.5F, 1, 1);
-		mapB.fill();
-		texB = new TextureRegion(new Texture(mapB));
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("textures/nerdshooter.atlas"));
+        texR = atlas.findRegion("sanic_bg0");
+        texB = atlas.findRegion("sanic_bg1");
+        texY = atlas.findRegion("sanic_bg2");
 	}
 	
 	public String regionID;
@@ -280,15 +272,15 @@ public class Block {
 		return b;
 	}
 	
-    public void render(SpriteBatch batch, float ppuX, float ppuY){
+    public void render(SpriteBatch batch){
         if(!isHidden()){
-            batch.draw(getTexture(), getPosition().x * ppuX, getPosition().y * ppuY, getWidth() * ppuX, getHeight() * ppuY);
+            batch.draw(getTexture(), getPosition().x, getPosition().y, getWidth(), getHeight());
         }   
     }
     
-    public void render(TextureRegion region, SpriteBatch batch, float ppuX, float ppuY){
+    public void render(TextureRegion region, SpriteBatch batch){
         if(!isHidden()){
-            batch.draw(region, getPosition().x * ppuX, getPosition().y * ppuY, getWidth() * ppuX, getHeight() * ppuY);
+            batch.draw(region, getPosition().x, getPosition().y, getWidth(), getHeight());
         }   
     }
 }

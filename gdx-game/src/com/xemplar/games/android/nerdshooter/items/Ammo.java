@@ -18,18 +18,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.xemplar.games.android.nerdshooter.blocks;
+package com.xemplar.games.android.nerdshooter.items;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.xemplar.games.android.nerdshooter.entities.Projectile;
 
-public class AnimatedBlock extends Block {
-
-	protected AnimatedBlock(Vector2 pos, String regionID, String atlas) {
-		super(pos, regionID);
+public class Ammo extends Item {
+	protected Projectile pro;
+	
+	protected Ammo(int id, int maxStack, Projectile pro) {
+		super(id, maxStack, pro.regionID);
+		this.pro = pro;
 	}
 	
-	public void render(SpriteBatch b){
-		
+	public void launch(Vector2 pos, float speed, float deg){
+		pro.launch(pos, speed, deg);
 	}
+	
+	public Ammo clone(){
+        return new Ammo(id, maxStack, pro);
+    }
 }

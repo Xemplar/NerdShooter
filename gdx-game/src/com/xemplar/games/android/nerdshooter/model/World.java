@@ -57,6 +57,10 @@ public class World {
 		GameScreen.instance.world.getLevel().getEntities().removeValue(e, false);
 	}
 	
+	public void setBlock(int x, int y, Block b){
+		level.getBlocks()[x + y * level.getWidth()] = b.clone(new Vector2(x, y));
+	}
+	
 	public Block getBlock(Vector2 pos){
 		Array<Block> blocks = getBlocks(level.getWidth(), level.getHeight());
 		for(Block block : blocks){

@@ -29,6 +29,7 @@ import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class ItemStack {
 	protected Array<Item> items;
+	protected Item mock;
 	protected int id = 0;
 	protected int maxAmt;
 	
@@ -36,6 +37,7 @@ public class ItemStack {
 		this.items = items;
 		
 		if(items != null){
+			mock = items.get(0).clone();
 			if(items.size > 0){
 				this.id = items.get(0).id;
 				this.maxAmt = items.get(0).maxStack;
@@ -44,6 +46,7 @@ public class ItemStack {
 				this.maxAmt = 0;
 			}
 		} else {
+			this.mock = null;
 			this.items = new Array<Item>();
 			this.id = -1;
 			this.maxAmt = 0;
@@ -62,6 +65,7 @@ public class ItemStack {
 		if(this.items.size == 0 && items.size > 0){
 			this.id = items.get(0).id;
 			this.maxAmt = items.get(0).maxStack;
+			this.mock = items.get(0).clone();
 		}
 		
 		if(items.size == 0){
@@ -91,6 +95,7 @@ public class ItemStack {
 		if(this.items.size == 0){
 			this.id = item.id;
 			this.maxAmt = items.get(0).maxStack;
+			this.mock = items.get(0).clone();
 		}
 		
 		if(item.id != this.id){
@@ -116,6 +121,7 @@ public class ItemStack {
 		}
 		
 		if(this.items.size == 0){
+			this.mock = null;
 			this.id = -1;
 			this.maxAmt = 0;
 		}
@@ -137,6 +143,8 @@ public class ItemStack {
 		
 		if(this.items.size == 0){
 			this.id = -1;
+			this.maxAmt = 0;
+			this.mock = null;
 		}
 		
 		return item;
@@ -163,10 +171,21 @@ public class ItemStack {
 		return this.maxAmt;
 	}
 	
+	public Item getMock(){
+		if(mock != null){
+			return this.mock.clone();
+		}
+		return null;
+	}
+	
 	public void render(SpriteBatch batch, int x, int y, int size){
 		TextureRegion region = GameScreen.getTextureAltlas().findRegion(this.getRegionID());
         
-        NerdShooter.text.draw(batch, getCount() + "", x, y + (size / 4));
-        batch.draw(region, x, y, size, size);
+		if(region != null){
+			batch.draw(region, x, y, size, size);
+		}
+        
+		NerdShooter.text.draw(batch, getCount() + "", x, y + (size / 4));
+        
 	}
 }

@@ -21,7 +21,6 @@
 package com.xemplar.games.android.nerdshooter.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -29,6 +28,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
 import com.xemplar.games.android.nerdshooter.inventory.Inventory;
+import com.xemplar.games.android.nerdshooter.items.ItemStack;
+import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class Jaxon extends Entity{
     private static final float RUNNING_FRAME_DURATION = 0.06f;
@@ -38,6 +39,7 @@ public class Jaxon extends Entity{
     private TextureRegion jaxonFrame;
     
     private float drawX;
+    private boolean fliped;
     
     private Animation walkLeftAnimation;
     private Animation walkRightAnimation;
@@ -54,9 +56,9 @@ public class Jaxon extends Entity{
 	}
     
     public void loadTextures() {
-    	if(!NerdShooter.sanic){
-    		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("textures/nerdshooter.pack"));
+    	TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("textures/nerdshooter.atlas"));
 
+    	if(!NerdShooter.sanic){
         	jaxonIdleLeft = atlas.findRegion("jaxon00");
 
         	jaxonIdleRight = new TextureRegion(jaxonIdleLeft);
@@ -81,17 +83,17 @@ public class Jaxon extends Entity{
         	
         	return;
     	}
-    	jaxonIdleLeft = new TextureRegion(new Texture(Gdx.files.internal("sanic.png")));
+    	jaxonIdleLeft = atlas.findRegion("sanic");
 
         jaxonIdleRight = new TextureRegion(jaxonIdleLeft);
         jaxonIdleRight.flip(true, false);
 
         TextureRegion[] walkLeftFrames = new TextureRegion[4];
 
-        walkLeftFrames[0] = new TextureRegion(new Texture(Gdx.files.internal("sanic.png")));
-        walkLeftFrames[1] = new TextureRegion(new Texture(Gdx.files.internal("sanic.png")));
-        walkLeftFrames[2] = new TextureRegion(new Texture(Gdx.files.internal("sanic.png")));
-        walkLeftFrames[3] = new TextureRegion(new Texture(Gdx.files.internal("sanic.png")));
+        walkLeftFrames[0] = atlas.findRegion("sanic");
+        walkLeftFrames[1] = atlas.findRegion("sanic");
+        walkLeftFrames[2] = atlas.findRegion("sanic");
+        walkLeftFrames[3] = atlas.findRegion("sanic");
 
         walkLeftAnimation = new Animation(RUNNING_FRAME_DURATION, walkLeftFrames);
 
@@ -127,15 +129,32 @@ public class Jaxon extends Entity{
 		}
 	}
 
-    public void render(SpriteBatch batch, float ppuX, float ppuY) {
+    public void render(SpriteBatch batch) {
         jaxonFrame = isFacingLeft() ? jaxonIdleLeft : jaxonIdleRight;
         if(getState().equals(Jaxon.State.WALKING)) {
             jaxonFrame = isFacingLeft() ? walkLeftAnimation.getKeyFrame(getStateTime(), true) : walkRightAnimation.getKeyFrame(getStateTime(), true);
         }
         
         if(!isHidden()){
-            batch.draw(jaxonFrame, (getPosition().x - drawX) * ppuX, getPosition().y * ppuY, (1.0F / 2F) * ppuX, (1.0F / 2F) * ppuY);
+            batch.draw(jaxonFrame, (getPosition().x - drawX), getPosition().y, (0.5F), (0.5F));
         }
+        
+        int selected = inventory.getSelectedItem();
+    	if(selected != -1){
+    		ItemStack stack = inventory.getItem(selected);
+    		if(stack != null){
+    			float x = isFacingLeft() ? (getPosition().x - drawX) : (getPosition().x - drawX) + getWidth() * 0.75F;
+    			TextureRegion reg = GameScreen.getTextureAltlas().findRegion(stack.getMock().regionID);
+    			if(isFacingLeft() && !fliped){
+    				reg.flip(true, false);
+    				fliped = true;
+    			} else if(!isFacingLeft() && fliped){
+    				reg.flip(true, false);
+    				fliped = false;
+    			}
+    			batch.draw(reg, x, (getPosition().y + ((getHeight() / 2F) - 0.25F)), 0.25F, 0.25F);
+    		}
+    	}
     }
 }
 

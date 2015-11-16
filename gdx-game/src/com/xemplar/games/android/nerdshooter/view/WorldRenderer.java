@@ -47,13 +47,8 @@ public class WorldRenderer {
 	private Vector2 center = new Vector2();
     ShapeRenderer debugRenderer = new ShapeRenderer();
 	
-    /** Inventory **/
-	
     private SpriteBatch spriteBatch;
-	
     private boolean debug = false;
-    private float ppuX;
-    private float ppuY;
 	
     public WorldRenderer(World world, boolean debug) {
         this.world = world;
@@ -105,21 +100,21 @@ public class WorldRenderer {
     	Array<Block> blocks = world.getVisbleBlocks((int) CAMERA_WIDTH, (int) CAMERA_HEIGHT);
     	
         for (Block block : blocks) {
-            block.render(spriteBatch, ppuX, ppuY);
+            block.render(spriteBatch);
         }
     }
 
     private void drawJaxon() {
         Jaxon jaxon = world.getJaxon();
         
-        jaxon.render(spriteBatch, ppuX, ppuY);
+        jaxon.render(spriteBatch);
     }
 	
 	private void drawEntities(){
 		Array<Entity> entites = world.getEntities();
 		
 		for(Entity entity : entites){
-            entity.render(spriteBatch, ppuX, ppuY);
+            entity.render(spriteBatch);
 		}
 	}
 
@@ -142,8 +137,6 @@ public class WorldRenderer {
 	public void setSize (int w, int h) {
         this.width = w;
         this.height = h;
-        ppuX = 1;
-        ppuY = 1;
     }
 }
 

@@ -27,7 +27,8 @@ import com.badlogic.gdx.math.Vector2;
 public class Projectile extends Entity {
 	//Projectile Definitions
 	
-		public static Projectile bush = new Projectile(empty, "bush", 1);
+	public static Projectile bush = new Projectile(empty, "bush", 1);
+	public static DeathProjectile bullet = new DeathProjectile(empty, "window", 1);
 	
 	// Start Class
 	protected float speed, deg;
@@ -41,16 +42,16 @@ public class Projectile extends Entity {
 		return false;
 	}
 
+	public boolean isCollideable(){
+		return false;
+	}
+	
 	public boolean isHidden(){
 		return false;
 	}
 	
 	public boolean hasInvSpace() {
 		return false;
-	}
-	
-	public boolean isCollideable(){
-		return true;
 	}
 	
 	protected void setVelocity(float speed, float deg){
@@ -70,11 +71,12 @@ public class Projectile extends Entity {
 	
 	public void updateEntity(float delta) {
 		this.position.mulAdd(velocity.cpy(), delta);
+		this.bounds.setPosition(this.position);
 	}
 	
-	public void render(SpriteBatch batch, float ppuX, float ppuY){
+	public void render(SpriteBatch batch){
 		if(!isHidden()){
-            batch.draw(getTexture(), getPosition().x * ppuX, getPosition().y * ppuY, getWidth() * ppuX, getHeight() * ppuY);
+            batch.draw(getTexture(), getPosition().x, getPosition().y, getWidth(), getHeight());
         }  
 	}
 }

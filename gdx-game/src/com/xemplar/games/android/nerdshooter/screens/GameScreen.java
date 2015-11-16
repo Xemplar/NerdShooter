@@ -41,6 +41,7 @@ import com.xemplar.games.android.nerdshooter.NerdShooter;
 import com.xemplar.games.android.nerdshooter.blocks.ExitBlock;
 import com.xemplar.games.android.nerdshooter.controller.JaxonController;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.entities.Jaxon;
 import com.xemplar.games.android.nerdshooter.model.World;
 import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
 import com.xemplar.games.android.nerdshooter.utils.XPMLItem;
@@ -51,8 +52,9 @@ public class GameScreen implements Screen, InputProcessor {
     public static GameScreen instance;
     public static long gameTicks = 0L;
 	private static TextureAtlas atlas;
-	private Rectangle left, right, jump, sanic;
+	private Rectangle left, right, jump, fire, sanic;
     public World world;
+    private Jaxon jaxon;
     public float buttonSize = 0F;
     
     private static int levelNum;
@@ -64,7 +66,7 @@ public class GameScreen implements Screen, InputProcessor {
 	private ShapeRenderer button;
 	private SpriteBatch batch;
 	private BitmapFont font;
-    private int width, height;
+    public int width, height;
 	
 	private TextureRegion controlLeft;
 	private TextureRegion controlRight;
@@ -75,8 +77,8 @@ public class GameScreen implements Screen, InputProcessor {
         
         levelNum = level;
         
-        tex = new Texture(Gdx.files.internal("scatt.jpg"));
-		atlas = new TextureAtlas(Gdx.files.internal("textures/nerdshooter.pack"));
+        tex = new Texture(Gdx.files.internal("scatt.png"));
+		atlas = new TextureAtlas(Gdx.files.internal("textures/nerdshooter.atlas"));
 		
 		font = NerdShooter.gen.generateFont(NerdShooter.params);
 		font.setColor(1, 1, 1, 1);
@@ -92,6 +94,8 @@ public class GameScreen implements Screen, InputProcessor {
 		controlUp = atlas.findRegion("HUDJump");
 		
 		world = new World(level);
+		jaxon = world.getJaxon();
+		
 		button = new ShapeRenderer();
 		batch = new SpriteBatch();
 		
@@ -99,6 +103,7 @@ public class GameScreen implements Screen, InputProcessor {
 		right = new Rectangle();
 		
 		jump = new Rectangle();
+		fire = new Rectangle();
 		sanic = new Rectangle();
 	}
 	
@@ -118,6 +123,11 @@ public class GameScreen implements Screen, InputProcessor {
 		
         long seconds = (long)((gameTicks / 60D) * 10L);
         
+        if(gameTicks == 1L){
+        	//world.setBlock(3, 1, Block.ammo);
+        	//world.setBlock(3, 2, Block.launcher);
+        }
+        
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
         
@@ -136,9 +146,10 @@ public class GameScreen implements Screen, InputProcessor {
 
                 button.setColor(1.0F, 1.0F, 1.0F, 0.5F);
                 button.rect(jump.x, jump.y, jump.width, jump.height);
+                button.rect(fire.x, fire.y, fire.width, fire.height);
             }
             
-            world.getJaxon().inventory.renderGUI(button, width, height, buttonSize * 0.75F);
+            jaxon.inventory.renderGUI(button, width, height, buttonSize * 0.75F);
         } button.end();
         
         batch.begin(); {
@@ -148,7 +159,7 @@ public class GameScreen implements Screen, InputProcessor {
 				batch.draw(controlUp, jump.x, jump.y, jump.width, jump.height);
             }
             
-            world.getJaxon().inventory.renderItems(batch, width, height, buttonSize * 0.75F);
+            jaxon.inventory.renderItems(batch, width, height, buttonSize * 0.75F);
             font.draw(batch, "Time: " + (seconds / 10D) + " seconds, FPS: " + Gdx.graphics.getFramesPerSecond(), 0, height - 10);
         } batch.end();
     }
@@ -171,19 +182,21 @@ public class GameScreen implements Screen, InputProcessor {
 		buttonSize = height / NerdShooter.BUTTON_HEIGHT;
 		
 		left.set(buttonSize / 2F, buttonSize / 2F, buttonSize, buttonSize);
-		right.set(buttonSize * 2, buttonSize / 2F, buttonSize, buttonSize);
+		right.set(buttonSize * 2F, buttonSize / 2F, buttonSize, buttonSize);
 		
-		jump.set(width - (buttonSize * 3/2), buttonSize / 2F, buttonSize, buttonSize);
+		jump.set(width - (buttonSize * 3F/2F), buttonSize / 2F, buttonSize, buttonSize);
+		fire.set(width - (buttonSize * 3F/2F), buttonSize * 2F, buttonSize, buttonSize);
+		
 		sanic.set(width - buttonSize, height - buttonSize, buttonSize, buttonSize);
 		
 		if(!NerdShooter.PREF_LEFTY){
 			left.set(buttonSize / 2F, buttonSize / 2F, buttonSize, buttonSize);
-			right.set(buttonSize * 2, buttonSize / 2F, buttonSize, buttonSize);
+			right.set(buttonSize * 2F, buttonSize / 2F, buttonSize, buttonSize);
 			
-			jump.set(width - (buttonSize * 3/2), buttonSize / 2F, buttonSize, buttonSize);
+			jump.set(width - (buttonSize * 3F/2F), buttonSize / 2F, buttonSize, buttonSize);
 		} else {
-			left.set(width - (buttonSize * 3), buttonSize / 2F, buttonSize, buttonSize);
-			right.set(width - (buttonSize * 3/2), buttonSize / 2F, buttonSize, buttonSize);
+			left.set(width - (buttonSize * 3F), buttonSize / 2F, buttonSize, buttonSize);
+			right.set(width - (buttonSize * 3F/2F), buttonSize / 2F, buttonSize, buttonSize);
 			
 			jump.set(buttonSize / 2F, buttonSize / 2F, buttonSize, buttonSize);
 		}
@@ -225,7 +238,7 @@ public class GameScreen implements Screen, InputProcessor {
         	if (keycode == Keys.RIGHT){
         		controller.rightPressed(-1);
         	}
-        	if (keycode == Keys.Z){
+        	if (keycode == Keys.SPACE){
 				controller.jumpPressed(-1);
         	}
         	if (keycode == Keys.X){
@@ -239,12 +252,25 @@ public class GameScreen implements Screen, InputProcessor {
     	
     	if (keycode == Keys.S && NerdShooter.sanic){
         	NerdShooter.sanic = false;
-        	world.getJaxon().loadTextures();
+        	jaxon.loadTextures();
         	StartScreen.reloadMusic();
     	} else if (keycode == Keys.S && !NerdShooter.sanic){
         	NerdShooter.sanic = true;
-        	world.getJaxon().loadTextures();
+        	jaxon.loadTextures();
         	StartScreen.reloadMusic();
+    	}
+    	
+    	if (keycode == Keys.NUM_1){
+	    	jaxon.inventory.setSelctedItem(3);
+		}
+    	if (keycode == Keys.NUM_2){
+    		jaxon.inventory.setSelctedItem(2);
+    	}
+    	if (keycode == Keys.NUM_3){
+    		jaxon.inventory.setSelctedItem(1);
+    	}
+    	if (keycode == Keys.NUM_4){
+    		jaxon.inventory.setSelctedItem(0);
     	}
     	
         return true;
@@ -271,7 +297,7 @@ public class GameScreen implements Screen, InputProcessor {
         	if (keycode == Keys.RIGHT){
 		    	controller.rightReleased();
         	}
-        	if (keycode == Keys.Z){
+        	if (keycode == Keys.SPACE){
 		    	controller.jumpReleased();
         	}
         	if (keycode == Keys.X){
@@ -303,16 +329,16 @@ public class GameScreen implements Screen, InputProcessor {
             if(sanic.contains(x, (y - height) * -1)){
                 if (NerdShooter.sanic){
                     NerdShooter.sanic = false;
-                    world.getJaxon().loadTextures();
+                    jaxon.loadTextures();
                     StartScreen.reloadMusic();
 
                     numPressed = 0;
                 } else if (!NerdShooter.sanic){
                     System.out.println(numPressed);
                     if(numPressed == 2){
-                        NerdShooter.sanic = true;
-                        world.getJaxon().loadTextures();
-                        StartScreen.reloadMusic();
+                        //NerdShooter.sanic = true;
+                        //jaxon.loadTextures();
+                        //StartScreen.reloadMusic();
                     }
 
                     numPressed++;
@@ -323,7 +349,7 @@ public class GameScreen implements Screen, InputProcessor {
 			return true;
 		}
 		
-		return false;
+		return jaxon.inventory.pressed(x, (y - height) * -1);
     }
 	
     public boolean touchUp(int x, int y, int pointer, int button) {
