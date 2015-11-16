@@ -20,34 +20,88 @@
  */
 package com.xemplar.games.android.nerdshooter.blocks;
 
-import com.badlogic.gdx.math.*;
-import com.xemplar.games.android.nerdshooter.items.*;
-import com.xemplar.games.android.nerdshooter.entities.*;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.items.Item;
+import com.xemplar.games.android.nerdshooter.items.ItemStack;
 
 public class ItemBlock extends Block{
-    protected Item item;
+    protected ItemStack stack;
     protected boolean canBeTaken = true;
     
     protected ItemBlock(Vector2 pos, Item item){
         super(pos, item.regionID);
-        this.item = item;
-        this.item.setBlock(this);
+        Array<Item> items = new Array<Item>();
+        items.add(item);
+        this.stack = new ItemStack(items);
+        for(Item i : items){
+        	i.setBlock(this);
+        }
     }
     
     protected ItemBlock(Vector2 pos, float size, Item item){
         super(pos, item.regionID);
         this.bounds.width = size;
         this.bounds.height = size;
-        this.item = item;
-        this.item.setBlock(this);
+        Array<Item> items = new Array<Item>();
+        items.add(item);
+        this.stack = new ItemStack(items);
+        for(Item i : items){
+        	i.setBlock(this);
+        }
     }
 
     protected ItemBlock(Vector2 pos, float width, float height, Item item){
         super(pos, item.regionID);
         this.bounds.width = width;
         this.bounds.height = height;
-        this.item = item;
-        this.item.setBlock(this);
+        Array<Item> items = new Array<Item>();
+        items.add(item);
+        this.stack = new ItemStack(items);
+        for(Item i : items){
+        	i.setBlock(this);
+        }
+    }
+    
+    protected ItemBlock(Vector2 pos, Item item, int qnt){
+        super(pos, item.regionID);
+        Array<Item> items = new Array<Item>();
+        for(int i = 0; i < qnt; i++){
+        	items.add(item.clone());
+        }
+        this.stack = new ItemStack(items);
+        for(Item i : items){
+        	i.setBlock(this);
+        }
+    }
+    
+    protected ItemBlock(Vector2 pos, float size, Item item, int qnt){
+        super(pos, item.regionID);
+        this.bounds.width = size;
+        this.bounds.height = size;
+        Array<Item> items = new Array<Item>();
+        for(int i = 0; i < qnt; i++){
+        	items.add(item.clone());
+        }
+        this.stack = new ItemStack(items);
+        for(Item i : items){
+        	i.setBlock(this);
+        }
+    }
+
+    protected ItemBlock(Vector2 pos, float width, float height, Item item, int qnt){
+        super(pos, item.regionID);
+        this.bounds.width = width;
+        this.bounds.height = height;
+        Array<Item> items = new Array<Item>();
+        for(int i = 0; i < qnt; i++){
+        	items.add(item.clone());
+        }
+        this.stack = new ItemStack(items);
+        for(Item i : items){
+        	i.setBlock(this);
+        }
     }
     
     public boolean isCollideable() {
@@ -62,19 +116,20 @@ public class ItemBlock extends Block{
         return canBeTaken;
     }
     
-    public void returnItem(){
+    public void returnItem(Item i){
+    	stack.add(i);
         canBeTaken = true;
     }
     
     public void onTouch(Entity e){
         if(e.hasInventory() && e.hasInvSpace() && canBeTaken){
-            e.inventory.addItem(item);
+            e.inventory.addItems(stack.getAll());
             canBeTaken = false;
         }
     }
     
     public ItemBlock clone(Vector2 pos){
-		ItemBlock b = new ItemBlock(pos, bounds.width, bounds.height, item.clone());
+		ItemBlock b = new ItemBlock(pos, bounds.width, bounds.height, stack.getMock(), stack.getCount());
 		return b;
 	}
 }

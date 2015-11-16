@@ -25,8 +25,16 @@ import com.xemplar.games.android.nerdshooter.model.World;
 
 public class DeathProjectile extends Projectile{
 
-	public DeathProjectile(Vector2 position, String regionID, int health) {
-		super(position, regionID, health);
+	public DeathProjectile(Vector2 position, String regionID) {
+		super(position, regionID);
+	}
+	
+	public DeathProjectile(Vector2 position, String regionID, float size) {
+		super(position, regionID, size);
+	}
+	
+	public DeathProjectile(Vector2 position, String regionID, float width, float height) {
+		super(position, regionID, width, height);
 	}
 	
 	public boolean isTouchable(){
@@ -38,13 +46,14 @@ public class DeathProjectile extends Projectile{
 		this.kill();
 	}
 	
-	public DeathProjectile launch(Vector2 pos, float speed, float deg){
-		DeathProjectile pro = new DeathProjectile(pos, regionID, health);
-		pro.setVelocity(speed, deg);
-		return pro;
-	}
-	
 	public void onKill(){
 		World.despawnEntity(this);
+	}
+	
+	public DeathProjectile launch(Vector2 pos, float speed, float deg){
+		DeathProjectile pro = new DeathProjectile(pos, regionID);
+		pro.setVelocity(speed, deg);
+		World.spawnEntity(pro);
+		return pro;
 	}
 }

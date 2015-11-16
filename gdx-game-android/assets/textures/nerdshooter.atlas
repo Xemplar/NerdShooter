@@ -885,6 +885,20 @@ jaxon02
   orig: 32, 32
   offset: 0, 0
   index: -1
+gun
+  rotate: false
+  xy: 577, 676
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+bullet
+  rotate: false
+  xy: 611, 710
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 sanic_half_bg1
   rotate: false
   xy: 131, 684
@@ -908,21 +922,21 @@ sanic_bg0
   index: -1
 sanic_half_bg2
   rotate: false
-  xy: 577, 684
+  xy: 69, 26
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 sanic_bg1
   rotate: false
-  xy: 611, 718
+  xy: 577, 666
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 sanic_half_bg0
   rotate: false
-  xy: 69, 26
+  xy: 595, 684
   size: 8, 8
   orig: 8, 8
   offset: 0, 0

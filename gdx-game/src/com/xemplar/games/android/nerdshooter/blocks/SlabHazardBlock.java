@@ -42,8 +42,8 @@ public class SlabHazardBlock extends SlabBlock {
         texB = atlas.findRegion("sanic_half_bg2");
 	}
 	
-	protected int hurtAmount = 0;
-	
+    protected int hurtAmount = 0;
+    
     protected SlabHazardBlock(Vector2 pos, String regionID, float width, float height, boolean top, int removeHealth){
         super(pos, regionID, width, height, top);
         this.hurtAmount = removeHealth;

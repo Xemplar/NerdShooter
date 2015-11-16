@@ -38,6 +38,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
+import com.xemplar.games.android.nerdshooter.blocks.Block;
 import com.xemplar.games.android.nerdshooter.blocks.ExitBlock;
 import com.xemplar.games.android.nerdshooter.controller.JaxonController;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
@@ -73,6 +74,7 @@ public class GameScreen implements Screen, InputProcessor {
 	private TextureRegion controlUp;
 	
 	public GameScreen(int level){
+		gameTicks = 0L;
         instance = this;
         
         levelNum = level;
@@ -124,8 +126,8 @@ public class GameScreen implements Screen, InputProcessor {
         long seconds = (long)((gameTicks / 60D) * 10L);
         
         if(gameTicks == 1L){
-        	//world.setBlock(3, 1, Block.ammo);
-        	//world.setBlock(3, 2, Block.launcher);
+        	world.setBlock(3, 1, Block.ammo);
+        	world.setBlock(3, 2, Block.launcher);
         }
         
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);

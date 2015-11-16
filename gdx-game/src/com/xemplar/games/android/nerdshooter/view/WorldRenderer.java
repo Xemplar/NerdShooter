@@ -127,6 +127,12 @@ public class WorldRenderer {
 			debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
 		}
 		
+		for(Entity e : world.getEntities()){
+			Rectangle rect = e.getBounds();
+			debugRenderer.setColor(new Color(0, 1, 1, 1));
+			debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
+		}
+		
 		Jaxon jaxon = world.getJaxon();
 		Rectangle rect = jaxon.getBounds();
 		debugRenderer.setColor(new Color(0, 1, 0, 1));

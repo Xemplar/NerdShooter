@@ -29,7 +29,7 @@ public class Item {
     public static Item GREEN_KEY = new Item(2, 8, "keyGreen");
     public static Item YELLOW_KEY = new Item(3, 8, "keyYellow");
     
-    public static Launcher launch = new Launcher(4, "lava");
+    public static Launcher launch = new Launcher(4, "gun");
     public static Ammo ammo = new Ammo(5, 100, Projectile.bullet);
     
     public int id;
@@ -55,7 +55,7 @@ public class Item {
     public void returnToBlock(Entity e){
         e.inventory.removeItem(this);
         if(block != null){
-            block.returnItem();
+            block.returnItem(this);
         }
     }
     

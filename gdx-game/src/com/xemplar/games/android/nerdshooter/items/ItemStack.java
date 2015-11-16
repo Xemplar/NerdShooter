@@ -94,8 +94,8 @@ public class ItemStack {
 		
 		if(this.items.size == 0){
 			this.id = item.id;
-			this.maxAmt = items.get(0).maxStack;
-			this.mock = items.get(0).clone();
+			this.maxAmt = item.maxStack;
+			this.mock = item.clone();
 		}
 		
 		if(item.id != this.id){
@@ -150,6 +150,20 @@ public class ItemStack {
 		return item;
 	}
 	
+	public Array<Item> getAll(){
+		Array<Item> ret = new Array<Item>();
+		for(Item item : items){
+			ret.add(item);
+		}
+		
+		items.clear();
+		this.id = -1;
+		this.maxAmt = 0;
+		this.mock = null;
+		
+		return ret;
+	}
+	
 	public void returnStackToBlock(Entity master){
 		for(int i = 0; i < items.size; i++){
 			items.get(0).returnToBlock(master);
@@ -185,7 +199,8 @@ public class ItemStack {
 			batch.draw(region, x, y, size, size);
 		}
         
-		NerdShooter.text.draw(batch, getCount() + "", x, y + (size / 4));
-        
+		if(getMaxStack() > 1){
+			NerdShooter.text.draw(batch, getCount() + "", x, y + (size / 4));
+		}
 	}
 }

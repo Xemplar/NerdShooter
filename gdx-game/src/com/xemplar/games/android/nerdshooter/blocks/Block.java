@@ -35,7 +35,7 @@ import com.xemplar.games.android.nerdshooter.items.Item;
 import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class Block {
-	protected static final Vector2 empty = new Vector2(2, 2);
+	public static final Vector2 empty = new Vector2(2, 2);
 	//Block Definitions
 		//Grass
 		public static Block grass = new Block(empty, "grass");
@@ -154,7 +154,7 @@ public class Block {
 		public static ItemBlock key_yellow = new ItemBlock(empty, 0.5F, Item.YELLOW_KEY.clone());
 		
 		public static ItemBlock launcher = new ItemBlock(empty, 0.5F, Item.launch.clone());
-		public static ItemBlock ammo = new ItemBlock(empty, 0.5F, Item.ammo.clone());
+		public static ItemBlock ammo = new ItemBlock(empty, 0.5F, Item.ammo.clone(), 50);
 		
 		public static LockBlock lock_blue = new LockBlock(empty, "lock_blue", Item.BLUE_KEY);
 		public static LockBlock lock_red = new LockBlock(empty, "lock_red", Item.RED_KEY);

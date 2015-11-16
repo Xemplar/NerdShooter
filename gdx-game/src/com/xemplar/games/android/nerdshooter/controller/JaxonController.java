@@ -59,6 +59,8 @@ public class JaxonController {
 	public int rightPointer;
 	public int jumpPointer;
 	public int firePointer;
+	
+	private boolean fired = false;
 
 	private Array<Block> collidable = new Array<Block>();
 
@@ -199,7 +201,12 @@ public class JaxonController {
 
         jaxon.update(delta);
         
-        if(isFireDown){
+        if(!isFireDown){
+        	fired = false;
+        }
+        
+        if(isFireDown && !fired){
+        	fired = true;
         	int selected = jaxon.inventory.getSelectedItem();
         	if(selected != -1){
         		ItemStack stack = jaxon.inventory.getItem(selected);

@@ -18,24 +18,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.xemplar.games.android.nerdshooter.items;
+package com.xemplar.games.android.nerdshooter.entities;
 
 import com.badlogic.gdx.math.Vector2;
-import com.xemplar.games.android.nerdshooter.entities.Projectile;
+import com.xemplar.games.android.nerdshooter.model.World;
 
-public class Ammo extends Item {
-	protected Projectile pro;
+public class HazardProjectile extends Projectile{
+	protected int hurtAmount = 0;
 	
-	protected Ammo(int id, int maxStack, Projectile pro) {
-		super(id, maxStack, pro.regionID);
-		this.pro = pro;
+	public HazardProjectile(Vector2 position, String regionID, int damageAmt) {
+		super(position, regionID);
+		this.hurtAmount = damageAmt;
 	}
 	
-	public void launch(Vector2 pos, float speed, float deg){
-		this.pro.launch(pos, speed, deg);
-	}
-	
-	public Ammo clone(){
-        return new Ammo(id, maxStack, pro);
+	public void onTouch(Entity e) {
+        e.hurt(hurtAmount);
+        this.kill();
     }
+	
+	public void onKill(){
+		World.despawnEntity(this);
+	}
+	
+	public HazardProjectile launch(Vector2 pos, float speed, float deg){
+		HazardProjectile pro = new HazardProjectile(pos, regionID, health);
+		pro.setVelocity(speed, deg);
+		World.spawnEntity(pro);
+		return pro;
+	}
 }

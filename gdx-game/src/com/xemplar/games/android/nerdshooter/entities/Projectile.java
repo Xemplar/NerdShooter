@@ -24,21 +24,30 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-public class Projectile extends Entity {
+public abstract class Projectile extends Entity {
 	//Projectile Definitions
 	
-	public static Projectile bush = new Projectile(empty, "bush", 1);
-	public static DeathProjectile bullet = new DeathProjectile(empty, "window", 1);
-	
+	public static DeathProjectile bullet = new DeathProjectile(empty, "bullet", 0.75F, 0.125F);
+
 	// Start Class
 	protected float speed, deg;
 	
-	public Projectile(Vector2 position, String regionID, int health) {
-		super(position, regionID, health);
+	public Projectile(Vector2 position, String regionID) {
+		super(position, regionID, 1);
 		
 	}
-
-	public boolean hasInventory() {
+	
+	public Projectile(Vector2 position, String regionID, float size) {
+		super(position, regionID, size, 1);
+		
+	}
+	
+	public Projectile(Vector2 position, String regionID, float width, float height) {
+		super(position, regionID, width, height, 1);
+		
+	}
+	
+	public final boolean hasInventory() {
 		return false;
 	}
 
@@ -50,7 +59,7 @@ public class Projectile extends Entity {
 		return false;
 	}
 	
-	public boolean hasInvSpace() {
+	public final boolean hasInvSpace() {
 		return false;
 	}
 	
@@ -63,11 +72,7 @@ public class Projectile extends Entity {
 		this.velocity.set(velX, velY);
 	}
 	
-	public Projectile launch(Vector2 pos, float speed, float deg){
-		Projectile pro = new Projectile(pos, regionID, health);
-		pro.setVelocity(speed, deg);
-		return pro;
-	}
+	public abstract Projectile launch(Vector2 pos, float speed, float deg);
 	
 	public void updateEntity(float delta) {
 		this.position.mulAdd(velocity.cpy(), delta);
@@ -76,7 +81,7 @@ public class Projectile extends Entity {
 	
 	public void render(SpriteBatch batch){
 		if(!isHidden()){
-            batch.draw(getTexture(), getPosition().x, getPosition().y, getWidth(), getHeight());
+            batch.draw(getTexture(), getPosition().x, getPosition().y, getWidth() / 2F, getHeight() / 2F);
         }  
 	}
 }

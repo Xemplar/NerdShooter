@@ -200,6 +200,15 @@ public class Inventory {
         return ret;
     }
     
+    public boolean addItems(Array<Item> items){
+    	boolean ret = true;
+    	for(Item i : items){
+    		ret &= addItem(i);
+    	}
+    	
+    	return ret;
+    }
+    
     public boolean addItem(Item item){
     	if(stacks.size == 0){
     		Array<Item> items = new Array<Item>();
