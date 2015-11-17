@@ -23,7 +23,7 @@ package com.xemplar.games.android.nerdshooter.entities;
 import com.badlogic.gdx.math.Vector2;
 import com.xemplar.games.android.nerdshooter.model.World;
 
-public class DeathProjectile extends Projectile{
+public class DeathProjectile extends Projectile {
 
 	public DeathProjectile(Vector2 position, String regionID) {
 		super(position, regionID);
@@ -51,7 +51,7 @@ public class DeathProjectile extends Projectile{
 	}
 	
 	public DeathProjectile launch(Vector2 pos, float speed, float deg){
-		DeathProjectile pro = new DeathProjectile(pos, regionID);
+		DeathProjectile pro = new DeathProjectile(pos, regionID, bounds.getWidth(), bounds.getHeight());
 		pro.setVelocity(speed, deg);
 		World.spawnEntity(pro);
 		return pro;

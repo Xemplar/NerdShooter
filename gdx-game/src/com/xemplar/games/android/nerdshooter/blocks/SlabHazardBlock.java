@@ -21,7 +21,6 @@
 package com.xemplar.games.android.nerdshooter.blocks;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -77,10 +76,4 @@ public class SlabHazardBlock extends SlabBlock {
             return texR;
         }
 	}
-    
-    public void render(SpriteBatch batch, float ppuX, float ppuY) {
-        if(!isHidden()){
-            batch.draw(getTexture(), getPosition().x * ppuX, getPosition().y * ppuY, getWidth() * ppuX, getHeight() * ppuY / getHeight());
-        }
-    }
 }

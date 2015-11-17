@@ -45,9 +45,9 @@ public class Jaxon extends Entity{
     private Animation walkRightAnimation;
     
     public Jaxon(Vector2 startPosistion){
-		super(startPosistion, 1.0F / 2F, 1.0F / 3F, 8);
+		super(startPosistion, 1.0F / 3F, 1.0F / 2F, 8);
         
-        drawX = (getWidth() / 2F) - (1.0F / 2F);
+        drawX = (bounds.getWidth() / 2F) - (1.0F / 2F);
         drawX = (drawX < 0) ? -drawX : drawX;
         drawX = drawX / 4F;
         
@@ -139,11 +139,13 @@ public class Jaxon extends Entity{
             batch.draw(jaxonFrame, (getPosition().x - drawX), getPosition().y, (0.5F), (0.5F));
         }
         
+        //Render Selected Item
+        
         int selected = inventory.getSelectedItem();
     	if(selected != -1){
     		ItemStack stack = inventory.getItem(selected);
     		if(stack != null){
-    			float x = isFacingLeft() ? (getPosition().x - drawX) : (getPosition().x - drawX) + getWidth() * 0.75F;
+    			float x = isFacingLeft() ? (getPosition().x - drawX) : (getPosition().x - drawX) + bounds.getWidth() * 0.75F;
     			TextureRegion reg = GameScreen.getTextureAltlas().findRegion(stack.getMock().regionID);
     			if(isFacingLeft() && !fliped){
     				reg.flip(true, false);
@@ -152,7 +154,7 @@ public class Jaxon extends Entity{
     				reg.flip(true, false);
     				fliped = false;
     			}
-    			batch.draw(reg, x, (getPosition().y + ((getHeight() / 2F) - 0.25F)), 0.25F, 0.25F);
+    			batch.draw(reg, x, (getPosition().y + ((bounds.getHeight() / 2F) - 0.25F)), 0.25F, 0.25F);
     		}
     	}
     }

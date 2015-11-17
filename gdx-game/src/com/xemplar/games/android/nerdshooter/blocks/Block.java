@@ -190,35 +190,30 @@ public class Block {
 		this.spawnPoint = new Vector2(pos);
         this.position = pos;
 		this.bounds.setPosition(pos);
-        this.bounds.width = 1F;
-        this.bounds.height = 1F;
+        this.bounds.setSize(1F);
         
         id = (new Random()).nextLong();
     }
     
     protected Block(Vector2 pos, String regionID, float size) {
-        this(pos, regionID);
-        this.bounds.width = new Float(size);
-        this.bounds.height = new Float(size);
+    	this.regionID = regionID;
+		this.spawnPoint = new Vector2(pos);
+        this.position = pos;
+		this.bounds.setPosition(pos);
+    	this.bounds.setSize(size);
         
 
         id = (new Random()).nextLong();
     }
     
     protected Block(Vector2 pos, String regionID, float width, float height) {
-        this(pos, regionID);
-        this.bounds.width = new Float(width);
-        this.bounds.height = new Float(height);
+    	this.regionID = regionID;
+		this.spawnPoint = new Vector2(pos);
+        this.position = pos;
+		this.bounds.setPosition(pos);
+        this.bounds.setSize(width, height);
         
         id = (new Random()).nextLong();
-    }
-    
-    public float getWidth(){
-        return this.bounds.width;
-    }
-    
-    public float getHeight(){
-        return this.bounds.height;
     }
     
     public boolean isCollideable(){
@@ -276,13 +271,13 @@ public class Block {
 	
     public void render(SpriteBatch batch){
         if(!isHidden()){
-            batch.draw(getTexture(), getPosition().x, getPosition().y, getWidth(), getHeight());
+            batch.draw(getTexture(), getPosition().x, getPosition().y, bounds.getWidth(), bounds.getHeight());
         }   
     }
     
     public void render(TextureRegion region, SpriteBatch batch){
         if(!isHidden()){
-            batch.draw(region, getPosition().x, getPosition().y, getWidth(), getHeight());
+            batch.draw(region, getPosition().x, getPosition().y, bounds.getWidth(), bounds.getHeight());
         }   
     }
 }

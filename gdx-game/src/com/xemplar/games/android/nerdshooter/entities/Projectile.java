@@ -27,24 +27,30 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class Projectile extends Entity {
 	//Projectile Definitions
 	
-	public static DeathProjectile bullet = new DeathProjectile(empty, "bullet", 0.75F, 0.125F);
+	public static DeathProjectile bullet = new DeathProjectile(empty, "bullet", 0.40F, 0.25F);
 
 	// Start Class
 	protected float speed, deg;
+	protected float drawX, drawY;
 	
 	public Projectile(Vector2 position, String regionID) {
 		super(position, regionID, 1);
-		
 	}
 	
 	public Projectile(Vector2 position, String regionID, float size) {
 		super(position, regionID, size, 1);
-		
 	}
 	
 	public Projectile(Vector2 position, String regionID, float width, float height) {
 		super(position, regionID, width, height, 1);
-		
+		drawX = (bounds.getWidth() / 2F) - (0.5F / 2F);
+        drawX = (drawX < 0) ? -drawX : drawX;
+        drawX = drawX / 4F;
+        
+        drawY = (bounds.getHeight() / 2F) - (0.5F / 2F);
+        drawY = (drawY < 0) ? drawY : -drawY;
+        
+        setPosition(new Vector2(getPosition().x, (bounds.getY() - drawY)));
 	}
 	
 	public final boolean hasInventory() {
@@ -81,7 +87,7 @@ public abstract class Projectile extends Entity {
 	
 	public void render(SpriteBatch batch){
 		if(!isHidden()){
-            batch.draw(getTexture(), getPosition().x, getPosition().y, getWidth() / 2F, getHeight() / 2F);
+            batch.draw(getTexture(), (getPosition().x - drawX), (getPosition().y + (drawY)), 0.5F, 0.5F);
         }  
 	}
 }

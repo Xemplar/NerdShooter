@@ -248,9 +248,9 @@ public class JaxonController {
                     System.out.println("got stuck");
 
                     if (jaxonX < blockX) {
-                        jaxon.getPosition().x = block.getPosition().x - jaxon.getWidth();
+                        jaxon.getPosition().x = block.getPosition().x - jaxon.getBounds().getWidth();
                     } else {
-                        jaxon.getPosition().x = block.getPosition().x + block.getWidth();
+                        jaxon.getPosition().x = block.getPosition().x + block.getBounds().getWidth();
                     }
                 }
                 break;

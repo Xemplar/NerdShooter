@@ -60,43 +60,38 @@ public abstract class Entity extends Block{
     
     public Entity(Vector2 position, int health) {
 		super(position, "");
-        this.position = position;
-        this.bounds.height = 1F;
-        this.bounds.width = 1F;
-		this.bounds.x = position.x;
-		this.bounds.y = position.y;
         this.health = health;
         this.maxHealth = health;
     }
 	
     public Entity(Vector2 position, float size, int health) {
-        this(position, health);
-        this.bounds.height = new Float(size);
-        this.bounds.width = new Float(size);
+        super(position, "", size);
+        this.health = health;
+        this.maxHealth = health;
     }
     
     public Entity(Vector2 position, float width, float height, int health) {
-        this(position, health);
-        this.bounds.height = new Float(width);
-        this.bounds.width = new Float(height);
+    	super(position, "", width, height);
+        this.health = health;
+        this.maxHealth = health;
     }
     
 	public Entity(Vector2 position, String regionID, int health){
-		this(position, health);
-		
-		this.regionID = regionID;
+		super(position, regionID);
+        this.health = health;
+        this.maxHealth = health;
 	}
 
     public Entity(Vector2 position, String regionID, float size, int health){
-        this(position, regionID, health);
-        this.bounds.height = new Float(size);
-        this.bounds.width = new Float(size);
+    	super(position, regionID, size);
+        this.health = health;
+        this.maxHealth = health;
 	}
     
     public Entity(Vector2 position, String regionID, float width, float height, int health){
-        this(position, regionID, health);
-        this.bounds.height = new Float(width);
-        this.bounds.width = new Float(height);
+    	super(position, regionID, width, height);
+        this.health = health;
+        this.maxHealth = health;
 	}
     
     public void setState(State newState) {
@@ -121,8 +116,7 @@ public abstract class Entity extends Block{
     
 	public void setPosition(Vector2 position) {
 		this.position = position;
-		this.bounds.setX(position.x);
-		this.bounds.setY(position.y);
+		this.bounds.setPosition(this.position);
 	}
 
     public void setCheckPoint(Vector2 point){

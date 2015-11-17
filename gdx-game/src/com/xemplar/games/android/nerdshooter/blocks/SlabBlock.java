@@ -52,7 +52,7 @@ public class SlabBlock extends Block {
         
         this.top = top;
         
-        if(top) bounds.y = bounds.y + getHeight();
+        if(top) bounds.y = bounds.y + bounds.getHeight();
     }
     
     public SlabBlock clone(Vector2 pos){
@@ -78,7 +78,7 @@ public class SlabBlock extends Block {
     
     public void render(SpriteBatch batch) {
         if(!isHidden()){
-            batch.draw(getTexture(), getPosition().x, getPosition().y, getWidth(), getHeight() * 2F);
+            batch.draw(getTexture(), getPosition().x, getPosition().y, bounds.getWidth(), bounds.getHeight() * 2F);
         }
     }
 }

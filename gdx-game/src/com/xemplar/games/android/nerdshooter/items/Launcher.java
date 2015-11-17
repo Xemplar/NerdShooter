@@ -55,7 +55,7 @@ public class Launcher extends Item implements Fireable, Equippable{
 				Ammo amm = (Ammo)stack.getItem(0);
 				
 				Vector2 pos = e.getPosition().cpy();
-				float addX = e.isFacingLeft() ? -(0.1F + amm.pro.getWidth()) : (0.1F + e.getWidth());
+				float addX = e.isFacingLeft() ? -(0.1F + amm.pro.getBounds().getWidth()) : (0.1F + e.getBounds().getWidth());
 				float deg = e.isFacingLeft() ? 180F : 0F;
 				
 				pos.add(addX, 0); //e.getHeight() + e.getHeight() / 2F);
