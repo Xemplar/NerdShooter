@@ -23,11 +23,9 @@ package com.xemplar.games.android.nerdshooter.blocks;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -168,12 +166,6 @@ public class Block {
 		public static ExitBlock exit = new ExitBlock(empty, "exit", ExitBlock.EXIT_NORMAL);
 		
 	//Start Class
-	protected static BitmapFont font;
-	public static void init(){
-		FreeTypeFontParameter parameters = NerdShooter.params;
-		parameters.size = 1;
-		font = NerdShooter.gen.generateFont(parameters);
-	}
 		
 	public long id = 0L;
     

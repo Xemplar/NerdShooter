@@ -52,8 +52,6 @@ public class Main{
 		        res, 
 		        res[0])).split(", ");
 		
-		
-		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.allowSoftwareMode = true;
 		config.fullscreen = false;
