@@ -27,6 +27,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.xemplar.games.android.nerdshooter.blocks.Block;
 import com.xemplar.games.android.nerdshooter.screens.CompletedLevel;
 import com.xemplar.games.android.nerdshooter.screens.OptionsScreen;
 import com.xemplar.games.android.nerdshooter.screens.SplashScreen;
@@ -70,6 +71,8 @@ public class NerdShooter extends Game {
         } else {
         	useKeys = false;
         }
+        
+        Block.init();
         
         setScreen(new SplashScreen());
         new CompletedLevel();

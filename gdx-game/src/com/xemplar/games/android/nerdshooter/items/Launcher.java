@@ -45,12 +45,9 @@ public class Launcher extends Item implements Fireable, Equippable{
 	}
 	
 	public boolean onFire(){
-		System.out.println("OnFire");
 		if(e != null){
-			System.out.println("OnFire e in not null");
 			int res = e.inventory.invHasItemType(Ammo.class);
 			if(res != -1){
-				System.out.println("OnFire found ammo");
 				ItemStack stack = e.inventory.getItem(res);
 				Ammo amm = (Ammo)stack.getItem(0);
 				
@@ -58,7 +55,7 @@ public class Launcher extends Item implements Fireable, Equippable{
 				float addX = e.isFacingLeft() ? -(0.1F + amm.pro.getBounds().getWidth()) : (0.1F + e.getBounds().getWidth());
 				float deg = e.isFacingLeft() ? 180F : 0F;
 				
-				pos.add(addX, 0); //e.getHeight() + e.getHeight() / 2F);
+				pos.add(addX, 0);
 				amm.launch(pos, 20F, deg);
 			}
 		}

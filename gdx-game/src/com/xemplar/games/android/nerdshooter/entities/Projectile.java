@@ -27,7 +27,7 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class Projectile extends Entity {
 	//Projectile Definitions
 	
-	public static DeathProjectile bullet = new DeathProjectile(empty, "bullet", 0.40F, 0.25F);
+	public static HazardProjectile bullet = new HazardProjectile(empty, "bullet", 0.40F, 0.25F, 1);
 
 	// Start Class
 	protected float speed, deg;

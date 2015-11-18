@@ -31,6 +31,20 @@ public class HazardProjectile extends Projectile{
 		this.hurtAmount = damageAmt;
 	}
 	
+	public HazardProjectile(Vector2 position, String regionID, float size, int damageAmt) {
+		super(position, regionID, size);
+		this.hurtAmount = damageAmt;
+	}
+	
+	public HazardProjectile(Vector2 position, String regionID, float width, float height, int damageAmt) {
+		super(position, regionID, width, height);
+		this.hurtAmount = damageAmt;
+	}
+	
+	public boolean isTouchable(){
+		return true;
+	}
+	
 	public void onTouch(Entity e) {
         e.hurt(hurtAmount);
         this.kill();
@@ -41,7 +55,7 @@ public class HazardProjectile extends Projectile{
 	}
 	
 	public HazardProjectile launch(Vector2 pos, float speed, float deg){
-		HazardProjectile pro = new HazardProjectile(pos, regionID, health);
+		HazardProjectile pro = new HazardProjectile(pos, regionID, bounds.getWidth(), bounds.getHeight(), hurtAmount);
 		pro.setVelocity(speed, deg);
 		World.spawnEntity(pro);
 		return pro;

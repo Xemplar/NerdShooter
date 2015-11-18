@@ -61,5 +61,7 @@ public class Main{
 		config.height = Integer.parseInt(options[1]);
 		
         new LwjglApplication(new NerdShooter(), config);
+        
+        //new LauncherMenu();
     }
 }
