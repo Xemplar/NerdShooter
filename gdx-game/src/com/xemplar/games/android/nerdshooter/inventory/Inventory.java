@@ -100,8 +100,6 @@ public class Inventory {
                 ret = i;
             }
         }
-        
-    	System.out.println(ret);
     	
         return ret;
     }

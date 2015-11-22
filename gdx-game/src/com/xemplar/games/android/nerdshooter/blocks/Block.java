@@ -31,6 +31,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.entities.Wall;
 import com.xemplar.games.android.nerdshooter.items.Item;
 import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
@@ -138,7 +139,23 @@ public class Block {
 		public static SlabBlock sand_half_mid = new SlabBlock(empty, "sandHalfMid", 1F, 0.5F, true);
 		public static SlabBlock sand_half_left = new SlabBlock(empty, "sandHalfLeft", 1F, 0.5F, true);
 		public static SlabBlock sand_half_right = new SlabBlock(empty, "sandHalfRight", 1F, 0.5F, true);
-			
+		
+		//Spikes
+		public static DirectionalDeathBlock spike_steel_up = new DirectionalDeathBlock(empty, "spikesUp", 0b1000);
+		public static DirectionalDeathBlock spike_steel_down = new DirectionalDeathBlock(empty, "spikesDown", 0b0100);
+		public static DirectionalDeathBlock spike_steel_left = new DirectionalDeathBlock(empty, "spikesLeft", 0b0001);
+		public static DirectionalDeathBlock spike_steel_right = new DirectionalDeathBlock(empty, "spikesRight", 0b0010);
+		
+		public static DirectionalDeathBlock spike_stone_up = new DirectionalDeathBlock(empty, "stoneSpikesUp", 0b1000);
+		public static DirectionalDeathBlock spike_stone_down = new DirectionalDeathBlock(empty, "stoneSpikesDown", 0b0100);
+		public static DirectionalDeathBlock spike_stone_left = new DirectionalDeathBlock(empty, "stoneSpikesLeft", 0b0001);
+		public static DirectionalDeathBlock spike_stone_right = new DirectionalDeathBlock(empty, "stoneSpikesRight", 0b0010);
+		
+		public static DirectionalDeathBlock spike_sand_up = new DirectionalDeathBlock(empty, "sandSpikesUp", 0b1000);
+		public static DirectionalDeathBlock spike_sand_down = new DirectionalDeathBlock(empty, "sandSpikesDown", 0b0100);
+		public static DirectionalDeathBlock spike_sand_left = new DirectionalDeathBlock(empty, "sandSpikesLeft", 0b0001);
+		public static DirectionalDeathBlock spike_sand_right = new DirectionalDeathBlock(empty, "sandSpikesRight", 0b0010);
+		
 		//Misc
 		public static DeathBlock misc_lava = new DeathBlock(empty, "lava");
 		public static SlabDeathBlock misc_lava_top = new SlabDeathBlock(empty, "lavaTop", 1F, 0.5F, false);
@@ -154,6 +171,8 @@ public class Block {
 		public static ItemBlock key_yellow = new ItemBlock(empty, 0.5F, Item.YELLOW_KEY.clone());
 		
 		public static CheckPointBlock checkPoint = new CheckPointBlock(empty);
+		
+		public static Wall bricks = new Wall(empty, "brick", 10, true);
 		
 		public static ItemBlock launcher = new ItemBlock(empty, 0.5F, Item.launch.clone());
 		public static ItemBlock ammo = new ItemBlock(empty, 0.5F, Item.ammo.clone(), 50);

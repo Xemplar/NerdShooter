@@ -20,11 +20,20 @@
  */
 package com.xemplar.games.android.nerdshooter.entities;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.xemplar.games.android.nerdshooter.NerdShooter;
+import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class Wall extends Entity{
+	private boolean useNumTextures = false;
 	public Wall(Vector2 position, String regionID, int health) {
 		super(position, regionID, health);
+	}
+	
+	public Wall(Vector2 position, String regionID, int health, boolean useNumTextures) {
+		super(position, regionID, health);
+		this.useNumTextures = useNumTextures;
 	}
 
 	public boolean hasInventory() {
@@ -49,5 +58,26 @@ public class Wall extends Entity{
 	
 	public void updateEntity(float delta) {
 		
+	}
+	
+	public TextureRegion getTexture(){
+		if(NerdShooter.sanic || !useNumTextures){
+			return super.getTexture();
+		} else {
+			String tex = (int)(((float)health / (float)maxHealth) * 10F) + "";
+			if(tex.equals("0") || tex.equals("10")){
+				return super.getTexture();
+			} else {
+				return GameScreen.getTextureAltlas().findRegion(regionID);
+			}
+		}
+	}
+	
+	public Wall clone(Vector2 pos){
+		return new Wall(pos, regionID, health);
+	}
+	
+	public Wall clone(Vector2 pos, int health){
+		return new Wall(pos, regionID, health);
 	}
 }
