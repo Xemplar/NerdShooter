@@ -186,9 +186,11 @@ public class Level {
 	
 	private void addBlock(int x, int y, String id){
 		Vector2 pos = new Vector2(x, y);
-		Block block = parseID(id, x, y).clone(pos);
+		Block block = parseID(id, x, y);
 		
-		blocks[x + y * width] = block;
+		if(block == null) return;
+		
+		blocks[x + y * width] = block.clone(pos);
 	}
 	
 	private Block parseID(String id, int x, int y){
@@ -423,7 +425,7 @@ public class Level {
         	default:{
         		Block b = getEntity(id, x, y);
         		if(b != null && b instanceof Entity){
-        			World.spawnEntity((Entity)b);
+        			spawnEntity((Entity)b);
         		} else if(b != null){
         			return b;
         		} else {
@@ -458,5 +460,13 @@ public class Level {
 		}
 		
 		return b;
+	}
+	
+	public void spawnEntity(Entity e){
+		entities.add(e);
+	}
+	
+	public void despawnEntity(Entity e){
+		entities.removeValue(e, false);
 	}
 }

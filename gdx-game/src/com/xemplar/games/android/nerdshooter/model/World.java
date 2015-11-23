@@ -50,11 +50,11 @@ public class World {
 	}
 	
 	public static void spawnEntity(Entity e){
-		GameScreen.instance.world.getLevel().getEntities().add(e);
+		GameScreen.instance.world.getLevel().spawnEntity(e);
 	}
 	
 	public static void despawnEntity(Entity e){
-		GameScreen.instance.world.getLevel().getEntities().removeValue(e, false);
+		GameScreen.instance.world.getLevel().despawnEntity(e);
 	}
 	
 	public void setBlock(int x, int y, Block b){
