@@ -96,6 +96,7 @@ public class GameScreen implements Screen, InputProcessor {
 		
 		world = new World(level);
 		jaxon = world.getJaxon();
+		controller = jaxon.getController();
 		
 		button = new ShapeRenderer();
 		batch = new SpriteBatch();
@@ -112,7 +113,6 @@ public class GameScreen implements Screen, InputProcessor {
         gameTicks = 0L;
         
         renderer = new WorldRenderer(world, useGameDebugRenderer);
-        controller = new JaxonController(world);
         controller.reset();
         Gdx.input.setInputProcessor(this);
         
@@ -127,7 +127,6 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
         
-        controller.update(delta);
 		updateEntities(delta);
         renderer.render();
         
@@ -408,22 +407,38 @@ public class GameScreen implements Screen, InputProcessor {
 			int h = world.getLevel().getHeight();
 			
 			if(e.getPosition().x + 1 < 0){
-				world.getEntities().removeValue(e, false);
+				if(e.isRespawnable()){
+					e.respawn();
+				} else {
+					world.getEntities().removeValue(e, false);
+				}
 				continue;
 			}
 			
 			if(e.getPosition().x > w){
-				world.getEntities().removeValue(e, false);
+				if(e.isRespawnable()){
+					e.respawn();
+				} else {
+					world.getEntities().removeValue(e, false);
+				}
 				continue;
 			}
 			
 			if(e.getPosition().y + 1 < 0){
-				world.getEntities().removeValue(e, false);
+				if(e.isRespawnable()){
+					e.respawn();
+				} else {
+					world.getEntities().removeValue(e, false);
+				}
 				continue;
 			}
 			
 			if(e.getPosition().y > h){
-				world.getEntities().removeValue(e, false);
+				if(e.isRespawnable()){
+					e.respawn();
+				} else {
+					world.getEntities().removeValue(e, false);
+				}
 				continue;
 			}
 			

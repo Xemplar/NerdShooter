@@ -27,6 +27,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
+import com.xemplar.games.android.nerdshooter.controller.JaxonController;
 import com.xemplar.games.android.nerdshooter.inventory.Inventory;
 import com.xemplar.games.android.nerdshooter.items.ItemStack;
 import com.xemplar.games.android.nerdshooter.screens.GameScreen;
@@ -47,6 +48,8 @@ public class Jaxon extends Entity{
     public Jaxon(Vector2 startPosistion){
 		super(startPosistion, 1.0F / 3F, 1.0F / 2F, 8);
         
+		controller = new JaxonController(this);
+		
         drawX = (bounds.getWidth() / 2F) - (1.0F / 2F);
         drawX = (drawX < 0) ? -drawX : drawX;
         drawX = drawX / 4F;
@@ -114,6 +117,14 @@ public class Jaxon extends Entity{
         return inventory.hasSpace();
     }
 	
+    public boolean isRespawnable(){
+    	return true;
+    }
+    
+    public JaxonController getController(){
+    	return (JaxonController)controller;
+    }
+    
 	public void updateEntity(float delta) {
         if(isDead()){
             respawn();
@@ -123,7 +134,7 @@ public class Jaxon extends Entity{
 		position.mulAdd(velocity.cpy(), delta);
 		bounds.x = position.x;
 		bounds.y = position.y;
-
+		
 		if(getPosition().y < 0){
 			kill();
 		}

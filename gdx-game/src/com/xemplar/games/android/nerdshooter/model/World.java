@@ -151,6 +151,7 @@ public class World {
 	public World(int levelNum){
         level = new Level(levelNum);
 		jaxon = new Jaxon(level.jaxonStart);
+		getEntities().add(jaxon);
 	}
 }
 

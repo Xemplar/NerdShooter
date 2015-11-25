@@ -29,14 +29,14 @@ import com.badlogic.gdx.utils.Pool;
 import com.xemplar.games.android.nerdshooter.blocks.Block;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 import com.xemplar.games.android.nerdshooter.entities.Jaxon;
-import com.xemplar.games.android.nerdshooter.entities.MoveablePlatform;
 import com.xemplar.games.android.nerdshooter.items.Equippable;
 import com.xemplar.games.android.nerdshooter.items.Fireable;
 import com.xemplar.games.android.nerdshooter.items.Item;
 import com.xemplar.games.android.nerdshooter.items.ItemStack;
 import com.xemplar.games.android.nerdshooter.model.World;
+import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
-public class JaxonController {
+public class JaxonController implements Controller{
     enum Keys {
         LEFT, RIGHT, JUMP, FIRE
     }
@@ -52,8 +52,6 @@ public class JaxonController {
 	private boolean isRightDown;
 	private boolean isJumpDown;
 	private boolean isFireDown;
-
-	private Vector2 touchedMovingPlatform;
 
 	public int leftPointer;
 	public int rightPointer;
@@ -72,11 +70,7 @@ public class JaxonController {
 	};
 
 	boolean grounded = false;
-
-    private static Block[] blocks;
-    private static int length;
     
-    private World world;
     private Jaxon jaxon;
     private long jumpPressedTime;
     private boolean jumpingPressed;
@@ -90,12 +84,8 @@ public class JaxonController {
         keys.put(Keys.FIRE, false);
     };
 
-    public JaxonController(World world) {
-        this.world = world;
-        this.jaxon = world.getJaxon();
-        
-        blocks = world.getLevel().getBlocks();
-		length = blocks.length;
+    public JaxonController(Jaxon jaxon) {
+        this.jaxon = jaxon;
     }
 
     public void leftPressed(int pointer) {
@@ -169,18 +159,6 @@ public class JaxonController {
     public void update(float delta) {
         processInput();
 
-		if (grounded && jaxon.getState().equals(Entity.State.IDLE)) {
-			if (touchedMovingPlatform == null)
-				touchedMovingPlatform = jaxon.getPosition();
-
-			Block b = world.getBlock(new Vector2(jaxon.getPosition().x, jaxon.getPosition().y - 1F));
-			if (b instanceof MoveablePlatform) {
-				jaxon.setPosition(new Vector2(touchedMovingPlatform.x, touchedMovingPlatform.y));
-			}
-		} else {
-			touchedMovingPlatform = null;
-		}
-
 		if (grounded && jaxon.getState().equals(Jaxon.State.JUMPING)) {
             jaxon.setState(Jaxon.State.IDLE);
         }
@@ -198,8 +176,6 @@ public class JaxonController {
         if (jaxon.getVelocity().x < -MAX_VEL) {
             jaxon.getVelocity().x = -MAX_VEL;
         }
-
-        jaxon.update(delta);
         
         if(!isFireDown){
         	fired = false;
@@ -222,6 +198,8 @@ public class JaxonController {
     }
 
     private void checkCollisionWithBlocks(float delta) {
+    	World world = GameScreen.instance.world;
+    	
         jaxon.getVelocity().scl(delta);
         Rectangle jaxonRect = rectPool.obtain();
         jaxonRect.set(jaxon.getBounds().x, jaxon.getBounds().y, jaxon.getBounds().width, jaxon.getBounds().height);
@@ -245,7 +223,7 @@ public class JaxonController {
                     float jaxonX = jaxon.getPosition().x;
                     float blockX = block.getPosition().x;
 
-                    System.out.println("got stuck");
+                    System.out.println("got stuck on: " + block.regionID);
 
                     if (jaxonX < blockX) {
                         jaxon.getPosition().x = block.getPosition().x - jaxon.getBounds().getWidth();
@@ -263,7 +241,8 @@ public class JaxonController {
         jaxonRect.y += jaxon.getVelocity().y;
 
         for (Block block : collidable) {
-            if (block == null) continue;
+        	if (block == null) continue;
+        	
 			if (jaxonRect.overlaps(block.getBounds()) && (block.isTouchable())) {
                 block.onTouch(jaxon);
             }
@@ -283,10 +262,14 @@ public class JaxonController {
     }
 
     private void populateCollidableBlocks() {
+    	World world = GameScreen.instance.world;
         collidable.clear();
 
         Vector2 pos = jaxon.getPosition().cpy().add(jaxon.getVelocity().cpy());
-
+        
+        int length = world.getLevel().getBlocks().length;
+        Block[] blocks = world.getLevel().getBlocks();
+        
 		for (int i = 0; i < length; i++) {
             Block current = blocks[i];
             
@@ -303,8 +286,14 @@ public class JaxonController {
 		}
         
         int size = world.getEntities().size;
+        Array<Entity> entities = world.getEntities();
+        
         for(int i = 0; i < size; i++){
-            Entity current = world.getEntities().get(i);
+            Entity current = entities.get(i);
+
+            if(current.equals(jaxon)) continue;
+            if(current.isHidden()) continue;
+            
             if (current.isCollideable() || current.isTouchable()) {
                 float xDist = Math.abs(current.getPosition().x - pos.x);
                 float yDist = Math.abs(current.getPosition().y - pos.y);

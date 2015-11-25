@@ -22,26 +22,16 @@ package com.xemplar.games.android.nerdshooter.entities;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Timer;
 import com.xemplar.games.android.nerdshooter.blocks.Block;
+import com.xemplar.games.android.nerdshooter.controller.Controller;
+import com.xemplar.games.android.nerdshooter.controller.EntityController;
 import com.xemplar.games.android.nerdshooter.inventory.Inventory;
-import com.xemplar.games.android.nerdshooter.model.World;
-import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public abstract class Entity extends Block{
 	public enum State {
         IDLE, WALKING, JUMPING, DYING
 	}
-
-	private Array<Block> collidable = new Array<Block>();
-	
-	private Pool<Rectangle> rectPool = new Pool<Rectangle>() {
-		protected Rectangle newObject() {
-			return new Rectangle();
-		}
-	};
 	
     public static final float SPEED = 5f;  // unit per second
     public static final float JUMP_VELOCITY = 1f;
@@ -50,7 +40,8 @@ public abstract class Entity extends Block{
     protected int health = 0;
     
     public Inventory inventory;
-    private boolean hidden, reset;
+    protected boolean hidden, reset;
+    protected Controller controller;
 
 	protected float stateTime = 0;
     protected Vector2 acceleration = new Vector2();
@@ -62,36 +53,42 @@ public abstract class Entity extends Block{
 		super(position, "");
         this.health = health;
         this.maxHealth = health;
+        this.controller = new EntityController(this);
     }
 	
     public Entity(Vector2 position, float size, int health) {
         super(position, "", size);
         this.health = health;
         this.maxHealth = health;
+        this.controller = new EntityController(this);
     }
     
     public Entity(Vector2 position, float width, float height, int health) {
     	super(position, "", width, height);
         this.health = health;
         this.maxHealth = health;
+        this.controller = new EntityController(this);
     }
     
 	public Entity(Vector2 position, String regionID, int health){
 		super(position, regionID);
         this.health = health;
         this.maxHealth = health;
+        this.controller = new EntityController(this);
 	}
 
     public Entity(Vector2 position, String regionID, float size, int health){
     	super(position, regionID, size);
         this.health = health;
         this.maxHealth = health;
+        this.controller = new EntityController(this);
 	}
     
     public Entity(Vector2 position, String regionID, float width, float height, int health){
     	super(position, regionID, width, height);
         this.health = health;
         this.maxHealth = health;
+        this.controller = new EntityController(this);
 	}
     
     public void setState(State newState) {
@@ -148,6 +145,10 @@ public abstract class Entity extends Block{
 		return position;
     }
     
+    public Controller getController(){
+    	return controller;
+    }
+    
     public void kill(){
         this.health = 0;
         onKill();
@@ -156,7 +157,6 @@ public abstract class Entity extends Block{
     public void onKill(){}
     
     public final void hurt(int amt){
-    	System.out.println(health);
         if(!isDead()){
             this.health = this.health - amt;
         }
@@ -170,7 +170,15 @@ public abstract class Entity extends Block{
         return health <= 0;
     }
     
+    public boolean isRespawnable(){
+        return false;
+    }
+    
     public boolean collideWithOthers(){
+        return false;
+    }
+    
+    public boolean affectWithGravity(){
         return false;
     }
     
@@ -191,65 +199,10 @@ public abstract class Entity extends Block{
             }
         }
         
-        if(collideWithOthers()){
-        	checkCollisionWithBlocks(delta);
-        }
+        controller.update(delta);
         
         if(!isHidden()){
             updateEntity(delta);
-        }
-    }
-    
-    private void checkCollisionWithBlocks(float delta) {
-		World world = GameScreen.instance.world;
-		
-        Rectangle thisRect = rectPool.obtain();
-        thisRect.set(this.getBounds().x, this.getBounds().y, this.getBounds().width, this.getBounds().height);
-
-        populateCollidableBlocks();
-        world.getCollisionRects().clear();
-
-        for (Block block : collidable) {
-            if (block == null) continue;
-
-            if (thisRect.overlaps(block.getBounds()) && (block.isTouchable())) {
-                block.onTouch(this);
-            }
-        }
-
-        populateCollidableBlocks();
-
-        for (Block block : collidable) {
-            if (block == null) continue;
-			if (thisRect.overlaps(block.getBounds()) && (block.isTouchable())) {
-                block.onTouch(this);
-            }
-        }
-    }
-
-    private void populateCollidableBlocks() {
-    	World world = GameScreen.instance.world;
-    	
-        collidable.clear();
-
-        Vector2 pos = this.getPosition().cpy();
-        
-        int size = world.getEntities().size;
-        for(int i = 0; i < size; i++){
-            Entity current = world.getEntities().get(i);
-            
-            if(current.isHidden()){
-            	continue;
-            }
-            
-            if (current.isCollideable() || current.isTouchable()) {
-                float xDist = Math.abs(current.getPosition().x - pos.x);
-                float yDist = Math.abs(current.getPosition().y - pos.y);
-
-                if (xDist < 1F && yDist < 1F) {
-                    collidable.add(current);
-                }
-            }
         }
     }
     
