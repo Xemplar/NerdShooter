@@ -186,9 +186,11 @@ public class Level {
 	
 	private void addBlock(int x, int y, String id){
 		Vector2 pos = new Vector2(x, y);
-		Block block = parseID(id, x, y).clone(pos);
+		Block block = parseID(id, x, y);
 		
-		blocks[x + y * width] = block;
+		if(block != null){
+			blocks[x + y * width] = block.clone(pos);
+		}
 	}
 	
 	private Block parseID(String id, int x, int y){
