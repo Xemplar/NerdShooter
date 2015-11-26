@@ -164,8 +164,7 @@ public class JaxonController implements Controller{
         }
 
         jaxon.getAcceleration().y = GRAVITY;
-        jaxon.getAcceleration().scl(delta);
-        jaxon.getVelocity().add(jaxon.getAcceleration().x, jaxon.getAcceleration().y);
+        jaxon.getVelocity().mulAdd(jaxon.getAcceleration(), delta);
         checkCollisionWithBlocks(delta);
         jaxon.getVelocity().x *= DAMP;
 

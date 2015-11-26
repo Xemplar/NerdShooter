@@ -52,7 +52,7 @@ public class Wall extends Entity{
 		return !isDead();
 	}
 	
-	public boolean collideWithOthers(){
+	public boolean collideWithEntities(){
         return !isDead();
     }
 	

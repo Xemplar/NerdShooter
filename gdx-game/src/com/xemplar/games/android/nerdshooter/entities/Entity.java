@@ -174,7 +174,11 @@ public abstract class Entity extends Block{
         return false;
     }
     
-    public boolean collideWithOthers(){
+    public boolean collideWithEntities(){
+        return false;
+    }
+    
+    public boolean collideWithBlocks(){
         return false;
     }
     

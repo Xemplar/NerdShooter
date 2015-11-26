@@ -23,22 +23,25 @@ package com.xemplar.games.android.nerdshooter.entities;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.xemplar.games.android.nerdshooter.controller.ProjectileController;
 
 public abstract class Projectile extends Entity {
 	//Projectile Definitions
 	
 	public static HazardProjectile bullet = new HazardProjectile(empty, "bullet", 0.40F, 0.25F, 1);
-
+	
 	// Start Class
 	protected float speed, deg;
 	protected float drawX, drawY;
 	
 	public Projectile(Vector2 position, String regionID) {
 		super(position, regionID, 1);
+		controller = new ProjectileController(this);
 	}
 	
 	public Projectile(Vector2 position, String regionID, float size) {
 		super(position, regionID, size, 1);
+		controller = new ProjectileController(this);
 	}
 	
 	public Projectile(Vector2 position, String regionID, float width, float height) {
@@ -51,6 +54,7 @@ public abstract class Projectile extends Entity {
         drawY = (drawY < 0) ? drawY : -drawY;
         
         setPosition(new Vector2(getPosition().x, (bounds.getY() - drawY)));
+        controller = new ProjectileController(this);
 	}
 	
 	public final boolean hasInventory() {
@@ -67,6 +71,14 @@ public abstract class Projectile extends Entity {
 	
 	public final boolean hasInvSpace() {
 		return false;
+	}
+	
+	public float getSpeedDamper(){
+		return 0.98F;
+	}
+	
+	public boolean collideWithBlocks(){
+		return true;
 	}
 	
 	protected void setVelocity(float speed, float deg){

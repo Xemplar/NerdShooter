@@ -294,10 +294,4 @@ public class Block {
             batch.draw(getTexture(), getPosition().x, getPosition().y, bounds.getWidth(), bounds.getHeight());
         }   
     }
-    
-    public void render(TextureRegion region, SpriteBatch batch){
-        if(!isHidden()){
-            batch.draw(region, getPosition().x, getPosition().y, bounds.getWidth(), bounds.getHeight());
-        }   
-    }
 }
