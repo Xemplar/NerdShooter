@@ -30,7 +30,8 @@ import com.xemplar.games.android.nerdshooter.model.World;
 import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class EntityController implements Controller{
-    private static final float GRAVITY = -20f;
+	private Array<Rectangle> collisionRects = new Array<Rectangle>();
+	private static final float GRAVITY = -20f;
 
     private static Pool<Rectangle> rectPool = new Pool<Rectangle>() {
 		protected Rectangle newObject() {
@@ -62,28 +63,59 @@ public class EntityController implements Controller{
     }
 	
 	private void checkCollisionWithBlocks(float delta) {
-		World world = GameScreen.instance.world;
-		
-        Rectangle thisRect = rectPool.obtain();
-        thisRect.set(entity.getBounds().x, entity.getBounds().y, entity.getBounds().width, entity.getBounds().height);
+		entity.getVelocity().scl(delta);
+        Rectangle entityRect = rectPool.obtain();
+        entityRect.set(entity.getBounds().x, entity.getBounds().y, entity.getBounds().width, entity.getBounds().height);
 
         populateCollidableBlocks();
-        world.getCollisionRects().clear();
+        entityRect.x += entity.getVelocity().x;
+        collisionRects.clear();
 
         for (Block block : collidable) {
-            if (block == null) continue;
+        	if (block == null) continue;
+        	
+        	entity.getVelocity().x = 0;
+            collisionRects.add(block.getBounds());
 
-            if (thisRect.overlaps(block.getBounds()) && (block.isTouchable())) {
+            if (entityRect.overlaps(block.getBounds()) && block.isTouchable()) {
                 block.onTouch(entity);
             }
+            
+            if (entity.getBounds().overlaps(block.getBounds()) && block.isCollideable()) {
+                float entityX = entity.getPosition().x;
+                float blockX = block.getPosition().x;
+
+                System.out.println("got stuck on: " + block.regionID);
+
+                if (entityX < blockX) {
+                	entity.getPosition().x = block.getPosition().x - entity.getBounds().getWidth();
+                } else {
+                	entity.getPosition().x = block.getPosition().x + block.getBounds().getWidth();
+                }
+            }
+            break;
         }
 
+        entityRect.x = entity.getPosition().x;
+
         populateCollidableBlocks();
+        entityRect.y += entity.getVelocity().y;
 
         for (Block block : collidable) {
-            if (block == null) continue;
-			if (thisRect.overlaps(block.getBounds()) && (block.isTouchable())) {
+        	if (block == null) continue;
+        	
+			if (entityRect.overlaps(block.getBounds()) && block.isTouchable()) {
                 block.onTouch(entity);
+            }
+
+            if (entityRect.overlaps(block.getBounds()) && block.isCollideable()) {
+                if (entity.getVelocity().y < 0) {
+                    grounded = true;
+                }
+
+                entity.getVelocity().y = 0;
+                collisionRects.add(block.getBounds());
+                break;
             }
         }
     }

@@ -125,6 +125,10 @@ public abstract class Entity extends Block{
         this.health = maxHealth;
         velocity.set(0F, 0F);
 		setPosition(spawnPoint.cpy());
+		
+		if(this.hasInventory()){
+			this.inventory.clear();
+		}
         
         reset = false;
 	}

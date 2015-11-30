@@ -20,6 +20,7 @@
  */
 package com.xemplar.games.android.nerdshooter.entities;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
@@ -80,4 +81,10 @@ public class Wall extends Entity{
 	public Wall clone(Vector2 pos, int health){
 		return new Wall(pos, regionID, health);
 	}
+	
+	public void render(SpriteBatch batch){
+        if(!isHidden()){
+            batch.draw(getTexture(), getPosition().x, getPosition().y, bounds.getWidth(), bounds.getHeight());
+        }   
+    }
 }

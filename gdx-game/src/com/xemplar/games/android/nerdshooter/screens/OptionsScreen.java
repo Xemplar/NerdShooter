@@ -43,8 +43,10 @@ public class OptionsScreen implements Screen, InputProcessor {
 
     protected Label lbl_audio;
     protected Label lbl_lefty;
+    protected Label lbl_debug;
     protected SwitchButton audio;
     protected SwitchButton lefty;
+    protected SwitchButton debug;
     protected Button back;
     
 	protected Array<View> views = new Array<View>();
@@ -78,9 +80,11 @@ public class OptionsScreen implements Screen, InputProcessor {
         
         lbl_audio = new Label(NerdShooter.text, "Audio", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), buttonWidth, buttonHeight);
         lbl_lefty = new Label(NerdShooter.text, "Lefty", (width / 2F) - (buttonWidth), height - ((buttonHeight + spacer) * 2), buttonWidth, buttonHeight);
+        lbl_debug = new Label(NerdShooter.text, "Debug", (width / 2F) - (buttonWidth), height - ((buttonHeight + spacer) * 3), buttonWidth, buttonHeight);
         
         audio = new SwitchButton(text, lbl_audio.x + (lbl_audio.width * 3F/2F) + spacer, height - (buttonHeight + spacer), buttonWidth / 2F, buttonHeight, "audio");
         lefty = new SwitchButton(text, lbl_lefty.x + (lbl_lefty.width * 3F/2F) + spacer, height - ((buttonHeight + spacer) * 2), buttonWidth / 2F, buttonHeight, "lefty");
+        debug = new SwitchButton(text, lbl_debug.x + (lbl_debug.width * 3F/2F) + spacer, height - ((buttonHeight + spacer) * 3), buttonWidth / 2F, buttonHeight, "debug");
         
         back = new Button(text, "Back", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F), buttonHeight);
         back.setActionNumber(1);
@@ -89,8 +93,10 @@ public class OptionsScreen implements Screen, InputProcessor {
         
         views.add(lbl_audio);
         views.add(lbl_lefty);
+        views.add(lbl_debug);
         views.add(audio);
         views.add(lefty);
+        views.add(debug);
         views.add(back);
         
         loadSettings();

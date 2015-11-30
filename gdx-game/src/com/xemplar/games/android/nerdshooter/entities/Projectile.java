@@ -74,11 +74,11 @@ public abstract class Projectile extends Entity {
 	}
 	
 	public float getSpeedDamper(){
-		return 0.98F;
+		return 1F;
 	}
 	
-	public boolean collideWithBlocks(){
-		return true;
+	public boolean affectWithGravity(){
+		return false;
 	}
 	
 	protected void setVelocity(float speed, float deg){
@@ -88,6 +88,10 @@ public abstract class Projectile extends Entity {
 		this.speed = speed;
 		this.deg = deg;
 		this.velocity.set(velX, velY);
+	}
+	
+	public boolean collideWithBlocks(){
+		return false;
 	}
 	
 	public abstract Projectile launch(Vector2 pos, float speed, float deg);

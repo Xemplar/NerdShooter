@@ -155,7 +155,9 @@ public class GameScreen implements Screen, InputProcessor {
             }
             
             jaxon.inventory.renderItems(batch, width, height, buttonSize * 0.75F);
-            font.draw(batch, "Time: " + (seconds / 10D) + " seconds, FPS: " + Gdx.graphics.getFramesPerSecond(), 0, height - 10);
+            if(NerdShooter.PREF_DEBUG){
+            	font.draw(batch, "Time: " + (seconds / 10D) + " seconds, FPS: " + Gdx.graphics.getFramesPerSecond(), 0, height - 10);
+            }
         } batch.end();
     }
 	
@@ -189,11 +191,13 @@ public class GameScreen implements Screen, InputProcessor {
 			right.set(buttonSize * 2F, buttonSize / 2F, buttonSize, buttonSize);
 			
 			jump.set(width - (buttonSize * 3F/2F), buttonSize / 2F, buttonSize, buttonSize);
+			fire.set(width - (buttonSize * 3F/2F), buttonSize * 2F, buttonSize, buttonSize);
 		} else {
 			left.set(width - (buttonSize * 3F), buttonSize / 2F, buttonSize, buttonSize);
 			right.set(width - (buttonSize * 3F/2F), buttonSize / 2F, buttonSize, buttonSize);
 			
 			jump.set(buttonSize / 2F, buttonSize / 2F, buttonSize, buttonSize);
+			fire.set(buttonSize / 2F, buttonSize * 2F, buttonSize, buttonSize);
 		}
     }
 	
@@ -320,6 +324,10 @@ public class GameScreen implements Screen, InputProcessor {
 			if(jump.contains(x, (y - height) * -1)){
 				controller.jumpPressed(pointer);
 			}
+			
+			if(fire.contains(x, (y - height) * -1)){
+				controller.firePressed(pointer);
+			}
 		    
             if(sanic.contains(x, (y - height) * -1)){
                 if (NerdShooter.sanic){
@@ -357,8 +365,12 @@ public class GameScreen implements Screen, InputProcessor {
             	controller.rightReleased();
         	}
 		
-			if(jump.contains(x, (y - height) * -1)){
+        	if(jump.contains(x, (y - height) * -1)){
 				controller.jumpReleased();
+			}
+        	
+        	if(fire.contains(x, (y - height) * -1)){
+				controller.fireReleased();
 			}
         	return true;
 		}

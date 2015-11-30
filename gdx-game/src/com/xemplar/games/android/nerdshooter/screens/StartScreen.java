@@ -109,8 +109,8 @@ public class StartScreen implements Screen, InputProcessor {
         buttons.add(level2.setActionNumber(2));
         buttons.add(level3.setActionNumber(3));
         
-        /*buttons.add(level4.setActionNumber(4));
-        buttons.add(level5.setActionNumber(5));
+        buttons.add(level4.setActionNumber(4));
+        /*buttons.add(level5.setActionNumber(5));
         buttons.add(level6.setActionNumber(6));*/
         
         buttons.add(options.setActionNumber(-3));

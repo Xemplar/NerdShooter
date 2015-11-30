@@ -35,6 +35,7 @@ import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
 public class NerdShooter extends Game {
 	public static boolean PREF_AUDIO = false;
 	public static boolean PREF_LEFTY = false;
+	public static boolean PREF_DEBUG = false;
 	
 	public static Preferences prefs;
 	public static final float BUTTON_HEIGHT = 6F;
@@ -77,8 +78,9 @@ public class NerdShooter extends Game {
     }
     
     public static void reloadSettings(){
-    	PREF_AUDIO = Boolean.parseBoolean(prefs.getString("audio", Boolean.toString(false)));
-        PREF_LEFTY = Boolean.parseBoolean(prefs.getString("lefty", Boolean.toString(false)));
+    	PREF_AUDIO = Boolean.parseBoolean(prefs.getString("audio", Boolean.toString(true)));
+    	PREF_LEFTY = Boolean.parseBoolean(prefs.getString("lefty", Boolean.toString(false)));
+    	PREF_DEBUG = Boolean.parseBoolean(prefs.getString("debug", Boolean.toString(false)));
     }
     
     public int getCurrentScreen(){

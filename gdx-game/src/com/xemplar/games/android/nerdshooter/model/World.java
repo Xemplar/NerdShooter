@@ -20,7 +20,6 @@
  */
 package com.xemplar.games.android.nerdshooter.model;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.xemplar.games.android.nerdshooter.blocks.Block;
@@ -29,13 +28,8 @@ import com.xemplar.games.android.nerdshooter.entities.Jaxon;
 import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class World {
-	private Array<Rectangle> collisionRects = new Array<Rectangle>();
 	private Level level;
     private Jaxon jaxon;
-	
-    public Array<Rectangle> getCollisionRects() {
-        return collisionRects;
-    }
 	
     public Jaxon getJaxon() {
         return jaxon;

@@ -37,6 +37,7 @@ import com.xemplar.games.android.nerdshooter.model.World;
 import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class JaxonController implements Controller{
+	private Array<Rectangle> collisionRects = new Array<Rectangle>();
     enum Keys {
         LEFT, RIGHT, JUMP, FIRE
     }
@@ -197,15 +198,13 @@ public class JaxonController implements Controller{
     }
 
     private void checkCollisionWithBlocks(float delta) {
-    	World world = GameScreen.instance.world;
-    	
         jaxon.getVelocity().scl(delta);
         Rectangle jaxonRect = rectPool.obtain();
         jaxonRect.set(jaxon.getBounds().x, jaxon.getBounds().y, jaxon.getBounds().width, jaxon.getBounds().height);
 
         populateCollidableBlocks();
         jaxonRect.x += jaxon.getVelocity().x;
-        world.getCollisionRects().clear();
+        collisionRects.clear();
 
         for (Block block : collidable) {
             if (block == null) continue;
@@ -216,7 +215,7 @@ public class JaxonController implements Controller{
 
             if (jaxonRect.overlaps(block.getBounds()) && block.isCollideable()) {
                 jaxon.getVelocity().x = 0;
-                world.getCollisionRects().add(block.getBounds());
+                collisionRects.add(block.getBounds());
 
                 if (jaxon.getBounds().overlaps(block.getBounds())) {
                     float jaxonX = jaxon.getPosition().x;
@@ -252,7 +251,7 @@ public class JaxonController implements Controller{
                 }
 
                 jaxon.getVelocity().y = 0;
-                world.getCollisionRects().add(block.getBounds());
+                collisionRects.add(block.getBounds());
                 break;
             }
         }

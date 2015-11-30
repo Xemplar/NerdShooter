@@ -44,13 +44,21 @@ public class Main{
 			
 		}
 		
-		String[] options = ((String) JOptionPane.showInputDialog(null, 
+		String out = (String) JOptionPane.showInputDialog(null, 
 		        "Setup",
 		        "Screen Resolution",
 		        JOptionPane.QUESTION_MESSAGE, 
 		        null, 
 		        res, 
-		        res[0])).split(", ");
+		        res[0]);
+		
+		String[] options = null;
+		
+		if(out == null){
+			return;
+		} else {
+			options = out.split(", ");
+		}
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.allowSoftwareMode = true;

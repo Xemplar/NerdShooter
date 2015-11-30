@@ -31,6 +31,7 @@ import com.xemplar.games.android.nerdshooter.model.World;
 import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class ProjectileController implements Controller{
+	private Array<Rectangle> collisionRects = new Array<Rectangle>();
 	private static final float GRAVITY = -20f;
 
     private static Pool<Rectangle> rectPool = new Pool<Rectangle>() {
@@ -65,30 +66,65 @@ public class ProjectileController implements Controller{
     }
 	
 	private void checkCollisionWithBlocks(float delta) {
-		World world = GameScreen.instance.world;
-		
-        Rectangle thisRect = rectPool.obtain();
-        thisRect.set(projectile.getBounds().x, projectile.getBounds().y, projectile.getBounds().width, projectile.getBounds().height);
+		Rectangle projectileRect = rectPool.obtain();
+        projectileRect.set(projectile.getBounds().x, projectile.getBounds().y, projectile.getBounds().width, projectile.getBounds().height);
 
         populateCollidableBlocks();
-        world.getCollisionRects().clear();
+        projectileRect.x += projectile.getVelocity().x;
+        collisionRects.clear();
 
         for (Block block : collidable) {
-            if (block == null) continue;
+        	if (block == null) continue;
 
-            if (thisRect.overlaps(block.getBounds()) && (block.isTouchable())) {
+            if (projectileRect.overlaps(block.getBounds()) && block.isTouchable()) {
                 block.onTouch(projectile);
             }
+            
+            if (projectileRect.overlaps(block.getBounds()) && block.isCollideable()) {
+            	projectile.getVelocity().x = 0;
+                collisionRects.add(block.getBounds());
+            	
+                if (projectile.getBounds().overlaps(block.getBounds())) {
+                	float entityX = projectile.getPosition().x;
+                	float blockX = block.getPosition().x;
+
+                	System.out.println("got stuck on: " + block.regionID);
+
+                	if (entityX < blockX) {
+                		projectile.getPosition().x = block.getPosition().x - projectile.getBounds().getWidth();
+                	} else {
+                		projectile.getPosition().x = block.getPosition().x + block.getBounds().getWidth();
+                	}
+                }
+            }
+            break;
         }
+
+        projectileRect.x = projectile.getPosition().x;
 
         populateCollidableBlocks();
+        projectileRect.y += projectile.getVelocity().y;
 
         for (Block block : collidable) {
-            if (block == null) continue;
-			if (thisRect.overlaps(block.getBounds()) && (block.isTouchable())) {
+        	if (block == null) continue;
+        	
+        	boolean collides = projectileRect.overlaps(block.getBounds());
+        	
+			if (collides && block.isTouchable()) {
                 block.onTouch(projectile);
             }
+
+            if (collides && block.isCollideable()) {
+                if (projectile.getVelocity().y < 0) {
+                    grounded = true;
+                }
+
+                projectile.getVelocity().y = 0;
+                collisionRects.add(block.getBounds());
+                break;
+            }
         }
+        projectileRect.y = projectile.getPosition().y;
     }
 
     private void populateCollidableBlocks() {
@@ -111,7 +147,7 @@ public class ProjectileController implements Controller{
     				    float yDist = Math.abs(current.getPosition().y - pos.y);
 
     				    if (xDist < 1F && yDist < 1F) {
-    					    collidable.add(current);
+    				    	collidable.add(current);
     				    }
                     }
     			}
@@ -122,10 +158,10 @@ public class ProjectileController implements Controller{
         	int size = world.getEntities().size;
         	for(int i = 0; i < size; i++){
             	Entity current = world.getEntities().get(i);
-            
+            	
             	if(current.isHidden()) continue;
             	if(current.equals(projectile)) continue;
-            
+            	
             	if (current.isCollideable() || current.isTouchable()) {
                 	float xDist = Math.abs(current.getPosition().x - pos.x);
                 	float yDist = Math.abs(current.getPosition().y - pos.y);

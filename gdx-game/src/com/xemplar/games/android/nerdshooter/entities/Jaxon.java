@@ -130,14 +130,9 @@ public class Jaxon extends Entity{
             respawn();
         }
         
-		stateTime += delta;
 		position.mulAdd(velocity.cpy(), delta);
 		bounds.x = position.x;
 		bounds.y = position.y;
-		
-		if(getPosition().y < 0){
-			kill();
-		}
 	}
 
     public void render(SpriteBatch batch) {
