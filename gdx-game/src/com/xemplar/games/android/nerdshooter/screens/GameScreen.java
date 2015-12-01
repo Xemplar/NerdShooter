@@ -329,25 +329,25 @@ public class GameScreen implements Screen, InputProcessor {
 				controller.firePressed(pointer);
 			}
 		    
-            if(sanic.contains(x, (y - height) * -1)){
-                if (NerdShooter.sanic){
-                    NerdShooter.sanic = false;
-                    jaxon.loadTextures();
-                    StartScreen.reloadMusic();
-
-                    numPressed = 0;
-                } else if (!NerdShooter.sanic){
-                    System.out.println(numPressed);
-                    if(numPressed == 2){
-                        //NerdShooter.sanic = true;
-                        //jaxon.loadTextures();
-                        //StartScreen.reloadMusic();
-                    }
-
-                    numPressed++;
-                }
-                return true;
-            }
+//            if(sanic.contains(x, (y - height) * -1)){
+//                if (NerdShooter.sanic){
+//                    NerdShooter.sanic = false;
+//                    jaxon.loadTextures();
+//                    StartScreen.reloadMusic();
+//
+//                    numPressed = 0;
+//                } else if (!NerdShooter.sanic){
+//                    System.out.println(numPressed);
+//                    if(numPressed == 2){
+//                        NerdShooter.sanic = true;
+//                        jaxon.loadTextures();
+//                        StartScreen.reloadMusic();
+//                    }
+//
+//                    numPressed++;
+//                }
+//                return true;
+//            }
 		}
 		
 		return jaxon.inventory.pressed(x, (y - height) * -1);
