@@ -22,11 +22,12 @@ package com.xemplar.games.android.nerdshooter.entities;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.xemplar.games.android.nerdshooter.blocks.Block;
 import com.xemplar.games.android.nerdshooter.controller.Controller;
 import com.xemplar.games.android.nerdshooter.controller.EntityController;
 import com.xemplar.games.android.nerdshooter.inventory.Inventory;
+import com.xemplar.games.android.nerdshooter.model.World;
 
 public abstract class Entity extends Block{
 	public enum State {
@@ -40,7 +41,7 @@ public abstract class Entity extends Block{
     protected int health = 0;
     
     public Inventory inventory;
-    protected boolean hidden, reset;
+    protected boolean hidden, reset, hasSpawned;
     protected Controller controller;
 
 	protected float stateTime = 0;
@@ -123,6 +124,7 @@ public abstract class Entity extends Block{
     
 	public void respawn(){
         this.health = maxHealth;
+        this.hidden = false;
         velocity.set(0F, 0F);
 		setPosition(spawnPoint.cpy());
 		
@@ -158,7 +160,9 @@ public abstract class Entity extends Block{
         onKill();
     }
     
-    public void onKill(){}
+    protected void onKill(){
+    	World.despawnEntity(this);
+    }
     
     public final void hurt(int amt){
         if(!isDead()){
@@ -195,15 +199,9 @@ public abstract class Entity extends Block{
     public abstract void updateEntity(float delta);
     
     public void update(float delta){
-        if(isDead() && !(this instanceof Projectile)){
+        if(isDead()){
             if(hasInventory() && inventory.hasItems()){
                 inventory.clear();
-            }
-            
-            if(!reset){
-                hidden = true;
-                reset = true;
-                Timer.schedule(run, 1F);
             }
         }
         
@@ -214,9 +212,9 @@ public abstract class Entity extends Block{
         }
     }
     
-    Timer.Task run = new Timer.Task(){
+    protected Task respawn = new Task(){
         public void run(){
-            hidden = false;
+            respawn();
         }
     };
 }

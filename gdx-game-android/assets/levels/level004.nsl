@@ -1,9 +1,9 @@
 rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm,rm
 rc,rc,rc,rc,rc,rc,rc,rc,rc,rc,rc,rc,00,00,00,rc,00,rc,00,rc,00,rc,rc,00,rc,00,rc,00,00,00,00,00,00,rc,00,00,00,00,00,00,00,00,00,rc
-rc,00,00,00,00,00,00,00,00,rc,rc,rc,00,00,00,spd,00,spd,00,spd,00,spd,rc,00,rc,00,rc,00,00,rl,rm,rm,rm,rc,00,00,00,00,00,00,00,00,00,rc
+rc,00,00,spd,00,spd,00,00,00,rc,rc,rc,00,00,00,spd,00,spd,00,spd,00,spd,rc,00,rc,00,rc,00,00,rl,rm,rm,rm,rc,00,00,00,00,00,00,00,00,00,rc
 rc,00,00,00,00,00,00,00,00,rc,rc,rc,00,00,00,00,00,e02/5,00,00,00,00,rc,00,spd,00,spd,00,00,00,lr,00,00,rc,00,00,00,00,00,00,00,00,00,rc
 rc,00,00,00,00,00,00,00,00,spd,spd,rc,e01/10,00,00,rm,00,rm,00,rm,00,00,00,00,00,00,00,00,00,rm,00,00,ext,rc,00,00,00,00,00,00,00,00,00,rc
-rc,s,00,spu,spu,00,00,00,00,00,00,e02/5,00,00,00,rc,spu,rc,spu,rc,00,spu,00,spu,00,spu,00,00,00,rc,spu,spu,sc,rc,00,00,00,00,00,00,00,00,00,rc
+rc,s,00,spu,00,spu,00,00,00,00,00,e02/5,00,00,00,rc,spu,rc,spu,rc,00,spu,00,spu,00,spu,00,00,00,rc,spu,spu,sc,rc,00,00,00,00,00,00,00,00,00,rc
 rc,rm,rm,rm,rm,rm,rm,00,00,00,rm,rc,rm,rm,rm,rc,rm,rc,rm,rc,rm,rm,rm,rm,rm,rm,rm,00,00,rc,rm,rm,rm,rc,rm,rm,rm,rm,rm,rm,rm,rm,rm,rc
 rc,rc,rc,rc,e01/10,00,00,rm,00,00,spr,rc,00,00,00,00,00,00,00,00,00,00,rc,00,00,kr,rc,00,00,spr,rc,rc,rc,rc,00,00,00,00,00,00,00,00,00,rc
 rc,rc,rc,rc,spl,00,00,00,00,00,00,rc,00,00,00,00,spl,00,spr,rm,rm,rm,rc,00,spd,spd,rc,spl,00,00,rc,rc,rc,rc,00,00,00,00,00,00,00,00,00,rc

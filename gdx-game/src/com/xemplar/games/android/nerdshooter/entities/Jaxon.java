@@ -26,6 +26,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Timer;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
 import com.xemplar.games.android.nerdshooter.controller.JaxonController;
 import com.xemplar.games.android.nerdshooter.inventory.Inventory;
@@ -126,15 +127,21 @@ public class Jaxon extends Entity{
     }
     
 	public void updateEntity(float delta) {
-        if(isDead()){
-            respawn();
-        }
+        stateTime += delta;
         
 		position.mulAdd(velocity.cpy(), delta);
 		bounds.x = position.x;
 		bounds.y = position.y;
 	}
-
+	
+	public void onKill(){
+		hidden = true;
+		if(!reset){
+			Timer.schedule(respawn, 1F);
+			reset = true;
+		}
+	}
+	
     public void render(SpriteBatch batch) {
         jaxonFrame = isFacingLeft() ? jaxonIdleLeft : jaxonIdleRight;
         if(getState().equals(Jaxon.State.WALKING)) {

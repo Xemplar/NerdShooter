@@ -348,8 +348,6 @@ public class GameScreen implements Screen, InputProcessor {
                 }
                 return true;
             }
-            
-			return true;
 		}
 		
 		return jaxon.inventory.pressed(x, (y - height) * -1);
@@ -419,38 +417,22 @@ public class GameScreen implements Screen, InputProcessor {
 			int h = world.getLevel().getHeight();
 			
 			if(e.getPosition().x + 1 < 0){
-				if(e.isRespawnable()){
-					e.respawn();
-				} else {
-					world.getEntities().removeValue(e, false);
-				}
+				e.kill();
 				continue;
 			}
 			
 			if(e.getPosition().x > w){
-				if(e.isRespawnable()){
-					e.respawn();
-				} else {
-					world.getEntities().removeValue(e, false);
-				}
+				e.kill();
 				continue;
 			}
 			
 			if(e.getPosition().y + 1 < 0){
-				if(e.isRespawnable()){
-					e.respawn();
-				} else {
-					world.getEntities().removeValue(e, false);
-				}
+				e.kill();
 				continue;
 			}
 			
 			if(e.getPosition().y > h){
-				if(e.isRespawnable()){
-					e.respawn();
-				} else {
-					world.getEntities().removeValue(e, false);
-				}
+				e.kill();
 				continue;
 			}
 			
