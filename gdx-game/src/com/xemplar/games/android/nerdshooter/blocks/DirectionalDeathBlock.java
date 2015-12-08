@@ -63,7 +63,7 @@ public class DirectionalDeathBlock extends DeathBlock{
     	boolean right = (direction & 0x01) == 1;
     	
 
-    	Vector2 center = new Vector2(bounds.x + (right ? 1F : 0F), bounds.y + (up ? 1F : 0F));
+    	Vector2 center = new Vector2(bounds.x + (right ? 1F : 0F), bounds.y + (up ? 1F : -0.5F));
     	
     	boolean kill = false;
     	kill |= (e.getPosition().x < center.x && left);
