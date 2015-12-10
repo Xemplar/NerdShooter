@@ -27,6 +27,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
@@ -56,7 +57,10 @@ public class CompletedLevel implements Screen, InputProcessor {
     private int width, height;
     private SpriteBatch batch;
     
+    private Texture rickmas;
+    
     public CompletedLevel(){
+    	rickmas = new Texture(Gdx.files.internal("rickmas.png"));
         instance = this;
     }
     
@@ -69,6 +73,14 @@ public class CompletedLevel implements Screen, InputProcessor {
         
         batch.begin();{
             text.draw(batch, message, (width / 2F) - (font / 2F), height - text.getCapHeight());
+            
+            float width = buttonHeight * 10;
+            float height = buttonHeight * 4;
+            
+            if(NerdShooter.sanic){
+            	batch.draw(rickmas, (this.width / 2F) - (width / 2F), (this.height / 2F) - (height / 4F), width, height);
+            }
+            
             replay.render(batch);
             menu.render(batch);
         } batch.end();

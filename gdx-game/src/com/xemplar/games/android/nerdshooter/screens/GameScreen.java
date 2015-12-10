@@ -184,7 +184,7 @@ public class GameScreen implements Screen, InputProcessor {
 		jump.set(width - (buttonSize * 3F/2F), buttonSize / 2F, buttonSize, buttonSize);
 		fire.set(width - (buttonSize * 3F/2F), buttonSize * 2F, buttonSize, buttonSize);
 		
-		sanic.set(width - buttonSize, height - buttonSize, buttonSize, buttonSize);
+		sanic.set(0, height - buttonSize, buttonSize, buttonSize);
 		
 		if(!NerdShooter.PREF_LEFTY){
 			left.set(buttonSize / 2F, buttonSize / 2F, buttonSize, buttonSize);
@@ -329,25 +329,25 @@ public class GameScreen implements Screen, InputProcessor {
 				controller.firePressed(pointer);
 			}
 		    
-//            if(sanic.contains(x, (y - height) * -1)){
-//                if (NerdShooter.sanic){
-//                    NerdShooter.sanic = false;
-//                    jaxon.loadTextures();
-//                    StartScreen.reloadMusic();
-//
-//                    numPressed = 0;
-//                } else if (!NerdShooter.sanic){
-//                    System.out.println(numPressed);
-//                    if(numPressed == 2){
-//                        NerdShooter.sanic = true;
-//                        jaxon.loadTextures();
-//                        StartScreen.reloadMusic();
-//                    }
-//
-//                    numPressed++;
-//                }
-//                return true;
-//            }
+            if(sanic.contains(x, (y - height) * -1)){
+                if (NerdShooter.sanic){
+                    NerdShooter.sanic = false;
+                    jaxon.loadTextures();
+                    StartScreen.reloadMusic();
+
+                    numPressed = 0;
+                } else if (!NerdShooter.sanic){
+                    System.out.println(numPressed);
+                    if(numPressed == 2){
+                        NerdShooter.sanic = true;
+                        jaxon.loadTextures();
+                        StartScreen.reloadMusic();
+                    }
+
+                    numPressed++;
+                }
+                return true;
+            }
 		}
 		
 		return jaxon.inventory.pressed(x, (y - height) * -1);
