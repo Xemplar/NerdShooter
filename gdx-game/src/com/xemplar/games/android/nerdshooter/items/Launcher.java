@@ -35,6 +35,10 @@ public class Launcher extends Item implements Fireable, Equippable{
         return new Launcher(id, regionID);
     }
 	
+	public boolean stayInInventory(){
+		return true;
+	}
+	
 	public boolean onEquip(Entity e){
 		if(e.hasInventory()){
 			this.e = e;

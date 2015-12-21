@@ -129,6 +129,26 @@ public class ItemStack {
 		return ret;
 	}
 	
+	public void removeIndex(int i){
+		if((i + 1) > this.items.size){
+			return;
+		}
+		
+		this.items.removeIndex(i);
+		
+		if(this.items.size == 0){
+			this.id = -1;
+			this.maxAmt = 0;
+			this.mock = null;
+		}
+	}
+	
+	public void setCheckPointed(){
+		for(int i = 0; i < getCount(); i++){
+			items.get(i).checkPointed = true;
+		}
+	}
+	
 	public int getCount(){
 		return this.items.size;
 	}
@@ -183,6 +203,16 @@ public class ItemStack {
 	
 	public int getMaxStack(){
 		return this.maxAmt;
+	}
+	
+	public Array<Boolean> getCheckPointed(){
+		Array<Boolean> checks = new Array<Boolean>();
+		
+		for(int i = 0; i < items.size; i++){
+			checks.add(items.get(i).checkPointed);
+		}
+		
+		return checks;
 	}
 	
 	public Item getMock(){

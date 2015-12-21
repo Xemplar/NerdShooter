@@ -35,6 +35,7 @@ public class Item {
     public int id;
     public int maxStack;
     public String regionID;
+    public boolean checkPointed = false;
     
     protected ItemBlock block;
     
@@ -42,6 +43,10 @@ public class Item {
         this.id = id;
         this.maxStack = maxStack;
         this.regionID = regionID;
+    }
+    
+    public boolean stayInInventory(){
+    	return false;
     }
     
     public Item clone(){

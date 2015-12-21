@@ -120,6 +120,10 @@ public abstract class Entity extends Block{
     public void setCheckPoint(Vector2 point){
         this.spawnPoint = point.cpy();
         this.spawnPoint.add(0.025F, 0);
+        
+        if(this.hasInventory()){
+        	this.inventory.hitCheckPoint();
+        }
     }
     
 	public void respawn(){

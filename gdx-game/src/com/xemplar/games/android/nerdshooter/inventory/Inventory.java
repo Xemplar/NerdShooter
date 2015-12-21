@@ -68,7 +68,7 @@ public class Inventory {
         return stacks.size > 0;
     }
     
-    public void clear(){
+    public void forceClear(){
     	Array<Item> items = new Array<Item>();
         for(int i = 0; i < stacks.size; i++){
     		items.addAll(stacks.get(i).remove(stacks.get(i).getCount()));
@@ -78,6 +78,32 @@ public class Inventory {
         	items.get(i).returnToBlock(master);
         }
         items.clear();
+    }
+    
+    public void clear(){
+    	Array<Item> items = new Array<Item>();
+        for(int i = 0; i < stacks.size; i++){
+        	ItemStack current = stacks.get(i);
+        	if(stacks.get(i).getMock().stayInInventory()){
+        		continue;
+        	}
+        	for(int b = 0; b < current.getCount(); b++){
+        		if(!current.getCheckPointed().get(b)){
+        			items.add(stacks.get(i).getItem(b));
+        		}
+        	}
+        }
+        fixStacks();
+        for(int i = 0; i < items.size; i++){
+        	items.get(i).returnToBlock(master);
+        }
+        items.clear();
+    }
+    
+    public void hitCheckPoint(){
+    	for(int i = 0; i < stacks.size; i++){
+        	stacks.get(i).setCheckPointed();
+        }
     }
     
     public void fixStacks(){

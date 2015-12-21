@@ -38,4 +38,8 @@ public class Ammo extends Item {
 	public Ammo clone(){
         return new Ammo(id, maxStack, pro);
     }
+	
+	public boolean stayInInventory(){
+		return true;
+	}
 }
