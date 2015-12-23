@@ -20,27 +20,25 @@
  */
 package com.xemplar.games.android.nerdshooter.entities.ai;
 
-import com.xemplar.games.android.nerdshooter.entities.Entity;
+import static com.xemplar.games.android.nerdshooter.screens.GameScreen.*;
 
 public class LinearAI extends AbstractAI{
 	protected final long period;
 	protected final float speed;
+	protected int dir = 1;
 	
-	public LinearAI(Entity e, long period, float speed) {
-		super(e);
+	public LinearAI(long period, float speed) {
 		this.period = period;
 		this.speed = speed;
 	}
 
-	public void update(float delta) {
-		if(e.getVelocity().x < speed){
-			e.getVelocity().add(speed, 0);
+	public void updateAI(float delta) {
+		if((gameTicks % period) == 0){
+			dir *= -1;
+			e.getVelocity().set(0, 0);
 		}
-	}
-
-	public void setVelocity(long ticks) {
-		if(ticks % period == 0){
-			e.getVelocity().set(-e.getVelocity().x, e.getVelocity().y);
+		if(Math.abs(e.getVelocity().x) < speed){
+			e.getVelocity().add(speed * dir, 0);
 		}
 	}
 }

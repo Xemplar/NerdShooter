@@ -37,11 +37,13 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
 import com.xemplar.games.android.nerdshooter.blocks.ExitBlock;
 import com.xemplar.games.android.nerdshooter.controller.JaxonController;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 import com.xemplar.games.android.nerdshooter.entities.Jaxon;
+import com.xemplar.games.android.nerdshooter.entities.mobs.Mob;
 import com.xemplar.games.android.nerdshooter.model.World;
 import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
 import com.xemplar.games.android.nerdshooter.utils.XPMLItem;
@@ -126,6 +128,10 @@ public class GameScreen implements Screen, InputProcessor {
         
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+        
+        if(gameTicks == 1){
+        	World.spawnEntity(Mob.window.clone(new Vector2(1,1)));
+        }
         
 		updateEntities(delta);
         renderer.render();

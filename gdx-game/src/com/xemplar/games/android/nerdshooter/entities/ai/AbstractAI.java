@@ -24,12 +24,17 @@ import com.xemplar.games.android.nerdshooter.controller.Controller;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 
 public abstract class AbstractAI implements Controller{
-	protected final Entity e;
+	protected Entity e;
 	
-	public AbstractAI(Entity e){
+	public final void bindWithEntity(Entity e){
 		this.e = e;
 	}
 	
-	public abstract void update(float delta);
-	public abstract void setVelocity(long ticks);
+	public void update(float delta){
+		if(e != null){
+			updateAI(delta);
+		}
+	}
+	
+	public abstract void updateAI(float delta);
 }
