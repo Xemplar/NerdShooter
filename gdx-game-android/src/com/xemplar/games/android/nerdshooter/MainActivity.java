@@ -24,6 +24,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import android.view.*;
 
 public class MainActivity extends AndroidApplication {
     private NerdShooter shooter;
@@ -35,8 +36,16 @@ public class MainActivity extends AndroidApplication {
         config.useAccelerometer = false;
         config.useCompass = false;
         config.useWakelock = true;
+        config.useImmersiveMode = true;
         shooter = new NerdShooter();
         initialize(shooter, config);
+    }
+    
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if(keyCode == KeyEvent.KEYCODE_HOME){
+            System.exit(0);
+        }
+        return super.onKeyDown(keyCode, event);
     }
     
     public void onBackPressed() {
