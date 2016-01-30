@@ -30,6 +30,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.utils.Timer;
@@ -49,6 +50,7 @@ public class SplashScreen implements Screen {
         params = new FreeTypeFontParameter();
         
         NerdShooter.label = label = gen.generateFont(params);
+        NerdShooter.label_small = gen.generateFont(params);
         NerdShooter.text = gen.generateFont(params);
         
         FileHandle handle = Gdx.files.internal("logo.png");
@@ -84,6 +86,11 @@ public class SplashScreen implements Screen {
         params.size = (int) (((float)height / NerdShooter.BUTTON_HEIGHT) / 3);
         params.color = new Color(1, 1, 1, 1);
         NerdShooter.text = gen.generateFont(params);
+        
+        params.color = new Color(0, 0, 0, 1);
+        NerdShooter.label_small = gen.generateFont(params);
+        
+        NerdShooter.atlas = new TextureAtlas(Gdx.files.internal("textures/nerdshooter.atlas"));
         
         this.logoSize = height / 2F;
         this.logoX = (width / 2F) - (logoSize / 2F);

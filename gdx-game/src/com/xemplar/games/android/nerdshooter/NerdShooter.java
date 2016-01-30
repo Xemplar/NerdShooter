@@ -25,6 +25,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.xemplar.games.android.nerdshooter.screens.CompletedLevel;
@@ -35,6 +36,7 @@ import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
 public class NerdShooter extends Game {
 	public static boolean PREF_AUDIO = false;
 	public static boolean PREF_LEFTY = false;
+	public static boolean PREF_SLIDE = false;
 	public static boolean PREF_DEBUG = false;
 	
 	public static Preferences prefs;
@@ -48,8 +50,9 @@ public class NerdShooter extends Game {
     public Boolean useKeys;
     public int[] keys;
     
-    public static BitmapFont label, text;
+    public static BitmapFont label, text, label_small;
     public static GlyphLayout layout;
+    public static TextureAtlas atlas;
     
     public static FreeTypeFontGenerator gen;
     public static FreeTypeFontParameter params;
@@ -78,8 +81,9 @@ public class NerdShooter extends Game {
     }
     
     public static void reloadSettings(){
-    	PREF_AUDIO = Boolean.parseBoolean(prefs.getString("audio", Boolean.toString(true)));
+    	PREF_AUDIO = Boolean.parseBoolean(prefs.getString("audio", Boolean.toString(false)));
     	PREF_LEFTY = Boolean.parseBoolean(prefs.getString("lefty", Boolean.toString(false)));
+    	PREF_SLIDE = Boolean.parseBoolean(prefs.getString("lefty", Boolean.toString(false)));
     	PREF_DEBUG = Boolean.parseBoolean(prefs.getString("debug", Boolean.toString(false)));
     }
     

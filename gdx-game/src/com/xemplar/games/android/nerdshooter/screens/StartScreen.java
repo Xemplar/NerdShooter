@@ -29,6 +29,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
 import com.xemplar.games.android.nerdshooter.screens.ui.Button;
@@ -92,7 +93,8 @@ public class StartScreen implements Screen, InputProcessor {
         level5 = new Button(text, "Level 5", level2.x + level2.width + spacer, level4.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
         level6 = new Button(text, "Level 6", level3.x + level3.width + spacer, level5.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
         
-        options = new Button(text, "Options", (width / 2F) - (buttonWidth), (spacer * 2) + buttonHeight, (buttonWidth * 2F), buttonHeight);
+        TextureRegion tex = NerdShooter.atlas.findRegion("options");
+        options = new Button(text, tex, (width / 2F) - (buttonWidth), (spacer * 2) + buttonHeight, buttonHeight, buttonHeight);
         exit = new Button(text, "Exit", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F), buttonHeight);
 
         buttons.clear();

@@ -53,7 +53,6 @@ public class GameScreen implements Screen, InputProcessor {
 	public static boolean useGameDebugRenderer = false;
     public static GameScreen instance;
     public static long gameTicks = 0L;
-	private static TextureAtlas atlas;
 	private Rectangle left, right, jump, fire, sanic;
     public World world;
     private Jaxon jaxon;
@@ -81,7 +80,6 @@ public class GameScreen implements Screen, InputProcessor {
         levelNum = level;
         
         tex = new Texture(Gdx.files.internal("scatt.png"));
-		atlas = new TextureAtlas(Gdx.files.internal("textures/nerdshooter.atlas"));
 		
 		font = NerdShooter.gen.generateFont(NerdShooter.params);
 		font.setColor(1, 1, 1, 1);
@@ -92,9 +90,9 @@ public class GameScreen implements Screen, InputProcessor {
             GameScreen.useGameDebugRenderer = false;
         }
         
-		controlLeft = atlas.findRegion("HUDLeft");
-		controlRight = atlas.findRegion("HUDRight");
-		controlUp = atlas.findRegion("HUDJump");
+		controlLeft = NerdShooter.atlas.findRegion("HUDLeft");
+		controlRight = NerdShooter.atlas.findRegion("HUDRight");
+		controlUp = NerdShooter.atlas.findRegion("HUDJump");
 		
 		world = new World(level);
 		jaxon = world.getJaxon();
@@ -447,6 +445,6 @@ public class GameScreen implements Screen, InputProcessor {
 	}
 	
 	public static TextureAtlas getTextureAltlas(){
-		return atlas;
+		return NerdShooter.atlas;
 	}
 }

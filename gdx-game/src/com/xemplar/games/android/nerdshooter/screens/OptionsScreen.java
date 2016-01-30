@@ -39,13 +39,15 @@ public class OptionsScreen implements Screen, InputProcessor {
 	private float buttonHeight;
 	
     protected SpriteBatch buttonRenderer;
-    protected BitmapFont text;
+    protected BitmapFont button;
 
     protected Label lbl_audio;
     protected Label lbl_lefty;
+    protected Label lbl_slide;
     protected Label lbl_debug;
     protected SwitchButton audio;
     protected SwitchButton lefty;
+    protected SwitchButton slide;
     protected SwitchButton debug;
     protected Button back;
     
@@ -76,26 +78,30 @@ public class OptionsScreen implements Screen, InputProcessor {
 		float spacer = 10F;
 		float buttonWidth = (width * ((3F / 4F) / 2F));
         
-        text = NerdShooter.label;
+        button = NerdShooter.label_small;
         
-        lbl_audio = new Label(NerdShooter.text, "Audio", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), buttonWidth, buttonHeight);
-        lbl_lefty = new Label(NerdShooter.text, "Lefty", (width / 2F) - (buttonWidth), height - ((buttonHeight + spacer) * 2), buttonWidth, buttonHeight);
-        lbl_debug = new Label(NerdShooter.text, "Debug", (width / 2F) - (buttonWidth), height - ((buttonHeight + spacer) * 3), buttonWidth, buttonHeight);
+        lbl_audio = new Label(NerdShooter.text, "Enable Audio", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), buttonWidth, buttonHeight);
+        lbl_debug = new Label(NerdShooter.text, "Show Debug info", (width / 2F) - (buttonWidth), height - ((buttonHeight + spacer) * 2), buttonWidth, buttonHeight);
+        lbl_lefty = new Label(NerdShooter.text, "Side of controls", (width / 2F) - (buttonWidth), height - ((buttonHeight + spacer) * 3), buttonWidth, buttonHeight);
+        lbl_slide = new Label(NerdShooter.text, "Type of controls", (width / 2F) - (buttonWidth), height - ((buttonHeight + spacer) * 4), buttonWidth, buttonHeight);
         
-        audio = new SwitchButton(text, lbl_audio.x + (lbl_audio.width * 3F/2F) + spacer, height - (buttonHeight + spacer), buttonWidth / 2F, buttonHeight, "audio");
-        lefty = new SwitchButton(text, lbl_lefty.x + (lbl_lefty.width * 3F/2F) + spacer, height - ((buttonHeight + spacer) * 2), buttonWidth / 2F, buttonHeight, "lefty");
-        debug = new SwitchButton(text, lbl_debug.x + (lbl_debug.width * 3F/2F) + spacer, height - ((buttonHeight + spacer) * 3), buttonWidth / 2F, buttonHeight, "debug");
+        audio = new SwitchButton(button, lbl_audio.x + (lbl_audio.width * 3F/2F), height - (buttonHeight + spacer), buttonWidth / 2F, buttonHeight, "audio");
+        debug = new SwitchButton(button, lbl_debug.x + (lbl_debug.width * 3F/2F), height - ((buttonHeight + spacer) * 2), buttonWidth / 2F, buttonHeight, "debug");
+        lefty = new SwitchButton(button, lbl_lefty.x + (lbl_lefty.width * 3F/2F), height - ((buttonHeight + spacer) * 3), buttonWidth / 2F, buttonHeight, "Right", "Left", "lefty");
+        slide = new SwitchButton(button, lbl_slide.x + (lbl_slide.width * 3F/2F), height - ((buttonHeight + spacer) * 4), buttonWidth / 2F, buttonHeight, "Button", "Slider", "slide");
         
-        back = new Button(text, "Back", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F), buttonHeight);
+        back = new Button(NerdShooter.label, "Back", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F), buttonHeight);
         back.setActionNumber(1);
         
         views.clear();
         
         views.add(lbl_audio);
         views.add(lbl_lefty);
+        views.add(lbl_slide);
         views.add(lbl_debug);
         views.add(audio);
         views.add(lefty);
+        views.add(slide);
         views.add(debug);
         views.add(back);
         

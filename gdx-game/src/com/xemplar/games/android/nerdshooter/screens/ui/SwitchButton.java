@@ -22,16 +22,28 @@ package com.xemplar.games.android.nerdshooter.screens.ui;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 public class SwitchButton extends Button implements Saveable{
+	protected final String yes_string, no_string;
 	protected String key;
 	
 	public SwitchButton(BitmapFont font, float x, float y, float width, float height, String key) {
 		super(font, "No", x, y, width, height);
 		this.key = key;
+		
+		this.yes_string = "Yes";
+		this.no_string = "No";
+	}
+	
+	public SwitchButton(BitmapFont font, float x, float y, float width, float height, String no, String yes, String key) {
+		super(font, no, x, y, width, height);
+		this.key = key;
+		
+		this.yes_string = yes;
+		this.no_string = no;
 	}
 	
 	public void toggle(){
 		this.pressed = !this.pressed;
-		this.text = this.pressed ? "Yes" : "No";
+		this.text = this.pressed ? yes_string : no_string;
 	}
 	
 	public SwitchButton setPressed(boolean pressed){
@@ -48,6 +60,6 @@ public class SwitchButton extends Button implements Saveable{
 	
 	public void setFromSave(String state) {
 		this.pressed = Boolean.parseBoolean(state);
-		this.text = this.pressed ? "Yes" : "No";
+		this.text = this.pressed ? yes_string : no_string;
 	}
 }
