@@ -22,12 +22,14 @@ package com.xemplar.games.android.nerdshooter.entities.ai;
 
 import static com.xemplar.games.android.nerdshooter.screens.GameScreen.*;
 
-public class LinearAI extends AbstractAI{
+public class TimedLinearAI extends AbstractAI{
+	protected final Direction movement;
 	protected final long period;
 	protected final float speed;
 	protected int dir = 1;
 	
-	public LinearAI(long period, float speed) {
+	public TimedLinearAI(long period, float speed, Direction movement) {
+		this.movement = movement;
 		this.period = period;
 		this.speed = speed;
 	}
@@ -37,8 +39,21 @@ public class LinearAI extends AbstractAI{
 			dir *= -1;
 			e.getVelocity().set(0, 0);
 		}
-		if(Math.abs(e.getVelocity().x) < speed){
-			e.getVelocity().add(speed * dir, 0);
+		if(movement == Direction.HORIZONTAL) {
+			if (Math.abs(e.getVelocity().x) < speed) {
+				e.getVelocity().add(speed * dir, 0);
+			}
+		} else if(movement == Direction.VERTICAL){
+			if (Math.abs(e.getVelocity().y) < speed) {
+				e.getVelocity().add(0, speed * dir);
+			}
+		} else {
+			if (Math.abs(e.getVelocity().x) < speed) {
+				e.getVelocity().add(speed * dir, 0);
+			}
+			if (Math.abs(e.getVelocity().y) < speed) {
+				e.getVelocity().add(0, speed * dir);
+			}
 		}
 	}
 }

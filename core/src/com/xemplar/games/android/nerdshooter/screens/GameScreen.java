@@ -128,7 +128,7 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
         
         if(gameTicks == 1){
-        	World.spawnEntity(Mob.window.clone(new Vector2(1,1)));
+        	World.spawnEntity(Mob.spikes.clone(new Vector2(3,3)));
         }
         
 		updateEntities(delta);

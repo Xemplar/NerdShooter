@@ -168,8 +168,6 @@ public class Level {
 	public void setupLevel(int width, int height){
 		entities = new Array<Entity>();
         
-		//entities.add(new MoveablePlatform(new Vector2(2, 12), "grass", 2, 1, MoveablePlatform.MovementType.SINE));
-        
 		blocks = new Block[width * height];
 		extras = new Block[width * height];
 		

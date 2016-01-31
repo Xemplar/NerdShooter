@@ -36,7 +36,7 @@ public abstract class Entity extends Block{
 	
     public static final float SPEED = 5f;  // unit per second
     public static final float JUMP_VELOCITY = 1f;
-    public static final int UNLIMITED = 0xF00000;
+    public static final int UNLIMITED = 0xFFFFFF;
     protected final int maxHealth;
     protected int health = 0;
     
@@ -49,48 +49,90 @@ public abstract class Entity extends Block{
     protected Vector2 velocity = new Vector2();
     protected State state = State.IDLE;
     protected boolean facingLeft = true;
-    
+
     public Entity(Vector2 position, int health) {
-		super(position, "");
+        super(position, "");
         this.health = health;
         this.maxHealth = health;
         this.controller = new EntityController(this);
     }
-	
+
     public Entity(Vector2 position, float size, int health) {
         super(position, "", size);
         this.health = health;
         this.maxHealth = health;
         this.controller = new EntityController(this);
     }
-    
+
     public Entity(Vector2 position, float width, float height, int health) {
-    	super(position, "", width, height);
+        super(position, "", width, height);
         this.health = health;
         this.maxHealth = health;
         this.controller = new EntityController(this);
     }
-    
-	public Entity(Vector2 position, String regionID, int health){
-		super(position, regionID);
+
+    public Entity(Vector2 position, String regionID, int health){
+        super(position, regionID);
         this.health = health;
         this.maxHealth = health;
         this.controller = new EntityController(this);
-	}
+    }
 
     public Entity(Vector2 position, String regionID, float size, int health){
-    	super(position, regionID, size);
+        super(position, regionID, size);
         this.health = health;
         this.maxHealth = health;
         this.controller = new EntityController(this);
-	}
-    
+    }
+
     public Entity(Vector2 position, String regionID, float width, float height, int health){
-    	super(position, regionID, width, height);
+        super(position, regionID, width, height);
         this.health = health;
         this.maxHealth = health;
         this.controller = new EntityController(this);
-	}
+    }
+
+    public Entity(Vector2 position) {
+        super(position, "");
+        this.health = UNLIMITED;
+        this.maxHealth = UNLIMITED;
+        this.controller = new EntityController(this);
+    }
+
+    public Entity(Vector2 position, float size) {
+        super(position, "", size);
+        this.health = UNLIMITED;
+        this.maxHealth = UNLIMITED;
+        this.controller = new EntityController(this);
+    }
+
+    public Entity(Vector2 position, float width, float height) {
+        super(position, "", width, height);
+        this.health = UNLIMITED;
+        this.maxHealth = UNLIMITED;
+        this.controller = new EntityController(this);
+    }
+
+    public Entity(Vector2 position, String regionID){
+        super(position, regionID);
+        this.health = UNLIMITED;
+        this.maxHealth = UNLIMITED;
+        this.controller = new EntityController(this);
+    }
+
+    public Entity(Vector2 position, String regionID, float size){
+        super(position, regionID, size);
+        this.health = UNLIMITED;
+        this.maxHealth = UNLIMITED;
+        this.controller = new EntityController(this);
+    }
+
+    public Entity(Vector2 position, String regionID, float width, float height){
+        super(position, regionID, width, height);
+        this.health = UNLIMITED;
+        this.maxHealth = UNLIMITED;
+        this.controller = new EntityController(this);
+    }
     
     public void setState(State newState) {
         this.state = newState;

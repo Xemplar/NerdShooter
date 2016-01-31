@@ -25,8 +25,14 @@ import com.xemplar.games.android.nerdshooter.entities.Entity;
 
 public abstract class AbstractAI implements Controller{
 	protected Entity e;
-	
-	public final void bindWithEntity(Entity e){
+
+	public enum Direction{
+		HORIZONTAL,
+		VERTICAL,
+		BOTH;
+	}
+
+	public void bindWithEntity(Entity e){
 		this.e = e;
 	}
 	

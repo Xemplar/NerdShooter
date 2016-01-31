@@ -70,7 +70,9 @@ public class DirectionalDeathBlock extends DeathBlock{
     	kill |= (e.getPosition().x > center.x && right);
     	kill |= (e.getPosition().y < center.y && down);
     	kill |= (e.getPosition().y > center.y && up);
-    	
+
+        System.out.println("kill");
+
     	if(kill){
     		super.onTouch(e);
     	}
