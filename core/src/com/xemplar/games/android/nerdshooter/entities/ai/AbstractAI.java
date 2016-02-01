@@ -21,10 +21,10 @@
 package com.xemplar.games.android.nerdshooter.entities.ai;
 
 import com.xemplar.games.android.nerdshooter.controller.Controller;
+import com.xemplar.games.android.nerdshooter.controller.EntityController;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 
-public abstract class AbstractAI implements Controller{
-	protected Entity e;
+public abstract class AbstractAI extends EntityController {
 
 	public enum Direction{
 		HORIZONTAL,
@@ -33,11 +33,12 @@ public abstract class AbstractAI implements Controller{
 	}
 
 	public void bindWithEntity(Entity e){
-		this.e = e;
+		this.entity = e;
 	}
 	
 	public void update(float delta){
-		if(e != null){
+		if(entity != null){
+            super.update(delta);
 			updateAI(delta);
 		}
 	}

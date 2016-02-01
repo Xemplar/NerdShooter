@@ -59,11 +59,10 @@ public class DirectionalDeathBlock extends DeathBlock{
     public void onTouch(Entity e){
     	boolean up = ((direction >> 3) & 0x01) == 1;
     	boolean down = ((direction >> 2) & 0x01) == 1;
-    	boolean left = ((direction >> 1) & 0x01) == 1;
-    	boolean right = (direction & 0x01) == 1;
-    	
+    	boolean left = ((direction >> 0) & 0x01) == 1;
+    	boolean right = ((direction >> 1) & 0x01) == 1;
 
-    	Vector2 center = new Vector2(bounds.x + (right ? 1F : -e.bounds.width), bounds.y + (up ? 1F : -0.5F));
+    	Vector2 center = new Vector2(bounds.x + (right ? 0.98F : -e.bounds.width), bounds.y + (up ? 1F : -0.5F));
     	
     	boolean kill = false;
     	kill |= (e.getPosition().x < center.x && left);
@@ -71,7 +70,8 @@ public class DirectionalDeathBlock extends DeathBlock{
     	kill |= (e.getPosition().y < center.y && down);
     	kill |= (e.getPosition().y > center.y && up);
 
-        System.out.println("kill");
+        System.out.println("up = " + up + ", down = " + down + ", left = " + left + ", right = " + right);
+        System.out.println("center x = " + center.x + ", center y = " + center.y);
 
     	if(kill){
     		super.onTouch(e);

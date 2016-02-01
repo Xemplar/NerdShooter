@@ -37,17 +37,20 @@ public class BlockMob extends Mob{
         return b.isTouchable();
     }
 
+    public boolean collideWithEntities(){
+        return true;
+    }
+
     public boolean isCollideable(){
         return b.isCollideable();
     }
 
     public void onTouch(Entity e){
+        b.getPosition().set(this.getPosition().cpy());
+        b.getBounds().setPosition(this.getPosition().cpy());
         b.onTouch(e);
-    }
 
-    public void setPosition(Vector2 position) {
-        this.position = position;
-        this.bounds.setPosition(this.position);
+
     }
 
     public BlockMob clone(Vector2 pos){

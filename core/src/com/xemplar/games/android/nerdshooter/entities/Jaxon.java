@@ -109,7 +109,15 @@ public class Jaxon extends Entity{
         }
         walkRightAnimation = new Animation(RUNNING_FRAME_DURATION, walkRightFrames);
     }
-    
+
+	public boolean isTouchable(){
+		return true;
+	}
+
+	public void onTouch(Entity e){
+		e.onTouch(this);
+	}
+
     public boolean hasInventory() {
         return true;
     }

@@ -41,12 +41,14 @@ public class EntityController implements Controller{
     
 	private Array<Block> collidable = new Array<Block>();
     private boolean grounded = false;
-    private Entity entity;
+    protected Entity entity;
     
     public EntityController(Entity e){
     	this.entity = e;
     }
-    
+
+    protected EntityController(){}
+
 	public void update(float delta) {
 		if(entity.affectWithGravity()){
 			if (grounded && entity.getState().equals(Entity.State.JUMPING)) {

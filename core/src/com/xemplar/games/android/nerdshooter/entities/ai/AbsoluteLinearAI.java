@@ -38,36 +38,38 @@ public class AbsoluteLinearAI extends AbstractAI{
     }
 
     public void bindWithEntity(Entity e){
-        fromPos = e.getPosition().cpy();
-        toPos.add(fromPos.cpy());
+        if(fromPos == null) {
+            fromPos = e.getPosition().cpy();
+            toPos.add(e.getPosition().x, e.getPosition().y);
+        }
         super.bindWithEntity(e);
     }
 
     public void updateAI(float delta) {
-        Vector2 ePos = e.getPosition();
+        Vector2 ePos = entity.getPosition();
         if(movement == Direction.HORIZONTAL) {
             if(ePos.x <= Math.min(toPos.x, fromPos.x)){
                 dir = 1;
-                e.getVelocity().set(0, 0);
+                entity.getVelocity().set(0, 0);
             } else if(ePos.x >= Math.max(toPos.x, fromPos.x)){
                 dir = -1;
-                e.getVelocity().set(0, 0);
+                entity.getVelocity().set(0, 0);
             }
-            float diff = Math.abs(toPos.x - fromPos.x);
-            float pos = Math.abs(toPos.x - ePos.x);
-            if (Math.abs(e.getVelocity().x) < speed) {
-                e.getVelocity().add(speed * dir * MathUtils.sinDeg((pos / diff) * 180), 0);
+
+            if (Math.abs(entity.getVelocity().x) < speed) {
+                entity.getVelocity().add(speed * dir, 0);
             }
         } else if(movement == Direction.VERTICAL){
             if(ePos.y <= Math.min(toPos.y, fromPos.y)){
                 dir = 1;
-                e.getVelocity().set(0, 0);
+                entity.getVelocity().set(0, 0);
             } else if(ePos.y >= Math.max(toPos.y, fromPos.y)){
                 dir = -1;
-                e.getVelocity().set(0, 0);
+                entity.getVelocity().set(0, 0);
             }
-            if (Math.abs(e.getVelocity().y) < speed) {
-                e.getVelocity().add(0, speed * dir);
+
+            if (Math.abs(entity.getVelocity().y) < speed) {
+                entity.getVelocity().add(0, speed * dir);
             }
         }
     }

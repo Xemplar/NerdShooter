@@ -28,8 +28,8 @@ import com.xemplar.games.android.nerdshooter.entities.ai.TimedLinearAI;
 
 public class Mob extends Entity{
 	public static final Mob window = new Mob(empty, "window", 10, new TimedLinearAI(100, 1F, AbstractAI.Direction.HORIZONTAL));
-	public static final BlockMob spikes = new BlockMob(empty, BlockMob.spike_steel_left,
-            new AbsoluteLinearAI(new Vector2(2, 0), 2, AbstractAI.Direction.HORIZONTAL));
+	public static final BlockMob spikes = new BlockMob(empty, BlockMob.spike_sand_up,
+            new AbsoluteLinearAI(new Vector2(1, 0), 2, AbstractAI.Direction.HORIZONTAL));
 
 	public Mob(Vector2 position, float size, int health, AbstractAI ai) {
         super(position, size, health);

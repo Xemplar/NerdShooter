@@ -98,8 +98,8 @@ public class StartScreen implements Screen, InputProcessor {
         level5 = new Button(text, "Level 5", level2.x + level2.width + spacer, level4.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
         level6 = new Button(text, "Level 6", level3.x + level3.width + spacer, level5.y - (buttonHeight + spacer), buttonWidth - (spacer / 2F), buttonHeight);
 
-        options = new Button(text, "", ((width / 2F) - (buttonWidth)) + ((buttonWidth * 2F)  - (buttonHeight + spacer)), spacer, buttonHeight, buttonHeight);
-        exit = new Button(text, "Exit", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F)  - (buttonHeight + (spacer * 2F)), buttonHeight);
+        options = new Button(text, "", ((width / 2F) - (buttonWidth)) + ((buttonWidth * 2F) - buttonHeight), spacer, buttonHeight, buttonHeight);
+        exit = new Button(text, "Exit", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F)  - (buttonHeight + spacer), buttonHeight);
 
         options.setTexture(tex);
 

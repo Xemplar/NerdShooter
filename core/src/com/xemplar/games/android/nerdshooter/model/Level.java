@@ -29,6 +29,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.xemplar.games.android.nerdshooter.blocks.Block;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.entities.ai.AbsoluteLinearAI;
+import com.xemplar.games.android.nerdshooter.entities.ai.AbstractAI;
+import com.xemplar.games.android.nerdshooter.entities.mobs.BlockMob;
 
 public class Level {
 	public Vector2 jaxonStart;
@@ -452,6 +455,17 @@ public class Level {
 			case 2:{
 				int health = Integer.parseInt(options[1]);
 				return bricks.clone(new Vector2(x, y), health);
+			}
+			case 3:{
+				Block slave = parseID(options[1], x, y);
+                AbstractAI.Direction dir = options[2].equals("0") ? AbstractAI.Direction.HORIZONTAL:AbstractAI.Direction.VERTICAL;
+                float amount = Float.parseFloat(options[3]);
+                float speed = Float.parseFloat(options[4]);
+
+                float dx = dir.equals(AbstractAI.Direction.HORIZONTAL) ? amount : 0;
+                float dy = dir.equals(AbstractAI.Direction.VERTICAL) ? amount : 0;
+
+                return new BlockMob(new Vector2(x, y), slave, new AbsoluteLinearAI(new Vector2(dx, dy), speed, dir));
 			}
 			}
 		}

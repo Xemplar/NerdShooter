@@ -141,20 +141,20 @@ public class Block {
 		public static SlabBlock sand_half_right = new SlabBlock(empty, "sandHalfRight", 1F, 0.5F, true);
 		
 		//Spikes
-		public static DirectionalDeathBlock spike_steel_up = new DirectionalDeathBlock(empty, "spikesUp", 8);
-		public static DirectionalDeathBlock spike_steel_down = new DirectionalDeathBlock(empty, "spikesDown", 4);
-		public static DirectionalDeathBlock spike_steel_left = new DirectionalDeathBlock(empty, "spikesLeft", 1);
-		public static DirectionalDeathBlock spike_steel_right = new DirectionalDeathBlock(empty, "spikesRight", 2);
+		public static DirectionalDeathBlock spike_steel_up = new DirectionalDeathBlock(empty, "spikesUp", true, false, false, false);
+		public static DirectionalDeathBlock spike_steel_down = new DirectionalDeathBlock(empty, "spikesDown", false, true, false, false);
+		public static DirectionalDeathBlock spike_steel_left = new DirectionalDeathBlock(empty, "spikesLeft", false, false, true, false);
+		public static DirectionalDeathBlock spike_steel_right = new DirectionalDeathBlock(empty, "spikesRight", false, false, false, true);
 		
-		public static DirectionalDeathBlock spike_stone_up = new DirectionalDeathBlock(empty, "stoneSpikesUp", 8);
-		public static DirectionalDeathBlock spike_stone_down = new DirectionalDeathBlock(empty, "stoneSpikesDown", 4);
-		public static DirectionalDeathBlock spike_stone_left = new DirectionalDeathBlock(empty, "stoneSpikesLeft", 1);
-		public static DirectionalDeathBlock spike_stone_right = new DirectionalDeathBlock(empty, "stoneSpikesRight", 2);
+		public static DirectionalDeathBlock spike_stone_up = new DirectionalDeathBlock(empty, "stoneSpikesUp", true, false, false, false);
+		public static DirectionalDeathBlock spike_stone_down = new DirectionalDeathBlock(empty, "stoneSpikesDown", false, true, false, false);
+		public static DirectionalDeathBlock spike_stone_left = new DirectionalDeathBlock(empty, "stoneSpikesLeft", false, false, true, false);
+		public static DirectionalDeathBlock spike_stone_right = new DirectionalDeathBlock(empty, "stoneSpikesRight", false, false, false, true);
 		
-		public static DirectionalDeathBlock spike_sand_up = new DirectionalDeathBlock(empty, "sandSpikesUp", 8);
-		public static DirectionalDeathBlock spike_sand_down = new DirectionalDeathBlock(empty, "sandSpikesDown", 4);
-		public static DirectionalDeathBlock spike_sand_left = new DirectionalDeathBlock(empty, "sandSpikesLeft", 1);
-		public static DirectionalDeathBlock spike_sand_right = new DirectionalDeathBlock(empty, "sandSpikesRight", 2);
+		public static DirectionalDeathBlock spike_sand_up = new DirectionalDeathBlock(empty, "sandSpikesUp", true, false, false, false);
+		public static DirectionalDeathBlock spike_sand_down = new DirectionalDeathBlock(empty, "sandSpikesDown", false, true, false, false);
+		public static DirectionalDeathBlock spike_sand_left = new DirectionalDeathBlock(empty, "sandSpikesLeft", false, false, true, false);
+		public static DirectionalDeathBlock spike_sand_right = new DirectionalDeathBlock(empty, "sandSpikesRight", false, false, false, true);
 		
 		//Misc
 		public static DeathBlock misc_lava = new DeathBlock(empty, "lava");
@@ -251,7 +251,12 @@ public class Block {
     public boolean isAnimated(){
         return false;
     }
-    
+
+	protected void setPosition(Vector2 position) {
+		this.position = position;
+		this.bounds.setPosition(this.position);
+	}
+
     public void onTouch(Entity e){
         
     }

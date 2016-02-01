@@ -37,22 +37,22 @@ public class TimedLinearAI extends AbstractAI{
 	public void updateAI(float delta) {
 		if((gameTicks % period) == 0){
 			dir *= -1;
-			e.getVelocity().set(0, 0);
+			entity.getVelocity().set(0, 0);
 		}
 		if(movement == Direction.HORIZONTAL) {
-			if (Math.abs(e.getVelocity().x) < speed) {
-				e.getVelocity().add(speed * dir, 0);
+			if (Math.abs(entity.getVelocity().x) < speed) {
+				entity.getVelocity().add(speed * dir, 0);
 			}
 		} else if(movement == Direction.VERTICAL){
-			if (Math.abs(e.getVelocity().y) < speed) {
-				e.getVelocity().add(0, speed * dir);
+			if (Math.abs(entity.getVelocity().y) < speed) {
+				entity.getVelocity().add(0, speed * dir);
 			}
 		} else {
-			if (Math.abs(e.getVelocity().x) < speed) {
-				e.getVelocity().add(speed * dir, 0);
+			if (Math.abs(entity.getVelocity().x) < speed) {
+				entity.getVelocity().add(speed * dir, 0);
 			}
-			if (Math.abs(e.getVelocity().y) < speed) {
-				e.getVelocity().add(0, speed * dir);
+			if (Math.abs(entity.getVelocity().y) < speed) {
+				entity.getVelocity().add(0, speed * dir);
 			}
 		}
 	}
