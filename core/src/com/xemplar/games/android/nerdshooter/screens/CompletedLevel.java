@@ -58,7 +58,7 @@ public class CompletedLevel implements Screen, InputProcessor {
     private Texture rickmas;
     
     public CompletedLevel(){
-    	rickmas = new Texture(Gdx.files.internal("rickmas.png"));
+    	rickmas = new Texture(Gdx.files.internal("ValenRick.png"));
         instance = this;
     }
     
