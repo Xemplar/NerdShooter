@@ -1,6 +1,6 @@
 android {
-    buildToolsVersion "23.0.2"
-    compileSdkVersion 23
+    buildToolsVersion "22.0.1"
+    compileSdkVersion 22
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId "com.xemplar.games.android.nerdshooter"
         minSdkVersion 8
-        targetSdkVersion 23
+        targetSdkVersion 22
     }
     signingConfigs {
         release {
