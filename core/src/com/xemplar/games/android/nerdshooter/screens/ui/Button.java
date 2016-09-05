@@ -205,6 +205,10 @@ public class Button extends Label{
         map.dispose();
     }
 
+    public void setText(String text){
+        this.text = text;
+    }
+
     public Button setActionNumber(int action){
         this.action = action;
         

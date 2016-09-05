@@ -33,19 +33,24 @@ import com.xemplar.games.android.nerdshooter.NerdShooter;
 
 public class SplashScreen implements Screen {
     private float width, logoSize, logoX;
+    private Timer.Task splash0, splash1;
     private SpriteBatch batch;
-    private Texture logo;
+    private Texture logo, lts;
     private BitmapFont label;
+    private int stage = 0;
     
     public SplashScreen(){
         batch = new SpriteBatch();
 
+        FileHandle handle0 = Gdx.files.internal("logo.png");
+        FileHandle handle1 = Gdx.files.internal("lts.png");
+
         NerdShooter.label = label = new BitmapFont(Gdx.files.internal("font/NerdShooter.fnt"));
         NerdShooter.label_small = new BitmapFont(Gdx.files.internal("font/NerdShooter.fnt"));
         NerdShooter.text = new BitmapFont(Gdx.files.internal("font/NerdShooter.fnt"));
-        
-        FileHandle handle = Gdx.files.internal("logo.png");
-        logo = new Texture(handle);
+
+        logo = new Texture(handle0);
+        lts = new Texture(handle1);
     }
     
     public void render(float delta) {
@@ -55,8 +60,13 @@ public class SplashScreen implements Screen {
         float line = label.getLineHeight();
         
         batch.begin();{
-            batch.draw(logo, logoX, logoSize, logoSize, logoSize);
-            label.draw(batch, "XEMPLAR\n    &\n  CRYOGENERIX", width / 10F, (line * 3 + 5));
+            if(stage == 0) {
+                batch.draw(logo, logoX, logoSize, logoSize, logoSize);
+                label.draw(batch, "XEMPLAR\n    &\n  CRYOGENERIX", width / 10F, (line * 3 + 5));
+            } else {
+                batch.draw(lts, logoX, logoSize, logoSize, logoSize);
+                label.draw(batch, "Music By:\n The Living Tombstone", width / 10F, (line * 3 + 5));
+            }
         } batch.end();
     }
 
@@ -75,15 +85,26 @@ public class SplashScreen implements Screen {
         this.logoSize = height / 2F;
         this.logoX = (width / 2F) - (logoSize / 2F);
     }
-    
+
+    public void loadAssets(){
+
+    }
+
     public void show() {
-        Timer.Task task = new Timer.Task(){
+        splash0 = new Timer.Task(){
+            public void run() {
+                stage = 1;
+                Timer.schedule(splash1, 1.5F);
+                loadAssets();
+            }
+        };
+        splash1 = new Timer.Task(){
             public void run() {
                 NerdShooter.shooter.setScreen(new StartScreen());
             }
         };
-        
-        Timer.schedule(task, 1.5F);
+
+        Timer.schedule(splash0, 1.5F);
     }
 
     public void hide() {
