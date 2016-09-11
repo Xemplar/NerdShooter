@@ -50,7 +50,7 @@ public class StartScreen implements Screen, InputProcessor {
     protected Button exit;
 
     protected Button[] worlds;
-    private String dat;
+    private static String dat;
 
     protected SpriteBatch buttonRenderer;
     protected BitmapFont text, button;
@@ -99,11 +99,11 @@ public class StartScreen implements Screen, InputProcessor {
         button = NerdShooter.label_small;
         button.setColor(0, 0, 0, 1);
 
-		levelExp = new Button(text, "External Level", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
+		levelExp = new Button(text, NerdShooter.button, "External Level", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
         
-        options = new Button(text, "", ((width / 2F) - (buttonWidth)) + ((buttonWidth * 2F) - buttonHeight), spacer, buttonHeight, buttonHeight);
-        exit = new Button(text, "Exit", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F)  - (buttonHeight + spacer), buttonHeight);
-        download = new Button(text, "Get More!!!", (width / 2F) - ((buttonWidth)), exit.y + (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
+        options = new Button(text, NerdShooter.button, "", ((width / 2F) - (buttonWidth)) + ((buttonWidth * 2F) - buttonHeight), spacer, buttonHeight, buttonHeight);
+        exit = new Button(text, NerdShooter.button, "Exit", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F)  - (buttonHeight + spacer), buttonHeight);
+        download = new Button(text, NerdShooter.button, "Get More!!!", (width / 2F) - ((buttonWidth)), exit.y + (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
 
         options.setTexture(tex);
 
@@ -125,25 +125,37 @@ public class StartScreen implements Screen, InputProcessor {
 	}
 
     private void checkLevels(){
+        Array<String> levels = getPackList();
+
+        worlds = new Button[levels.size];
+        for(int i = 0; i < levels.size; i++){
+            float w = (buttonWidth * 2F) / 3F - spacer;
+            float x = levelExp.x + (i / 3) * (w + spacer);
+            float y = levelExp.y - ((i % 3) + 1) * (buttonHeight + spacer);
+            worlds[i] = new Button(button, NerdShooter.button, levels.get(i), x, y, w, buttonHeight);
+            worlds[i].setActionNumber(1);
+            buttons.add(worlds[i]);
+        }
+    }
+
+    public static Array<String> getPackList(){
+        Array<String> ret = new Array<String>();
+
         FileHandle downloaded = Gdx.files.local("levels/dwn.nsd");
         dat = downloaded.readString();
 
         String[] lines = dat.split("\n");
-        worlds = new Button[lines.length];
 
         for(int i = 0; i < lines.length; i++){
             String nsp = lines[i];
             boolean dirExists = Gdx.files.local("levels/" + nsp).isDirectory();
 
             if(dirExists){
-                float w = (buttonWidth * 2F) / 3F - spacer;
-                float x = levelExp.x + (i / 3) * (w + spacer);
-                float y = levelExp.y - ((i % 3) + 1) * (buttonHeight + spacer);
-                worlds[i] = new Button(button, lines[i], x, y, w, buttonHeight);
-                worlds[i].setActionNumber(1);
-                buttons.add(worlds[i]);
+                ret.add(lines[i]);
             }
         }
+
+        return ret;
     }
 
 	@Override

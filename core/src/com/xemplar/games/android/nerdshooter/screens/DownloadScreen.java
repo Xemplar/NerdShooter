@@ -24,6 +24,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -39,6 +40,7 @@ import org.json.JSONObject;
 
 import static com.xemplar.games.android.nerdshooter.NerdShooter.NETWORK_HANDLE;
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
+import static com.xemplar.games.android.nerdshooter.NerdShooter.START_SCREEN;
 
 public class DownloadScreen implements Screen, InputProcessor {
     public static DownloadScreen instance;
@@ -67,6 +69,7 @@ public class DownloadScreen implements Screen, InputProcessor {
 
         if(ready){
             System.out.println("Levels Creation Started");
+            Array<String> down = StartScreen.getPackList();
 
             int length = dat.length();
 
@@ -75,11 +78,18 @@ public class DownloadScreen implements Screen, InputProcessor {
                 JSONObject current = dat.getJSONObject(i);
                 String name = current.getString("name");
 
+                boolean downd = false;
+                for(String s : down){
+                    downd |= s.equals(name);
+                }
+
                 float w = (buttonWidth * 2F) / 3F - spacer;
                 float x = lbl.x + (i / 3) * (w + spacer);
                 float y = lbl.y - ((i % 3) + 1) * (buttonHeight + spacer);
-                worlds[i] = new Button(NerdShooter.label_small, name, x, y, w, buttonHeight);
+                worlds[i] = new Button(NerdShooter.label_small, NerdShooter.button, name, x, y, w, buttonHeight);
                 worlds[i].setActionNumber(100000 + current.getInt("id"));
+                worlds[i].setPressedColor(downd ? Color.RED : Color.BLUE);
+                worlds[i].setNotPressedColor(downd ? Color.GREEN : Color.GRAY);
                 views.add(worlds[i]);
             }
             ready = false;
@@ -107,8 +117,8 @@ public class DownloadScreen implements Screen, InputProcessor {
         lbl = new Label(NerdShooter.text, "Downloadable: ", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
         non = new Label(NerdShooter.text, "You have them all!!!", (width / 2F) - (buttonWidth), lbl.y - (buttonHeight + spacer) * 2F, (buttonWidth * 2F), buttonHeight);
 
-        delt = new Button(NerdShooter.label, "Delete", (width / 2F) - (buttonWidth), spacer, (buttonWidth) - (spacer), buttonHeight);
-        back = new Button(NerdShooter.label, "Back", delt.x + delt.width + spacer, spacer, (buttonWidth) - (spacer), buttonHeight);
+        delt = new Button(NerdShooter.label, NerdShooter.button, "Delete", (width / 2F) - (buttonWidth), spacer, (buttonWidth) - (spacer), buttonHeight);
+        back = new Button(NerdShooter.label, NerdShooter.button, "Back", delt.x + delt.width + spacer, spacer, (buttonWidth) - (spacer), buttonHeight);
 
         back.setActionNumber(1);
 

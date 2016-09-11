@@ -82,7 +82,7 @@ public class PackScreen implements Screen, InputProcessor {
 
         button = label_small;
         button.setColor(0, 0, 0, 1);
-        back = new Button(NerdShooter.label, "Back", (width / 2F) - (buttonWidth / 2F), spacer, buttonWidth, buttonHeight);
+        back = new Button(NerdShooter.label, NerdShooter.button, "Back", (width / 2F) - (buttonWidth / 2F), spacer, buttonWidth, buttonHeight);
         name = new Label(NerdShooter.text, pack, (width / 2F) - (buttonWidth / 2F), height - (buttonHeight + spacer), buttonWidth, buttonHeight);
 
         views.clear();
@@ -94,7 +94,7 @@ public class PackScreen implements Screen, InputProcessor {
             float w = (buttonWidth / 4F) - spacer;
             float x = (width / 2F) - (buttonWidth / 2F) + (i / 3) * (w + spacer);
             float y = height - (buttonHeight + spacer) - ((i % 3) + 1) * (buttonHeight + spacer);
-            levels[i] = new Button(button, (i + 1) + "", x, y, w, buttonHeight);
+            levels[i] = new Button(button, NerdShooter.button, (i + 1) + "", x, y, w, buttonHeight);
             levels[i].setActionNumber(i);
             views.add(levels[i]);
         }

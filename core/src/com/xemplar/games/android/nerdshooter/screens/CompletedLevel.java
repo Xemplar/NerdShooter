@@ -99,8 +99,8 @@ public class CompletedLevel implements Screen, InputProcessor {
         
         set = false;
 
-        replay = new Button(NerdShooter.label, "Replay", (width / 2F) - (buttonWidth / 2F), buttonHeight + spacer, buttonWidth, buttonHeight);
-        menu = new Button(NerdShooter.label, "Menu", (width / 2F) - (buttonWidth / 2F), replay.y + spacer + buttonHeight, buttonWidth, buttonHeight);
+        replay = new Button(NerdShooter.label, NerdShooter.button, "Replay", (width / 2F) - (buttonWidth / 2F), buttonHeight + spacer, buttonWidth, buttonHeight);
+        menu = new Button(NerdShooter.label, NerdShooter.button, "Menu", (width / 2F) - (buttonWidth / 2F), replay.y + spacer + buttonHeight, buttonWidth, buttonHeight);
     }
 
     public void show() {

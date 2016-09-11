@@ -25,6 +25,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.xemplar.games.android.nerdshooter.net.NetworkHandle;
 import com.xemplar.games.android.nerdshooter.screens.CompletedLevel;
@@ -52,7 +53,9 @@ public class NerdShooter extends Game {
     public static boolean sanic = false;
     public Boolean useKeys;
     public int[] keys;
-    
+
+    public static NinePatch button;
+
     public static BitmapFont label, text, label_small;
     public static GlyphLayout layout;
     public static TextureAtlas atlas;

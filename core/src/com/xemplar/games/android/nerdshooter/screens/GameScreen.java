@@ -38,6 +38,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
 import com.xemplar.games.android.nerdshooter.blocks.ExitBlock;
 import com.xemplar.games.android.nerdshooter.controller.JaxonController;
@@ -134,6 +135,7 @@ public class GameScreen implements Screen, InputProcessor {
         }
         
 		updateEntities(delta);
+		updateTextures((double)gameTicks);
         renderer.render();
         
         button.begin(ShapeRenderer.ShapeType.Filled);{
@@ -417,7 +419,40 @@ public class GameScreen implements Screen, InputProcessor {
     public boolean scrolled(int amount) {
         return false;
     }
-	
+
+
+    private Array<UpdateTex> updates = new Array<UpdateTex>();
+	private boolean set;
+    public void updateTextures(double ticks){
+    	if(!set){
+            updates.add(new UpdateTex(GameScreen.getTextureAltlas().findRegion("lava")));
+            updates.add(new UpdateTex(GameScreen.getTextureAltlas().findRegion("lavaTop_mid")));
+			set = true;
+		}
+
+		for(UpdateTex up : updates){
+		    up.update(ticks);
+        }
+	}
+
+	private static final class UpdateTex{
+        private float startU, widthU;
+        private TextureRegion region;
+
+        private UpdateTex(TextureRegion region){
+            this.region = region;
+            startU = region.getU();
+            widthU = region.getU2() - startU;
+        }
+
+        private void update(double ticks){
+            float new_x = (float)(Math.sin(ticks / 50D) * widthU);
+
+            region.setU(startU+new_x);
+            region.setU2(startU+new_x+widthU);
+        }
+    }
+
 	public void updateEntities(float delta){
 		for(Entity e : world.getEntities()){
 			int w = world.getLevel().getWidth();

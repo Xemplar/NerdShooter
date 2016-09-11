@@ -157,7 +157,7 @@ public class Block {
 		public static DirectionalDeathBlock spike_sand_right = new DirectionalDeathBlock(empty, "sandSpikesRight", false, false, false, true);
 		
 		//Misc
-		public static DeathBlock misc_lava = new DeathBlock(empty, "lava");
+		public static LavaBlock misc_lava = new LavaBlock(empty, "lava");
 		public static SlabDeathBlock misc_lava_top = new SlabDeathBlock(empty, "lavaTop", 1F, 0.5F, false);
 		public static SlabDeathBlock misc_lava_mid = new SlabDeathBlock(empty, "lavaTop_mid", 1F, 0.5F, false);
 		

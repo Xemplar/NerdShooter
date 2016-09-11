@@ -86,12 +86,12 @@ public class OptionsScreen implements Screen, InputProcessor {
         lbl_lefty = new Label(NerdShooter.text, "Side of controls", (width / 2F) - (buttonWidth), height - ((buttonHeight + spacer) * 3), buttonWidth, buttonHeight);
         lbl_slide = new Label(NerdShooter.text, "Type of controls", (width / 2F) - (buttonWidth), height - ((buttonHeight + spacer) * 4), buttonWidth, buttonHeight);
         
-        audio = new SwitchButton(button, lbl_audio.x + (lbl_audio.width * 3F/2F), height - (buttonHeight + spacer), buttonWidth / 2F, buttonHeight, "audio");
-        debug = new SwitchButton(button, lbl_debug.x + (lbl_debug.width * 3F/2F), height - ((buttonHeight + spacer) * 2), buttonWidth / 2F, buttonHeight, "debug");
-        lefty = new SwitchButton(button, lbl_lefty.x + (lbl_lefty.width * 3F/2F), height - ((buttonHeight + spacer) * 3), buttonWidth / 2F, buttonHeight, "Right", "Left", "lefty");
-        slide = new SwitchButton(button, lbl_slide.x + (lbl_slide.width * 3F/2F), height - ((buttonHeight + spacer) * 4), buttonWidth / 2F, buttonHeight, "Button", "Slider", "slide");
+        audio = new SwitchButton(button, NerdShooter.button, lbl_audio.x + (lbl_audio.width * 3F/2F), height - (buttonHeight + spacer), buttonWidth / 2F, buttonHeight, "audio");
+        debug = new SwitchButton(button, NerdShooter.button, lbl_debug.x + (lbl_debug.width * 3F/2F), height - ((buttonHeight + spacer) * 2), buttonWidth / 2F, buttonHeight, "debug");
+        lefty = new SwitchButton(button, NerdShooter.button, lbl_lefty.x + (lbl_lefty.width * 3F/2F), height - ((buttonHeight + spacer) * 3), buttonWidth / 2F, buttonHeight, "Right", "Left", "lefty");
+        slide = new SwitchButton(button, NerdShooter.button, lbl_slide.x + (lbl_slide.width * 3F/2F), height - ((buttonHeight + spacer) * 4), buttonWidth / 2F, buttonHeight, "Button", "Slider", "slide");
         
-        back = new Button(NerdShooter.label, "Back", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F), buttonHeight);
+        back = new Button(NerdShooter.label, NerdShooter.button, "Back", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F), buttonHeight);
         back.setActionNumber(1);
         
         views.clear();

@@ -21,7 +21,33 @@
 package com.xemplar.games.android.nerdshooter.blocks;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
-public interface Animateable {
+public class LavaBlock extends DeathBlock implements Animateable{
+    protected LavaBlock(Vector2 pos, String regionID){
+        super(pos, regionID);
+    }
 
+    protected LavaBlock(Vector2 pos, String regionID, float size){
+        super(pos, regionID, size);
+    }
+
+    protected LavaBlock(Vector2 pos, String regionID, float width, float height){
+        super(pos, regionID, width, height);
+    }
+
+    public boolean isTouchable() {
+        return true;
+    }
+
+    public void onTouch(Entity e) {
+        e.kill();
+    }
+
+    public LavaBlock clone(Vector2 pos){
+        LavaBlock b = new LavaBlock(pos, regionID, bounds.width, bounds.height);
+        return b;
+    }
 }
