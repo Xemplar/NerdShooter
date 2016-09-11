@@ -142,8 +142,8 @@ public class World {
         return blocks;
 	}
     
-	public World(int levelNum){
-        level = new Level(levelNum);
+	public World(String pack, int levelNum){
+        level = new Level(pack, levelNum);
 		jaxon = new Jaxon(level.jaxonStart);
 		getEntities().add(jaxon);
 	}

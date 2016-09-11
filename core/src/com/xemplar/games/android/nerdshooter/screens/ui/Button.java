@@ -209,6 +209,10 @@ public class Button extends Label{
         this.text = text;
     }
 
+    public String getText(){
+        return this.text;
+    }
+
     public Button setActionNumber(int action){
         this.action = action;
         

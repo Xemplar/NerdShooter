@@ -36,7 +36,7 @@ import com.xemplar.games.android.nerdshooter.screens.ui.View;
 
 public class OptionsScreen implements Screen, InputProcessor {
     public static OptionsScreen instance;
-	private float buttonHeight;
+	private float buttonHeight, buttonWidth, spacer;
 	
     protected SpriteBatch buttonRenderer;
     protected BitmapFont button;
@@ -72,11 +72,11 @@ public class OptionsScreen implements Screen, InputProcessor {
 	public void resize(int width, int height) {
 		this.width = width;
 		this.height = height;
-		
+
 		this.buttonHeight = height / 9F;
-		
-		float spacer = 10F;
-		float buttonWidth = (width * ((3F / 4F) / 2F));
+
+		this.spacer = buttonHeight / 10F;
+		this.buttonWidth = (width * ((3F / 4F) / 2F));
         
         button = NerdShooter.label_small;
 		button.setColor(0, 0, 0, 1);

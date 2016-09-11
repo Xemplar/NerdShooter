@@ -38,10 +38,12 @@ public class CompletedLevel implements Screen, InputProcessor {
     public static final String KEY_COMPLETED_TIME = "comp";
     public static final String KEY_FINISH_TYPE = "type";
     public static final String KEY_LEVEL_NUM = "level";
+    public static final String KEY_LEVEL_PACK = "pack";
     
     public static CompletedLevel instance;
     
     private double completed;
+    private String pack;
     private int level;
     private String message;
     private boolean set = false;
@@ -109,6 +111,7 @@ public class CompletedLevel implements Screen, InputProcessor {
             completed = Long.parseLong(item.getElementValue(KEY_COMPLETED_TIME)) / 10D;
             int finishType = Integer.parseInt(item.getElementValue(KEY_FINISH_TYPE));
             level = Integer.parseInt(item.getElementValue(KEY_LEVEL_NUM));
+            pack = item.getElementValue(KEY_LEVEL_PACK);
 
             switch(finishType){
             case ExitBlock.EXIT_NOCLEAR:
@@ -173,13 +176,13 @@ public class CompletedLevel implements Screen, InputProcessor {
 
         if(replay.isInside(x, y) && set){
             replay.setPressed(false);
-            NerdShooter.shooter.setScreen(new GameScreen(level));
+            NerdShooter.shooter.setScreen(new GameScreen(pack, level));
             value |= true;
         }
 
         if(menu.isInside(x, y) && set){
             menu.setPressed(false);
-            NerdShooter.shooter.setScreen(StartScreen.instance);
+            NerdShooter.shooter.setScreen(PackScreen.instance);
             value |= true;
         }
 

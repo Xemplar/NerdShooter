@@ -18,12 +18,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.xemplar.games.android.nerdshooter.net;
+package com.xemplar.games.android.nerdshooter.exceptions;
 
-import org.json.JSONObject;
-
-public interface NetworkListener {
-    public abstract void finished(String data);
-    public abstract void length(long size);
-    public abstract void failed(Throwable t);
+public class PackIDMismatchException extends RuntimeException {
+    public PackIDMismatchException(int expected, int received){
+        super("Pack id " + expected + " expected, but instead received " + received + ".");
+    }
 }

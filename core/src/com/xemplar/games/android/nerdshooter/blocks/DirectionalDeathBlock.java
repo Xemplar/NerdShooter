@@ -70,7 +70,7 @@ public class DirectionalDeathBlock extends DeathBlock{
     	kill |= (e.getPosition().y < center.y && down);
     	kill |= (e.getPosition().y > center.y && up);
 
-        System.out.println("up = " + up + ", down = " + down + ", left = " + left + ", right = " + right);
+        System.out.println("up = " + up + ", delt = " + down + ", left = " + left + ", right = " + right);
         System.out.println("center x = " + center.x + ", center y = " + center.y);
 
     	if(kill){

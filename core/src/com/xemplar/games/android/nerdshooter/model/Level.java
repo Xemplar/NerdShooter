@@ -83,15 +83,15 @@ public class Level {
 		this.extras = extras;
 	}
 	
-	public Level(int levelNum){
-		jaxonStart = loadLevel(levelNum);
+	public Level(String pack, int levelNum){
+		jaxonStart = loadLevel(pack, levelNum);
 	}
 	
 	public Block get(int i) {
 		return blocks[i];
 	}
 	
-	private Vector2 loadLevel(int num){
+	private Vector2 loadLevel(String pack, int num){
 		Vector2 value = new Vector2(1, 1);
 		
 		width = 50;
@@ -112,7 +112,7 @@ public class Level {
                 fileName = "00" + num;
             }
             
-			FileHandle handle = Gdx.files.internal("levels/level" + fileName + ".nsl");
+			FileHandle handle = Gdx.files.internal("levels/"+ pack + "/" + fileName + ".nsl");
 			value = loadFile(handle);
 		}
 		
@@ -441,7 +441,7 @@ public class Level {
 		Entity b = null;
 		if(id.charAt(0) == 'e'){
 			String parse = id.substring(1);
-			String[] options = parse.split("/");
+			String[] options = parse.split("#");
 			int name = Integer.parseInt(options[0]);
 			
 			switch(name){

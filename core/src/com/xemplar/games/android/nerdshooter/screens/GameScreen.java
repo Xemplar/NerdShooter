@@ -57,8 +57,9 @@ public class GameScreen implements Screen, InputProcessor {
     public World world;
     private Jaxon jaxon;
     public float buttonSize = 0F;
-    
-    private static int levelNum;
+
+	private static int levelNum;
+	private static String packName;
     public static Texture tex;
     public static int numPressed = 0;
     
@@ -73,11 +74,12 @@ public class GameScreen implements Screen, InputProcessor {
 	private TextureRegion controlRight;
 	private TextureRegion controlUp;
 	
-	public GameScreen(int level){
+	public GameScreen(String pack, int level){
 		gameTicks = 0L;
         instance = this;
         
         levelNum = level;
+        packName = pack;
         
         tex = new Texture(Gdx.files.internal("scatt.png"));
 		
@@ -94,7 +96,7 @@ public class GameScreen implements Screen, InputProcessor {
 		controlRight = NerdShooter.atlas.findRegion("HUDRight");
 		controlUp = NerdShooter.atlas.findRegion("HUDJump");
 		
-		world = new World(level);
+		world = new World(pack, level);
 		jaxon = world.getJaxon();
 		controller = jaxon.getController();
 		
@@ -170,6 +172,7 @@ public class GameScreen implements Screen, InputProcessor {
         item.addElement(CompletedLevel.KEY_COMPLETED_TIME, (long)((gameTicks / 60D) * 10L) + "");
         item.addElement(CompletedLevel.KEY_FINISH_TYPE, code + "");
         item.addElement(CompletedLevel.KEY_LEVEL_NUM, levelNum + "");
+        item.addElement(CompletedLevel.KEY_LEVEL_PACK, packName);
         
         InterScreenData.getInstance(NerdShooter.COMP_DATA).setData(item);
         

@@ -26,13 +26,17 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.xemplar.games.android.nerdshooter.net.NetworkHandle;
 import com.xemplar.games.android.nerdshooter.screens.CompletedLevel;
 import com.xemplar.games.android.nerdshooter.screens.DownloadScreen;
+import com.xemplar.games.android.nerdshooter.screens.PackScreen;
 import com.xemplar.games.android.nerdshooter.screens.OptionsScreen;
 import com.xemplar.games.android.nerdshooter.screens.SplashScreen;
 import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
 
 public class NerdShooter extends Game {
+    public static final NetworkHandle NETWORK_HANDLE = new NetworkHandle("The_Next_Guy", "loomis240");
+
 	public static boolean PREF_AUDIO = false;
 	public static boolean PREF_LEFTY = false;
 	public static boolean PREF_SLIDE = false;
@@ -75,6 +79,7 @@ public class NerdShooter extends Game {
         new CompletedLevel();
         new OptionsScreen();
         new DownloadScreen();
+        new PackScreen();
     }
     
     public static void reloadSettings(){

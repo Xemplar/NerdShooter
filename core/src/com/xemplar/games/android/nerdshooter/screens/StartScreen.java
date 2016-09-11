@@ -36,46 +36,39 @@ import com.xemplar.games.android.nerdshooter.NerdShooter;
 import com.xemplar.games.android.nerdshooter.net.NetworkHandle;
 import com.xemplar.games.android.nerdshooter.net.NetworkListener;
 import com.xemplar.games.android.nerdshooter.screens.ui.Button;
+import com.xemplar.games.android.nerdshooter.screens.ui.Label;
 import org.json.JSONObject;
 
 public class StartScreen implements Screen, InputProcessor {
     public static StartScreen instance;
-	private float buttonHeight;
-	
+    private float buttonHeight, buttonWidth, spacer;
+
 	protected Button levelExp;
-    protected Button level1;
-    protected Button level2;
-    protected Button level3;
-    protected Button level4;
-    protected Button level5;
-    protected Button level6;
-    protected Button level7;
-    protected Button level8;
-    protected Button level9;
-    protected Button levelA;
-    protected Button levelB;
-    protected Button levelC;
 
     protected Button download;
 	protected Button options;
     protected Button exit;
-	
+
+    protected Button[] worlds;
+    private String dat;
+
     protected SpriteBatch buttonRenderer;
-    protected BitmapFont text;
+    protected BitmapFont text, button;
 	
 	protected float width, height;
 	protected Array<Button> buttons = new Array<Button>();
 
     private static Music aud;
     private static Texture tex;
-
-    private NetworkHandle net;
 	
 	public StartScreen(){
         instance = this;
-
         tex = new Texture(Gdx.files.internal("images/options.png"));
-        net = new NetworkHandle("The_Next_Guy", "loomis240");
+
+        FileHandle downloaded = Gdx.files.local("levels/dwn.nsd");
+        if(!downloaded.exists()){
+            downloaded.writeString("<none>", false);
+        }
 	}
 	
 	public void render(float delta) {
@@ -91,39 +84,26 @@ public class StartScreen implements Screen, InputProcessor {
 
 	public void resize(int width, int height) {
 		NerdShooter.shooter.setCurrentScreen(NerdShooter.START_SCREEN);
-		
-		this.width = width;
-		this.height = height;
 
-		buttonHeight = height / 9F;
-		
-        float spacer = 10F;
-		float buttonWidth = (width * ((3F / 4F) / 2F));
+        this.width = width;
+        this.height = height;
+
+        this.buttonHeight = height / 9F;
+
+        this.spacer = buttonHeight / 10F;
+        this.buttonWidth = (width * ((3F / 4F) / 2F));
         
         text = NerdShooter.label;
 		text.setColor(0, 0, 0, 1);
-        
+
+        button = NerdShooter.label_small;
+        button.setColor(0, 0, 0, 1);
+
 		levelExp = new Button(text, "External Level", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
         
-        level1 = new Button(text, "1", (width / 2F) - ((buttonWidth)), levelExp.y - ((buttonHeight + spacer) * 1F), (buttonWidth / 2F) - (spacer * 0.75F), buttonHeight);
-        level2 = new Button(text, "2", level1.x + level1.width + spacer, level1.y, (buttonWidth / 2F) - (spacer * 0.75F), buttonHeight);
-        level3 = new Button(text, "3", level2.x + level2.width + spacer, level1.y, (buttonWidth / 2F) - (spacer * 0.75F), buttonHeight);
-        level4 = new Button(text, "4", level3.x + level3.width + spacer, level1.y, (buttonWidth / 2F) - (spacer * 0.75F), buttonHeight);
-
-        level5 = new Button(text, "5", (width / 2F) - ((buttonWidth)), level1.y - (buttonHeight + spacer), (buttonWidth / 2F) - (spacer * 0.75F), buttonHeight);
-        level6 = new Button(text, "6", level5.x + level5.width + spacer, level5.y, (buttonWidth / 2F) - (spacer * 0.75F), buttonHeight);
-        level7 = new Button(text, "7", level6.x + level6.width + spacer, level5.y, (buttonWidth / 2F) - (spacer * 0.75F), buttonHeight);
-        level8 = new Button(text, "8", level7.x + level7.width + spacer, level5.y, (buttonWidth / 2F) - (spacer * 0.75F), buttonHeight);
-
-        level9 = new Button(text, "9", (width / 2F) - ((buttonWidth)), level5.y - (buttonHeight + spacer), (buttonWidth / 2F) - (spacer * 0.75F), buttonHeight);
-        levelA = new Button(text, "10", level9.x + level9.width + spacer, level9.y, (buttonWidth / 2F) - (spacer * 0.75F), buttonHeight);
-        levelB = new Button(text, "11", levelA.x + levelA.width + spacer, level9.y, (buttonWidth / 2F) - (spacer * 0.75F), buttonHeight);
-        levelC = new Button(text, "12", levelB.x + levelB.width + spacer, level9.y, (buttonWidth / 2F) - (spacer * 0.75F), buttonHeight);
-
-        download = new Button(text, "Downloaded", (width / 2F) - ((buttonWidth)), level9.y - (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
-
         options = new Button(text, "", ((width / 2F) - (buttonWidth)) + ((buttonWidth * 2F) - buttonHeight), spacer, buttonHeight, buttonHeight);
         exit = new Button(text, "Exit", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F)  - (buttonHeight + spacer), buttonHeight);
+        download = new Button(text, "Get More!!!", (width / 2F) - ((buttonWidth)), exit.y + (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
 
         options.setTexture(tex);
 
@@ -136,26 +116,35 @@ public class StartScreen implements Screen, InputProcessor {
                 buttons.add(levelExp.setActionNumber(-1));
             }
         }
-        
-        buttons.add(level1.setActionNumber(1));
-        buttons.add(level2.setActionNumber(2));
-        buttons.add(level3.setActionNumber(3));
-        buttons.add(level4.setActionNumber(4));
-
-        buttons.add(level5.setActionNumber(5));
-        buttons.add(level6.setActionNumber(6));
-        buttons.add(level7.setActionNumber(7));
-        buttons.add(level8.setActionNumber(8));
-
-        buttons.add(level9.setActionNumber(9));
-        buttons.add(levelA.setActionNumber(10));
-        buttons.add(levelB.setActionNumber(11));
-        buttons.add(levelC.setActionNumber(12));
 
         buttons.add(download.setActionNumber(-4));
         buttons.add(options.setActionNumber(-3));
         buttons.add(exit.setActionNumber(-2));
+
+        checkLevels();
 	}
+
+    private void checkLevels(){
+        FileHandle downloaded = Gdx.files.local("levels/dwn.nsd");
+        dat = downloaded.readString();
+
+        String[] lines = dat.split("\n");
+        worlds = new Button[lines.length];
+
+        for(int i = 0; i < lines.length; i++){
+            String nsp = lines[i];
+            boolean dirExists = Gdx.files.local("levels/" + nsp).isDirectory();
+
+            if(dirExists){
+                float w = (buttonWidth * 2F) / 3F - spacer;
+                float x = levelExp.x + (i / 3) * (w + spacer);
+                float y = levelExp.y - ((i % 3) + 1) * (buttonHeight + spacer);
+                worlds[i] = new Button(button, lines[i], x, y, w, buttonHeight);
+                worlds[i].setActionNumber(1);
+                buttons.add(worlds[i]);
+            }
+        }
+    }
 
 	@Override
 	public void show() {
@@ -214,7 +203,7 @@ public class StartScreen implements Screen, InputProcessor {
 		aud.dispose();
 	}
 	
-    public void doAction(int action){
+    public void doAction(String text, int action){
         if(action == -2){
             Gdx.app.exit();
         } else if(action == -3){
@@ -222,7 +211,7 @@ public class StartScreen implements Screen, InputProcessor {
         } else if(action == -4){
             NerdShooter.shooter.setScreen(DownloadScreen.instance);
         } else {
-            NerdShooter.shooter.setScreen(new GameScreen(action));
+            NerdShooter.shooter.setScreen(PackScreen.setPack(text));
         }
     }
     
@@ -251,7 +240,7 @@ public class StartScreen implements Screen, InputProcessor {
         for(int i = 0; i < buttons.size; i++){
             if(buttons.get(i).isInside(x, y)){
                 buttons.get(i).setPressed(false);
-                doAction(buttons.get(i).getAction());
+                doAction(buttons.get(i).getText(), buttons.get(i).getAction());
                 value |= true;
                 break;
             }

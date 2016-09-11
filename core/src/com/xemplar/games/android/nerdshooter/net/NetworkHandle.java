@@ -27,6 +27,7 @@ import com.badlogic.gdx.net.HttpParametersUtils;
 import org.json.*;
 
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.crypto.Cipher;
@@ -41,11 +42,27 @@ public class NetworkHandle {
         this.account = new AccountHandle(user, pass);
     }
 
+    public NetworkHandle(){
+        this.account = new AccountHandle("anon", "anon");
+    }
+
     public void getKey(final NetworkListener listener){
         sendRequest("ns_getkey", account.getLoginCreds(), listener);
     }
 
-    public void sendRequest(String method, Map<String, String> params, final NetworkListener listener){
+    public void getPackList(final NetworkListener listener){
+        sendRequest("ns_levellist", account.getLoginCreds(), listener);
+    }
+
+    public void getPack(int id, final NetworkListener listener){
+        Map<String, String> params = new HashMap<String, String>();
+        params.putAll(account.getLoginCreds());
+        params.put("id", encrypt(id + "", ENC_KEY));
+
+        sendRequest("ns_getpack", params, listener);
+    }
+
+    protected void sendRequest(String method, Map<String, String> params, final NetworkListener listener){
         HttpRequest httpPost = new HttpRequest(HttpMethods.POST);
         httpPost.setUrl(website + method + ".php");
         httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -53,8 +70,10 @@ public class NetworkHandle {
 
         Gdx.net.sendHttpRequest (httpPost, new HttpResponseListener() {
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                String dat = decrypt(new String(httpResponse.getResult()), ENC_KEY);
-                listener.finished(new JSONObject(dat));
+                String responce = new String(httpResponse.getResult());
+                String dat = decrypt(responce, ENC_KEY);
+                listener.finished(dat);
+                listener.length(dat.getBytes().length);
             }
 
             public void failed(Throwable t) {
