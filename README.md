@@ -10,7 +10,7 @@ Creating Levels is easy using our tool linked above, however if you want to use 
 are a few rules you have to follow:
 
 - All blocks must be separated by a comma.
-- All Entities have the following format: eXX/OX1/OX2../OXN
+- All Entities have the following format: eXX#OX1#OX2..#OXN
   Where XX refers to entity ID,
   OX1 refers to first Option,
   OX2 refers to second Option,
