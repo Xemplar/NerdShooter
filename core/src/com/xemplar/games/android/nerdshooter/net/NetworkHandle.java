@@ -34,7 +34,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 public class NetworkHandle {
-    public static final String website = "http://localhost/nerdshooter/REST/";
+    public static final String website = "http://www.xemplar.ml/nerdshooter/REST/";
     public static final String ENC_KEY = "QuGl4xrJelfSg7gk";
     private final AccountHandle account;
 
