@@ -20,8 +20,6 @@
  */
 package com.xemplar.games.android.nerdshooter.screens;
 
-import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -33,6 +31,8 @@ import com.xemplar.games.android.nerdshooter.screens.ui.Button;
 import com.xemplar.games.android.nerdshooter.screens.ui.Label;
 import com.xemplar.games.android.nerdshooter.screens.ui.SwitchButton;
 import com.xemplar.games.android.nerdshooter.screens.ui.View;
+
+import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 public class OptionsScreen implements Screen, InputProcessor {
     public static OptionsScreen instance;

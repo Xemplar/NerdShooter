@@ -38,9 +38,8 @@ import com.xemplar.games.android.nerdshooter.screens.ui.View;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import static com.xemplar.games.android.nerdshooter.NerdShooter.NETWORK_HANDLE;
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
-import static com.xemplar.games.android.nerdshooter.NerdShooter.START_SCREEN;
+import static com.xemplar.games.android.nerdshooter.NerdShooter.NETWORK_HANDLE;
 
 public class DownloadScreen implements Screen, InputProcessor {
     public static DownloadScreen instance;
@@ -75,8 +74,15 @@ public class DownloadScreen implements Screen, InputProcessor {
 
             worlds = new Button[length];
             for(int i = 0; i < dat.length(); i++){
-                JSONObject current = dat.getJSONObject(i);
-                String name = current.getString("name");
+                JSONObject current = null;
+                String name = null;
+
+                try{
+                    current = dat.getJSONObject(i);
+                    name = current.getString("name");
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
 
                 boolean downd = false;
                 for(String s : down){
@@ -133,7 +139,9 @@ public class DownloadScreen implements Screen, InputProcessor {
             public void finished(String data) {
                 System.out.println("Levels Retrieval Success");
                 System.out.println(data);
-                dat = new JSONArray(data);
+                try {
+                    dat = new JSONArray(data);
+                } catch(Exception e){e.printStackTrace();}
                 ready = true;
             }
 
@@ -175,15 +183,25 @@ public class DownloadScreen implements Screen, InputProcessor {
             System.out.println("Pack Request Sent");
             NETWORK_HANDLE.getPack(packid, new NetworkListener(){
                 public void finished(String data) {
-                    JSONObject obj = new JSONObject(data);
-                    String name = obj.getString("name");
+                    JSONObject obj = null;
+                    String name = null;
+                    String levels = null;
+                    int received = 0;
 
-                    int received = obj.getInt("id");
+                    try{
+                        obj = new JSONObject(data);
+                        name = obj.getString("name");
+                        levels = obj.getString("levels");
+                        received = obj.getInt("id");
+                    } catch(Exception e){
+                        e.printStackTrace();
+                        return;
+                    }
 
                     if(received != packid) {
                         throw new PackIDMismatchException(packid, received);
                     } else {
-                        String levels = obj.getString("levels");
+
                         System.out.println(levels);
                         String[] array = levels.split("\",\"");
                         for(int i = 0; i < array.length; i++) {

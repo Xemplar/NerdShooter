@@ -20,7 +20,6 @@
  */
 package com.xemplar.games.android.nerdshooter.entities.ai;
 
-import com.xemplar.games.android.nerdshooter.controller.Controller;
 import com.xemplar.games.android.nerdshooter.controller.EntityController;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 

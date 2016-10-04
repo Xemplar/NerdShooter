@@ -20,8 +20,6 @@
  */
 package com.xemplar.games.android.nerdshooter.net;
 
-import org.json.JSONObject;
-
 public interface NetworkListener {
     public abstract void finished(String data);
     public abstract void length(long size);

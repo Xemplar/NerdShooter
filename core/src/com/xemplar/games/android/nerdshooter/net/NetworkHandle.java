@@ -22,16 +22,16 @@ package com.xemplar.games.android.nerdshooter.net;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
-import com.badlogic.gdx.Net.*;
+import com.badlogic.gdx.Net.HttpMethods;
+import com.badlogic.gdx.Net.HttpRequest;
+import com.badlogic.gdx.Net.HttpResponseListener;
 import com.badlogic.gdx.net.HttpParametersUtils;
-import org.json.*;
-
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
+import com.badlogic.gdx.utils.Base64Coder;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NetworkHandle {
     public static final String website = "http://www.xemplar.ml/nerdshooter/REST/";
@@ -96,7 +96,7 @@ public class NetworkHandle {
         }catch(Exception e){
             System.out.println(e.toString());
         }
-        return new String(Base64.getEncoder().encodeToString(crypted));
+        return new String(Base64Coder.encode(crypted));
     }
 
     public static String decrypt(String input, String key){
@@ -106,7 +106,7 @@ public class NetworkHandle {
             SecretKeySpec skey = new SecretKeySpec(key.getBytes(), "AES");
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(Cipher.DECRYPT_MODE, skey);
-            output = cipher.doFinal(Base64.getDecoder().decode(input.replace("\\", "")));
+            output = cipher.doFinal(Base64Coder.decode(input.replace("\\", "")));
         } catch(Exception e){
             System.out.println(e.toString());
         }

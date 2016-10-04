@@ -20,7 +20,7 @@
  */
 package com.xemplar.games.android.nerdshooter.entities.ai;
 
-import static com.xemplar.games.android.nerdshooter.screens.GameScreen.*;
+import static com.xemplar.games.android.nerdshooter.screens.GameScreen.gameTicks;
 
 public class TimedLinearAI extends AbstractAI{
 	protected final Direction movement;

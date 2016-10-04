@@ -20,8 +20,8 @@
  */
  package com.xemplar.games.android.nerdshooter.blocks;
 
-import com.badlogic.gdx.math.*;
-import com.xemplar.games.android.nerdshooter.entities.*;
+import com.badlogic.gdx.math.Vector2;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
 
 public class HazardBlock extends Block {
     protected int hurtAmount = 0;

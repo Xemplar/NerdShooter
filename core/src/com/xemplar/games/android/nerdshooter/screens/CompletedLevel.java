@@ -19,7 +19,6 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.screens;
-import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -33,6 +32,8 @@ import com.xemplar.games.android.nerdshooter.blocks.ExitBlock;
 import com.xemplar.games.android.nerdshooter.screens.ui.Button;
 import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
 import com.xemplar.games.android.nerdshooter.utils.XPMLItem;
+
+import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 public class CompletedLevel implements Screen, InputProcessor {
     public static final String KEY_COMPLETED_TIME = "comp";
@@ -182,7 +183,11 @@ public class CompletedLevel implements Screen, InputProcessor {
 
         if(menu.isInside(x, y) && set){
             menu.setPressed(false);
-            NerdShooter.shooter.setScreen(PackScreen.instance);
+            if(level == -1){
+                NerdShooter.shooter.setScreen(StartScreen.instance);
+            } else {
+                NerdShooter.shooter.setScreen(PackScreen.instance);
+            }
             value |= true;
         }
 

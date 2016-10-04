@@ -19,8 +19,6 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.controller;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -35,6 +33,9 @@ import com.xemplar.games.android.nerdshooter.items.Item;
 import com.xemplar.games.android.nerdshooter.items.ItemStack;
 import com.xemplar.games.android.nerdshooter.model.World;
 import com.xemplar.games.android.nerdshooter.screens.GameScreen;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class JaxonController implements Controller{
 	private Array<Rectangle> collisionRects = new Array<Rectangle>();

@@ -19,7 +19,6 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.screens;
-import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -30,14 +29,11 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.xemplar.games.android.nerdshooter.NerdShooter;
-import com.xemplar.games.android.nerdshooter.net.NetworkHandle;
-import com.xemplar.games.android.nerdshooter.net.NetworkListener;
 import com.xemplar.games.android.nerdshooter.screens.ui.Button;
-import com.xemplar.games.android.nerdshooter.screens.ui.Label;
-import org.json.JSONObject;
+
+import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 public class StartScreen implements Screen, InputProcessor {
     public static StartScreen instance;
@@ -216,7 +212,9 @@ public class StartScreen implements Screen, InputProcessor {
 	}
 	
     public void doAction(String text, int action){
-        if(action == -2){
+        if(action == -1){
+            NerdShooter.shooter.setScreen(new GameScreen("", -1));
+        } else if(action == -2){
             Gdx.app.exit();
         } else if(action == -3){
             NerdShooter.shooter.setScreen(OptionsScreen.instance);

@@ -21,7 +21,6 @@
 package com.xemplar.games.android.nerdshooter;
 
 import android.os.Bundle;
-
 import android.view.KeyEvent;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;

@@ -19,7 +19,8 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.utils;
-import com.badlogic.gdx.utils.*;
+
+import com.badlogic.gdx.utils.Array;
 
 public final class InterScreenData {
     private static Array<InterScreenData> screenDatas = new Array<InterScreenData>();

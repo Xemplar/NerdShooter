@@ -20,8 +20,6 @@
  */
 package com.xemplar.games.android.nerdshooter.blocks;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
 public interface Animateable {
 
 }

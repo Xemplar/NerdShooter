@@ -23,6 +23,7 @@ package com.xemplar.games.android.nerdshooter.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -91,10 +92,17 @@ public class PackScreen implements Screen, InputProcessor {
 
         levels = new Button[12];
         for(int i = 0; i < 12; i++){
+            int index = i + 1;
+            String num = index < 10 ? "00" + index : "0" + index;
+            String file = "levels/" + pack + "/" + num + ".nsl";
+            System.out.println(file);
+            FileHandle han = Gdx.files.local(file);
+            if(!han.exists()) continue;
+
             float w = (buttonWidth / 4F) - spacer;
             float x = (width / 2F) - (buttonWidth / 2F) + (i / 3) * (w + spacer);
             float y = height - (buttonHeight + spacer) - ((i % 3) + 1) * (buttonHeight + spacer);
-            levels[i] = new Button(button, NerdShooter.button, (i + 1) + "", x, y, w, buttonHeight);
+            levels[i] = new Button(button, NerdShooter.button, index + "", x, y, w, buttonHeight);
             levels[i].setActionNumber(i);
             views.add(levels[i]);
         }

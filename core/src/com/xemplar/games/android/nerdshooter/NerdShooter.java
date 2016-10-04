@@ -28,11 +28,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.xemplar.games.android.nerdshooter.net.NetworkHandle;
-import com.xemplar.games.android.nerdshooter.screens.CompletedLevel;
-import com.xemplar.games.android.nerdshooter.screens.DownloadScreen;
-import com.xemplar.games.android.nerdshooter.screens.PackScreen;
-import com.xemplar.games.android.nerdshooter.screens.OptionsScreen;
-import com.xemplar.games.android.nerdshooter.screens.SplashScreen;
+import com.xemplar.games.android.nerdshooter.screens.*;
 import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
 
 public class NerdShooter extends Game {

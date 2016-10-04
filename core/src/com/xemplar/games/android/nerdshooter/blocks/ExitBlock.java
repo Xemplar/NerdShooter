@@ -19,9 +19,10 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.blocks;
-import com.badlogic.gdx.math.*;
-import com.xemplar.games.android.nerdshooter.screens.*;
-import com.xemplar.games.android.nerdshooter.entities.*;
+
+import com.badlogic.gdx.math.Vector2;
+import com.xemplar.games.android.nerdshooter.entities.Entity;
+import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class ExitBlock extends Block {
     public static final int EXIT_NORMAL = 0x000001;

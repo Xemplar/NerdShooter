@@ -19,9 +19,6 @@
  *
  */
 package com.xemplar.games.android.nerdshooter.model;
-import static com.xemplar.games.android.nerdshooter.blocks.Block.*;
-
-import java.io.File;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -32,6 +29,10 @@ import com.xemplar.games.android.nerdshooter.entities.Entity;
 import com.xemplar.games.android.nerdshooter.entities.ai.AbsoluteLinearAI;
 import com.xemplar.games.android.nerdshooter.entities.ai.AbstractAI;
 import com.xemplar.games.android.nerdshooter.entities.mobs.BlockMob;
+
+import java.io.File;
+
+import static com.xemplar.games.android.nerdshooter.blocks.Block.*;
 
 public class Level {
 	public Vector2 jaxonStart;

@@ -20,8 +20,6 @@
  */
 package com.xemplar.games.android.nerdshooter.blocks;
 
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -34,6 +32,8 @@ import com.xemplar.games.android.nerdshooter.entities.Entity;
 import com.xemplar.games.android.nerdshooter.entities.Wall;
 import com.xemplar.games.android.nerdshooter.items.Item;
 import com.xemplar.games.android.nerdshooter.screens.GameScreen;
+
+import java.util.Random;
 
 public class Block {
 	public static final Vector2 empty = new Vector2(2, 2);
