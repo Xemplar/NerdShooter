@@ -83,6 +83,7 @@ public class SplashScreen implements Screen {
         NerdShooter.label_small.getData().setScale(size / 128);
         
         NerdShooter.atlas = new TextureAtlas(Gdx.files.internal("textures/nerdshooter.atlas"));
+        GameScreen.setup_textures(NerdShooter.atlas);
         
         this.logoSize = height / 2F;
         this.logoX = (width / 2F) - (logoSize / 2F);

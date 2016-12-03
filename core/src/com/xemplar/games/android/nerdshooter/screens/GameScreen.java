@@ -171,8 +171,9 @@ public class GameScreen implements Screen, InputProcessor {
         item.addElement(CompletedLevel.KEY_LEVEL_NUM, levelNum + "");
         item.addElement(CompletedLevel.KEY_LEVEL_PACK, packName);
         
-        InterScreenData.getInstance(NerdShooter.COMP_DATA).setData(item);
+        reset_textures();
         
+        InterScreenData.getInstance(NerdShooter.COMP_DATA).setData(item);
         NerdShooter.shooter.setScreen(CompletedLevel.instance);
     }
     
@@ -203,24 +204,15 @@ public class GameScreen implements Screen, InputProcessor {
 			jump.set(buttonSize / 2F, buttonSize / 2F, buttonSize, buttonSize);
 			fire.set(buttonSize / 2F, buttonSize * 2F, buttonSize, buttonSize);
 		}
-
-		updates.clear();
-        updates.add(new UpdateTex(GameScreen.getTextureAltlas().findRegion("lava")));
-        updates.add(new UpdateTex(GameScreen.getTextureAltlas().findRegion("lavaTop_mid")));
     }
 	
     public void hide() {
         Gdx.input.setInputProcessor(null);
-
-        for(UpdateTex tex : updates){
-            tex.reset();
-        }
+        reset_textures();
     }
 	
     public void pause() {
-        for(UpdateTex tex : updates){
-            tex.reset();
-        }
+        reset_textures();
     }
 	
     public void resume() {
@@ -230,9 +222,7 @@ public class GameScreen implements Screen, InputProcessor {
     public void dispose() {
         Gdx.input.setInputProcessor(null);
 
-        for(UpdateTex tex : updates){
-            tex.reset();
-        }
+        reset_textures();
     }
 	
     public boolean keyDown(int keycode) {
@@ -431,18 +421,26 @@ public class GameScreen implements Screen, InputProcessor {
     }
 
 
-    private Array<UpdateTex> updates = new Array<UpdateTex>();
-    public void updateTextures(double ticks){
-
+    private static Array<UpdateTex> updates = new Array<UpdateTex>();
+    public static void updateTextures(double ticks){
 		for(UpdateTex up : updates){
 		    up.update(ticks);
         }
 	}
-
+    public static final void reset_textures(){
+        for(UpdateTex up : updates){
+            up.reset();
+        }
+    }
+    public static final void setup_textures(TextureAtlas atlas){
+        updates.add(new UpdateTex(atlas.findRegion("lava")));
+        updates.add(new UpdateTex(atlas.findRegion("lavaTop_mid")));
+    }
 	private static final class UpdateTex{
+        private boolean reset = true;
         private float startU, widthU;
         private TextureRegion region;
-
+        
         private UpdateTex(TextureRegion region){
             this.region = region;
             startU = region.getU();
@@ -451,15 +449,24 @@ public class GameScreen implements Screen, InputProcessor {
         }
 
         private void update(double ticks){
+            if(reset){
+                startU = region.getU();
+                widthU = (region.getU2() - startU) / 3F;
+                startU += widthU;
+            }
+            reset = false;
             float new_x = (float)(((ticks % 100D) / 100D) * widthU);
 
             region.setU(startU + (widthU - new_x));
             region.setU2(startU + (widthU - new_x) + widthU);
         }
-
+        
         private void reset(){
+            if(reset) return;
+            
+            reset = true;
+            
             startU -= widthU;
-
             region.setU(startU);
             region.setU2(startU + (widthU * 3F));
         }

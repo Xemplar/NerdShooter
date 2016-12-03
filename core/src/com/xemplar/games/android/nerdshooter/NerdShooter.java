@@ -32,8 +32,6 @@ import com.xemplar.games.android.nerdshooter.screens.*;
 import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
 
 public class NerdShooter extends Game {
-    public static final NetworkHandle NETWORK_HANDLE = new NetworkHandle("The_Next_Guy", "loomis240");
-
 	public static boolean PREF_AUDIO = false;
 	public static boolean PREF_LEFTY = false;
 	public static boolean PREF_SLIDE = false;

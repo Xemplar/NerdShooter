@@ -33,7 +33,11 @@ public class Label extends View{
 		this.text = text;
 		
 	}
-	
+    
+	public void setText(String text){
+        this.text = text;
+    }
+    
 	public void render(SpriteBatch batch) {
         font.draw(batch, text, bounds.getX(), bounds.getY() + ((bounds.getHeight() / 2F) + (font.getLineHeight() / 4F)));
 	}

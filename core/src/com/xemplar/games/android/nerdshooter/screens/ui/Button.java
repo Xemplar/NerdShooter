@@ -190,11 +190,7 @@ public class Button extends Label{
     public void setTexture(Texture tex){
         this.tex = new TextureRegion(tex);
     }
-
-    public void setText(String text){
-        this.text = text;
-    }
-
+    
     public String getText(){
         return this.text;
     }

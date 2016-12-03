@@ -39,19 +39,23 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
-import static com.xemplar.games.android.nerdshooter.NerdShooter.NETWORK_HANDLE;
+import com.xemplar.games.android.nerdshooter.net.*;
 
 public class DownloadScreen implements Screen, InputProcessor {
     public static DownloadScreen instance;
     private float buttonHeight, buttonWidth, spacer;
+    public static final NetworkHandle NETWORK_HANDLE = new NetworkHandle();
 
     protected SpriteBatch buttonRenderer;
     protected BitmapFont button;
-
-    protected Label lbl, non;
+    
+    protected volatile boolean fail, done, selected;
+    protected boolean deleteMode = false, pre;
+    protected Label lbl;
 
     protected Button back, delt;
     protected Button[] worlds;
+    protected boolean[] downed;
     protected boolean ready = false;
     protected JSONArray dat;
 
@@ -66,6 +70,14 @@ public class DownloadScreen implements Screen, InputProcessor {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 
+        if(pre != deleteMode && worlds != null){
+            for(int i = 0; i < worlds.length; i++){
+                worlds[i].setPressedColor(downed[i] & deleteMode ? Color.GRAY : (downed[i] ? Color.GREEN : Color.BLUE));
+                worlds[i].setNotPressedColor(downed[i] & deleteMode ? Color.RED : (downed[i] ? Color.GREEN : Color.GRAY));
+            }
+        }
+        pre = deleteMode;
+        
         if(ready){
             System.out.println("Levels Creation Started");
             Array<String> down = StartScreen.getPackList();
@@ -73,13 +85,16 @@ public class DownloadScreen implements Screen, InputProcessor {
             int length = dat.length();
 
             worlds = new Button[length];
+            downed = new boolean[length];
             for(int i = 0; i < dat.length(); i++){
                 JSONObject current = null;
                 String name = null;
+                int id = 0;
 
                 try{
                     current = dat.getJSONObject(i);
                     name = current.getString("name");
+                    id = current.getInt("id");
                 } catch(Exception e){
                     e.printStackTrace();
                 }
@@ -88,19 +103,35 @@ public class DownloadScreen implements Screen, InputProcessor {
                 for(String s : down){
                     downd |= s.equals(name);
                 }
+                
+                downed[i] = downd;
 
                 float w = (buttonWidth * 2F) / 3F - spacer;
                 float x = lbl.x + (i / 3) * (w + spacer);
                 float y = lbl.y - ((i % 3) + 1) * (buttonHeight + spacer);
                 worlds[i] = new Button(NerdShooter.label_small, NerdShooter.button, name, x, y, w, buttonHeight);
-                worlds[i].setActionNumber(100000 + current.getInt("id"));
-                worlds[i].setPressedColor(downd ? Color.RED : Color.BLUE);
-                worlds[i].setNotPressedColor(downd ? Color.GREEN : Color.GRAY);
+                worlds[i].setActionNumber(100000 + id);
+                worlds[i].setPressedColor(downd & deleteMode ? Color.GRAY : (downd ? Color.GREEN : Color.BLUE));
+                worlds[i].setNotPressedColor(downd & deleteMode ? Color.RED : (downd ? Color.GREEN : Color.GRAY));
                 views.add(worlds[i]);
             }
             ready = false;
         }
 
+        if(selected){
+            if(fail){
+                lbl.setText("Failed to Grab Level Pack!");
+            } else if(done){
+                lbl.setText("Level Pack Downloaded!");
+            } else {
+                lbl.setText("Grabbing Level Pack...");
+            }
+        } else if(fail){
+            lbl.setText("You Are Offline...");
+        } else if(done){
+            lbl.setText("Level Pack List Grabbed!");
+        }
+        
         buttonRenderer.begin(); {
             for(View view : views){
                 view.render(buttonRenderer);
@@ -120,13 +151,12 @@ public class DownloadScreen implements Screen, InputProcessor {
         button = NerdShooter.label_small;
         button.setColor(0, 0, 0, 1);
 
-        lbl = new Label(NerdShooter.text, "Downloadable: ", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
-        non = new Label(NerdShooter.text, "You have them all!!!", (width / 2F) - (buttonWidth), lbl.y - (buttonHeight + spacer) * 2F, (buttonWidth * 2F), buttonHeight);
-
+        lbl = new Label(NerdShooter.text, "Grabbing Level Packs... ", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
         delt = new Button(NerdShooter.label, NerdShooter.button, "Delete", (width / 2F) - (buttonWidth), spacer, (buttonWidth) - (spacer), buttonHeight);
         back = new Button(NerdShooter.label, NerdShooter.button, "Back", delt.x + delt.width + spacer, spacer, (buttonWidth) - (spacer), buttonHeight);
-
+        
         back.setActionNumber(1);
+        delt.setActionNumber(2);
 
         views.clear();
 
@@ -141,8 +171,11 @@ public class DownloadScreen implements Screen, InputProcessor {
                 System.out.println(data);
                 try {
                     dat = new JSONArray(data);
-                } catch(Exception e){e.printStackTrace();}
-                ready = true;
+                    ready = true;
+                    done = true;
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
             }
 
             public void length(long l){
@@ -151,6 +184,7 @@ public class DownloadScreen implements Screen, InputProcessor {
 
             public void failed(Throwable t) {
                 System.out.println("Levels Retrieval Failed: " + t.toString());
+                fail = true;
             }
         });
         System.out.println("Levels Retrieval Sent");
@@ -178,9 +212,29 @@ public class DownloadScreen implements Screen, InputProcessor {
     public void doAction(int action){
         if(action == 1){
             NerdShooter.shooter.setScreen(StartScreen.instance);
+        } else if(action == 2){
+            deleteMode = !deleteMode;
         } else if(action > 100000){
             final int packid = action - 100000;
+            final int id = packid - 1;
+            if(downed[id]){
+                if(deleteMode){
+                    FileHandle dwn = Gdx.files.local("levels/dwn.nsd");
+                    String dat = dwn.readString();
+                    dat = dat.replace(worlds[id].getText() + "\n", "");
+                    
+                    dwn.writeString(dat, false);
+                    dwn = Gdx.files.local("levels/" + worlds[id].getText());
+                    dwn.deleteDirectory();
+                    
+                    downed[id] = false;
+                    pre = !deleteMode;
+                }
+                return;
+            }
             System.out.println("Pack Request Sent");
+            selected = true;
+            done = false;
             NETWORK_HANDLE.getPack(packid, new NetworkListener(){
                 public void finished(String data) {
                     JSONObject obj = null;
@@ -201,7 +255,6 @@ public class DownloadScreen implements Screen, InputProcessor {
                     if(received != packid) {
                         throw new PackIDMismatchException(packid, received);
                     } else {
-
                         System.out.println(levels);
                         String[] array = levels.split("\",\"");
                         for(int i = 0; i < array.length; i++) {
@@ -214,7 +267,11 @@ public class DownloadScreen implements Screen, InputProcessor {
                                 number = "0" + number;
                             }
                             FileHandle h = Gdx.files.local("levels/" + name + "/" + number + ".nsl");
-
+                            
+                            if(h.exists()){
+                                return;
+                            }
+                            
                             String[] lines = current.split("=");
                             for(int j = 0; j < lines.length; j++) {
                                 h.writeString(lines[j] + "\n", true);
@@ -224,7 +281,9 @@ public class DownloadScreen implements Screen, InputProcessor {
                         FileHandle dwn = Gdx.files.local("levels/dwn.nsd");
                         String dat = dwn.readString();
 
-                        dwn.writeString(name, !dat.equals("<none>"));
+                        dwn.writeString(name + "\n", !dat.equals("<none>"));
+                        done = true;
+                        selected = false;
                     }
                 }
 
@@ -235,6 +294,7 @@ public class DownloadScreen implements Screen, InputProcessor {
                 public void failed(Throwable t) {
                     System.out.println("Levels Retrieval Failed: ");
                     t.printStackTrace();
+                    fail = true;
                 }
             });
         }

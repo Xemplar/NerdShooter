@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkHandle {
-    public static final String website = "http://www.xemplar.ml/nerdshooter/REST/";
+    public static final String website = "https://www.xemplarsoft.com/app/ns/";
     public static final String ENC_KEY = "QuGl4xrJelfSg7gk";
     private final AccountHandle account;
 

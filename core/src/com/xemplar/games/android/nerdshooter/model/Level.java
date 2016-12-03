@@ -113,7 +113,7 @@ public class Level {
                 fileName = "00" + num;
             }
             
-			FileHandle handle = Gdx.files.internal("levels/"+ pack + "/" + fileName + ".nsl");
+			FileHandle handle = Gdx.files.local("levels/"+ pack + "/" + fileName + ".nsl");
 			value = loadFile(handle);
 		}
 		
@@ -125,7 +125,7 @@ public class Level {
     public Vector2 loadFile(FileHandle handle){
         Vector2 value = new Vector2(1, 1);
         
-        String lines = handle.readString(); 
+        String lines = new String(handle.readBytes());
 
         String[] rows = lines.split("\n");
 
