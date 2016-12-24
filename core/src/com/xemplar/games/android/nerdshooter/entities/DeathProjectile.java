@@ -25,35 +25,35 @@ import com.xemplar.games.android.nerdshooter.model.World;
 
 public class DeathProjectile extends Projectile {
 
-	public DeathProjectile(Vector2 position, String regionID) {
-		super(position, regionID);
-	}
-	
-	public DeathProjectile(Vector2 position, String regionID, float size) {
-		super(position, regionID, size);
-	}
-	
-	public DeathProjectile(Vector2 position, String regionID, float width, float height) {
-		super(position, regionID, width, height);
-	}
-	
-	public boolean isTouchable(){
-		return true;
-	}
-	
-	public void onTouch(Entity e){
-		e.kill();
-		this.kill();
-	}
-	
-	public void onKill(){
-		World.despawnEntity(this);
-	}
-	
-	public DeathProjectile launch(Vector2 pos, float speed, float deg){
-		DeathProjectile pro = new DeathProjectile(pos, regionID, bounds.getWidth(), bounds.getHeight());
-		pro.setVelocity(speed, deg);
-		World.spawnEntity(pro);
-		return pro;
-	}
+    public DeathProjectile(Vector2 position, String regionID) {
+        super(position, regionID);
+    }
+    
+    public DeathProjectile(Vector2 position, String regionID, float size) {
+        super(position, regionID, size);
+    }
+    
+    public DeathProjectile(Vector2 position, String regionID, float width, float height) {
+        super(position, regionID, width, height);
+    }
+    
+    public boolean isTouchable(){
+        return true;
+    }
+    
+    public void onTouch(Entity e){
+        e.kill();
+        this.kill();
+    }
+    
+    public void onKill(){
+        World.despawnEntity(this);
+    }
+    
+    public DeathProjectile launch(Vector2 pos, float speed, float deg){
+        DeathProjectile pro = new DeathProjectile(pos, regionID, bounds.getWidth(), bounds.getHeight());
+        pro.setVelocity(speed, deg);
+        World.spawnEntity(pro);
+        return pro;
+    }
 }

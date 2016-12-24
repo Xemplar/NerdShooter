@@ -26,27 +26,27 @@ import com.badlogic.gdx.math.Vector2;
 import com.xemplar.games.android.nerdshooter.controller.ProjectileController;
 
 public abstract class Projectile extends Entity {
-	//Projectile Definitions
-	
-	public static HazardProjectile bullet = new HazardProjectile(empty, "bullet", 0.40F, 0.25F, 1);
-	
-	// Start Class
-	protected float speed, deg;
-	protected float drawX, drawY;
-	
-	public Projectile(Vector2 position, String regionID) {
-		super(position, regionID, 1);
-		controller = new ProjectileController(this);
-	}
-	
-	public Projectile(Vector2 position, String regionID, float size) {
-		super(position, regionID, size, 1);
-		controller = new ProjectileController(this);
-	}
-	
-	public Projectile(Vector2 position, String regionID, float width, float height) {
-		super(position, regionID, width, height, 1);
-		drawX = (bounds.getWidth() / 2F) - (0.5F / 2F);
+    //Projectile Definitions
+    
+    public static HazardProjectile bullet = new HazardProjectile(empty, "bullet", 0.40F, 0.25F, 1);
+    
+    // Start Class
+    protected float speed, deg;
+    protected float drawX, drawY;
+    
+    public Projectile(Vector2 position, String regionID) {
+        super(position, regionID, 1);
+        controller = new ProjectileController(this);
+    }
+    
+    public Projectile(Vector2 position, String regionID, float size) {
+        super(position, regionID, size, 1);
+        controller = new ProjectileController(this);
+    }
+    
+    public Projectile(Vector2 position, String regionID, float width, float height) {
+        super(position, regionID, width, height, 1);
+        drawX = (bounds.getWidth() / 2F) - (0.5F / 2F);
         drawX = (drawX < 0) ? -drawX : drawX;
         drawX = drawX / 4F;
         
@@ -55,55 +55,55 @@ public abstract class Projectile extends Entity {
         
         setPosition(new Vector2(getPosition().x, (bounds.getY() - drawY)));
         controller = new ProjectileController(this);
-	}
-	
-	public final boolean hasInventory() {
-		return false;
-	}
+    }
+    
+    public final boolean hasInventory() {
+        return false;
+    }
 
-	public boolean isCollideable(){
-		return false;
-	}
-	
-	public boolean isHidden(){
-		return false;
-	}
-	
-	public final boolean hasInvSpace() {
-		return false;
-	}
-	
-	public float getSpeedDamper(){
-		return 1F;
-	}
-	
-	public boolean affectWithGravity(){
-		return false;
-	}
-	
-	protected void setVelocity(float speed, float deg){
-		float velX = (float) (MathUtils.cosDeg(deg) * speed);
-		float velY = (float) (MathUtils.sinDeg(deg) * speed);
-		
-		this.speed = speed;
-		this.deg = deg;
-		this.velocity.set(velX, velY);
-	}
-	
-	public boolean collideWithBlocks(){
-		return false;
-	}
-	
-	public abstract Projectile launch(Vector2 pos, float speed, float deg);
-	
-	public void updateEntity(float delta) {
-		this.position.mulAdd(velocity.cpy(), delta);
-		this.bounds.setPosition(this.position);
-	}
-	
-	public void render(SpriteBatch batch){
-		if(!isHidden()){
+    public boolean isCollidable(){
+        return false;
+    }
+    
+    public boolean isHidden(){
+        return false;
+    }
+    
+    public final boolean hasInvSpace() {
+        return false;
+    }
+    
+    public float getSpeedDamper(){
+        return 1F;
+    }
+    
+    public boolean affectWithGravity(){
+        return false;
+    }
+    
+    protected void setVelocity(float speed, float deg){
+        float velX = (float) (MathUtils.cosDeg(deg) * speed);
+        float velY = (float) (MathUtils.sinDeg(deg) * speed);
+        
+        this.speed = speed;
+        this.deg = deg;
+        this.velocity.set(velX, velY);
+    }
+    
+    public boolean collideWithBlocks(){
+        return false;
+    }
+    
+    public abstract Projectile launch(Vector2 pos, float speed, float deg);
+    
+    public void updateEntity(float delta) {
+        this.position.mulAdd(velocity.cpy(), delta);
+        this.bounds.setPosition(this.position);
+    }
+    
+    public void render(SpriteBatch batch){
+        if(!isHidden()){
             batch.draw(getTexture(), (getPosition().x - drawX), (getPosition().y + (drawY)), 0.5F, 0.5F);
         }  
-	}
+    }
 }

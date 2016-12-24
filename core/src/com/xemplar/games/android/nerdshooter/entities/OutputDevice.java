@@ -25,32 +25,32 @@ import com.xemplar.games.android.nerdshooter.model.World;
 import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class OutputDevice extends Entity{
-	public OutputDevice(Vector2 position, String regionID, float width, float height, int health) {
-		super(position, regionID, width, height, health);
-	}
-	
-	public OutputDevice(Vector2 position, String regionID, float size, int health) {
-		super(position, regionID, size, size, health);
-	}
-	
-	public OutputDevice(Vector2 position, String regionID, int health) {
-		super(position, regionID, health);
-	}
-	
-	public boolean hasInventory() {
-		return false;
-	}
+    public OutputDevice(Vector2 position, String regionID, float width, float height, int health) {
+        super(position, regionID, width, height, health);
+    }
+    
+    public OutputDevice(Vector2 position, String regionID, float size, int health) {
+        super(position, regionID, size, size, health);
+    }
+    
+    public OutputDevice(Vector2 position, String regionID, int health) {
+        super(position, regionID, health);
+    }
+    
+    public boolean hasInventory() {
+        return false;
+    }
 
-	public boolean hasInvSpace() {
-		return false;
-	}
+    public boolean hasInvSpace() {
+        return false;
+    }
 
-	public void updateEntity(float delta) {
-		long ticks = GameScreen.gameTicks;
-		
-		if(ticks % 100 == 0){
-			World.spawnEntity(Projectile.bullet.launch(position.cpy(), 20F, 90F));
-		}
-	}
+    public void updateEntity(float delta) {
+        long ticks = GameScreen.gameTicks;
+        
+        if(ticks % 100 == 0){
+            World.spawnEntity(Projectile.bullet.launch(position.cpy(), 20F, 90F));
+        }
+    }
 
 }

@@ -38,7 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JaxonController implements Controller{
-	private Array<Rectangle> collisionRects = new Array<Rectangle>();
+    private Array<Rectangle> collisionRects = new Array<Rectangle>();
     enum Keys {
         LEFT, RIGHT, JUMP, FIRE
     }
@@ -50,28 +50,28 @@ public class JaxonController implements Controller{
     private static final float DAMP = 0.90f;
     private static final float MAX_VEL = 3.5F;
 
-	private boolean isLeftDown;
-	private boolean isRightDown;
-	private boolean isJumpDown;
-	private boolean isFireDown;
+    private boolean isLeftDown;
+    private boolean isRightDown;
+    private boolean isJumpDown;
+    private boolean isFireDown;
 
-	public int leftPointer;
-	public int rightPointer;
-	public int jumpPointer;
-	public int firePointer;
-	
-	private boolean fired = false;
+    public int leftPointer;
+    public int rightPointer;
+    public int jumpPointer;
+    public int firePointer;
+    
+    private boolean fired = false;
 
-	private Array<Block> collidable = new Array<Block>();
+    private Array<Block> collidable = new Array<Block>();
 
-	private Pool<Rectangle> rectPool = new Pool<Rectangle>() {
-		@Override
-		protected Rectangle newObject() {
-			return new Rectangle();
-		}
-	};
+    private Pool<Rectangle> rectPool = new Pool<Rectangle>() {
+        @Override
+        protected Rectangle newObject() {
+            return new Rectangle();
+        }
+    };
 
-	boolean grounded = false;
+    boolean grounded = false;
     
     private Jaxon jaxon;
     private long jumpPressedTime;
@@ -92,76 +92,76 @@ public class JaxonController implements Controller{
 
     public void leftPressed(int pointer) {
         keys.get(keys.put(Keys.LEFT, true));
-		leftPointer = pointer;
-		isLeftDown = true;
+        leftPointer = pointer;
+        isLeftDown = true;
     }
 
     public void rightPressed(int pointer) {
         keys.get(keys.put(Keys.RIGHT, true));
-		rightPointer = pointer;
-		isRightDown = true;
+        rightPointer = pointer;
+        isRightDown = true;
     }
 
     public void jumpPressed(int pointer) {
         keys.get(keys.put(Keys.JUMP, true));
-		jumpPointer = pointer;
-		isJumpDown = true;
+        jumpPointer = pointer;
+        isJumpDown = true;
     }
 
     public void firePressed(int pointer) {
         keys.get(keys.put(Keys.FIRE, true));
-		firePointer = pointer;
-		isFireDown = true;
+        firePointer = pointer;
+        isFireDown = true;
     }
 
     public void leftReleased() {
         keys.get(keys.put(Keys.LEFT, false));
-		leftPointer = -1;
-		isLeftDown = false;
+        leftPointer = -1;
+        isLeftDown = false;
     }
 
     public void rightReleased() {
         keys.get(keys.put(Keys.RIGHT, false));
-		rightPointer = -1;
-		isRightDown = false;
+        rightPointer = -1;
+        isRightDown = false;
     }
 
     public void jumpReleased() {
         keys.get(keys.put(Keys.JUMP, false));
-		jumpPointer = -1;
+        jumpPointer = -1;
         jumpingPressed = false;
-		isJumpDown = false;
+        isJumpDown = false;
     }
 
     public void fireReleased() {
         keys.get(keys.put(Keys.FIRE, false));
-		firePointer = -1;
-		isFireDown = false;
+        firePointer = -1;
+        isFireDown = false;
     }
 
     public void reset() {
         keys.get(keys.put(Keys.LEFT, false));
         leftPointer = -1;
-		isLeftDown = false;
+        isLeftDown = false;
 
         keys.get(keys.put(Keys.RIGHT, false));
         rightPointer = -1;
-		isRightDown = false;
+        isRightDown = false;
 
         keys.get(keys.put(Keys.FIRE, false));
         firePointer = -1;
-		isFireDown = false;
+        isFireDown = false;
 
         keys.get(keys.put(Keys.JUMP, false));
         jumpPointer = -1;
         jumpingPressed = false;
-		isJumpDown = false;
+        isJumpDown = false;
     }
 
     public void update(float delta) {
         processInput();
 
-		if (grounded && jaxon.getState().equals(Jaxon.State.JUMPING)) {
+        if (grounded && jaxon.getState().equals(Jaxon.State.JUMPING)) {
             jaxon.setState(Jaxon.State.IDLE);
         }
 
@@ -179,22 +179,22 @@ public class JaxonController implements Controller{
         }
         
         if(!isFireDown){
-        	fired = false;
+            fired = false;
         }
         
         if(isFireDown && !fired){
-        	fired = true;
-        	int selected = jaxon.inventory.getSelectedItem();
-        	if(selected != -1){
-        		ItemStack stack = jaxon.inventory.getItem(selected);
-        		if(stack != null){
-        			Item mock = stack.getMock();
-            		if(mock instanceof Fireable){
-            			((Equippable) mock).onEquip(jaxon);
-            			((Fireable) mock).onFire();
-            		}
-        		}
-        	}
+            fired = true;
+            int selected = jaxon.inventory.getSelectedItem();
+            if(selected != -1){
+                ItemStack stack = jaxon.inventory.getItem(selected);
+                if(stack != null){
+                    Item mock = stack.getMock();
+                    if(mock instanceof Fireable){
+                        ((Equippable) mock).onEquip(jaxon);
+                        ((Fireable) mock).onFire();
+                    }
+                }
+            }
         }
     }
 
@@ -214,7 +214,7 @@ public class JaxonController implements Controller{
                 block.onTouch(jaxon);
             }
 
-            if (jaxonRect.overlaps(block.getBounds()) && block.isCollideable()) {
+            if (jaxonRect.overlaps(block.getBounds()) && block.isCollidable()) {
                 jaxon.getVelocity().x = 0;
                 collisionRects.add(block.getBounds());
 
@@ -240,13 +240,13 @@ public class JaxonController implements Controller{
         jaxonRect.y += jaxon.getVelocity().y;
 
         for (Block block : collidable) {
-        	if (block == null) continue;
-        	
-			if (jaxonRect.overlaps(block.getBounds()) && (block.isTouchable())) {
+            if (block == null) continue;
+            
+            if (jaxonRect.overlaps(block.getBounds()) && (block.isTouchable())) {
                 block.onTouch(jaxon);
             }
 
-            if (jaxonRect.overlaps(block.getBounds()) && block.isCollideable()) {
+            if (jaxonRect.overlaps(block.getBounds()) && block.isCollidable()) {
                 if (jaxon.getVelocity().y < 0) {
                     grounded = true;
                 }
@@ -261,7 +261,7 @@ public class JaxonController implements Controller{
     }
 
     private void populateCollidableBlocks() {
-    	World world = GameScreen.instance.world;
+        World world = GameScreen.instance.world;
         collidable.clear();
 
         Vector2 pos = jaxon.getPosition().cpy().add(jaxon.getVelocity().cpy());
@@ -269,20 +269,20 @@ public class JaxonController implements Controller{
         int length = world.getLevel().getBlocks().length;
         Block[] blocks = world.getLevel().getBlocks();
         
-		for (int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             Block current = blocks[i];
             
-			if (current != null) {
-                if (current.isCollideable() || current.isTouchable()) {
-				    float xDist = Math.abs(current.getPosition().x - pos.x);
-				    float yDist = Math.abs(current.getPosition().y - pos.y);
+            if (current != null) {
+                if (current.isCollidable() || current.isTouchable()) {
+                    float xDist = Math.abs(current.getPosition().x - pos.x);
+                    float yDist = Math.abs(current.getPosition().y - pos.y);
 
-				    if (xDist < 1F && yDist < 1F) {
-					    collidable.add(current);
-				    }
+                    if (xDist < 1F && yDist < 1F) {
+                        collidable.add(current);
+                    }
                 }
-			}
-		}
+            }
+        }
         
         int size = world.getEntities().size;
         Array<Entity> entities = world.getEntities();
@@ -293,7 +293,7 @@ public class JaxonController implements Controller{
             if(current.equals(jaxon)) continue;
             if(current.isHidden()) continue;
             
-            if (current.isCollideable() || current.isTouchable()) {
+            if (current.isCollidable() || current.isTouchable()) {
                 float xDist = Math.abs(current.getPosition().x - pos.x);
                 float yDist = Math.abs(current.getPosition().y - pos.y);
 
@@ -306,61 +306,62 @@ public class JaxonController implements Controller{
 
 
     private boolean processInput() {
-		if (keys.get(Keys.JUMP)) {
-			if (!jaxon.getState().equals(Jaxon.State.JUMPING) && grounded) {
-				jumpingPressed = true;
-				jumpPressedTime = System.currentTimeMillis();
-				jaxon.setState(Jaxon.State.JUMPING);
-				jaxon.getVelocity().y = JUMP_HEIGHT; 
-				grounded = false;
-			} else {
-				if (jumpingPressed && ((System.currentTimeMillis() - jumpPressedTime) >= LONG_JUMP_PRESS)) {
-					jumpingPressed = false;
-				} else {
-					if (jumpingPressed) {
-						jaxon.getVelocity().y = JUMP_HEIGHT;
-					}
-				}
-			}
-		}
-		if (keys.get(Keys.LEFT)) {
-			// left is pressed
-			jaxon.setFacingLeft(true);
-			if (!jaxon.getState().equals(Jaxon.State.JUMPING)) {
-				jaxon.setState(Jaxon.State.WALKING);
-			}
-			jaxon.getAcceleration().x = -ACCELERATION;
-		} else if (keys.get(Keys.RIGHT)) {
-			// right is pressed
-			jaxon.setFacingLeft(false);
-			if (!jaxon.getState().equals(Jaxon.State.JUMPING)) {
-				jaxon.setState(Jaxon.State.WALKING);
-			}
-			jaxon.getAcceleration().x = ACCELERATION;
-		} else {
-			if (!jaxon.getState().equals(Jaxon.State.JUMPING)) {
-				jaxon.setState(Jaxon.State.IDLE);
-			}
-			jaxon.getAcceleration().x = 0;
+        if(jaxon.isLocked()) return false;
+        if (keys.get(Keys.JUMP)) {
+            if (!jaxon.getState().equals(Jaxon.State.JUMPING) && grounded) {
+                jumpingPressed = true;
+                jumpPressedTime = System.currentTimeMillis();
+                jaxon.setState(Jaxon.State.JUMPING);
+                jaxon.getVelocity().y = JUMP_HEIGHT; 
+                grounded = false;
+            } else {
+                if (jumpingPressed && ((System.currentTimeMillis() - jumpPressedTime) >= LONG_JUMP_PRESS)) {
+                    jumpingPressed = false;
+                } else {
+                    if (jumpingPressed) {
+                        jaxon.getVelocity().y = JUMP_HEIGHT;
+                    }
+                }
+            }
+        }
+        if (keys.get(Keys.LEFT)) {
+            // left is pressed
+            jaxon.setFacingLeft(true);
+            if (!jaxon.getState().equals(Jaxon.State.JUMPING)) {
+                jaxon.setState(Jaxon.State.WALKING);
+            }
+            jaxon.getAcceleration().x = -ACCELERATION;
+        } else if (keys.get(Keys.RIGHT)) {
+            // right is pressed
+            jaxon.setFacingLeft(false);
+            if (!jaxon.getState().equals(Jaxon.State.JUMPING)) {
+                jaxon.setState(Jaxon.State.WALKING);
+            }
+            jaxon.getAcceleration().x = ACCELERATION;
+        } else {
+            if (!jaxon.getState().equals(Jaxon.State.JUMPING)) {
+                jaxon.setState(Jaxon.State.IDLE);
+            }
+            jaxon.getAcceleration().x = 0;
 
-		}
-		return false;
-	}
+        }
+        return false;
+    }
 
-	public boolean isLeftDown() {
-		return isLeftDown;
-	}
+    public boolean isLeftDown() {
+        return isLeftDown;
+    }
 
-	public boolean isRightDown() {
-		return isRightDown;
-	}
+    public boolean isRightDown() {
+        return isRightDown;
+    }
 
-	public boolean isJumpDown() {
-		return isJumpDown;
-	}
+    public boolean isJumpDown() {
+        return isJumpDown;
+    }
 
-	public boolean isFireDown() {
-		return isFireDown;
-	}
+    public boolean isFireDown() {
+        return isFireDown;
+    }
 }
 

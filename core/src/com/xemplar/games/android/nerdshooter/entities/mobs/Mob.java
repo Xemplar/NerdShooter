@@ -27,55 +27,55 @@ import com.xemplar.games.android.nerdshooter.entities.ai.AbstractAI;
 import com.xemplar.games.android.nerdshooter.entities.ai.TimedLinearAI;
 
 public class Mob extends Entity{
-	public static final Mob window = new Mob(empty, "window", 10, new TimedLinearAI(100, 1F, AbstractAI.Direction.HORIZONTAL));
-	public static final BlockMob spikes = new BlockMob(empty, BlockMob.spike_sand_up,
+    public static final Mob window = new Mob(empty, "window", 10, new TimedLinearAI(100, 1F, AbstractAI.Direction.HORIZONTAL));
+    public static final BlockMob spikes = new BlockMob(empty, BlockMob.spike_sand_up,
             new AbsoluteLinearAI(new Vector2(1, 0), 2, AbstractAI.Direction.HORIZONTAL));
 
-	public Mob(Vector2 position, float size, int health, AbstractAI ai) {
+    public Mob(Vector2 position, float size, int health, AbstractAI ai) {
         super(position, size, health);
         this.controller = ai;
         ai.bindWithEntity(this);
     }
     
     public Mob(Vector2 position, float width, float height, int health, AbstractAI ai) {
-    	super(position, width, height, health);
-    	this.controller = ai;
+        super(position, width, height, health);
+        this.controller = ai;
         ai.bindWithEntity(this);
     }
     
-	public Mob(Vector2 position, String regionID, int health, AbstractAI ai){
-		super(position, regionID, health);
-		this.controller = ai;
+    public Mob(Vector2 position, String regionID, int health, AbstractAI ai){
+        super(position, regionID, health);
+        this.controller = ai;
         ai.bindWithEntity(this);
-	}
+    }
 
     public Mob(Vector2 position, String regionID, float size, int health, AbstractAI ai){
-    	super(position, regionID, size, health);
-    	this.controller = ai;
+        super(position, regionID, size, health);
+        this.controller = ai;
         ai.bindWithEntity(this);
-	}
-    
-    public Mob(Vector2 position, String regionID, float width, float height, int health, AbstractAI ai){
-    	super(position, regionID, width, height, health);
-    	this.controller = ai;
-        ai.bindWithEntity(this);
-	}
-    
-    public Mob clone(Vector2 pos){
-    	return new Mob(pos, regionID, bounds.width, bounds.height, health, (AbstractAI) controller);
     }
     
-	public boolean hasInventory() {
-		return false;
-	}
+    public Mob(Vector2 position, String regionID, float width, float height, int health, AbstractAI ai){
+        super(position, regionID, width, height, health);
+        this.controller = ai;
+        ai.bindWithEntity(this);
+    }
+    
+    public Mob clone(Vector2 pos){
+        return new Mob(pos, regionID, bounds.width, bounds.height, health, (AbstractAI) controller);
+    }
+    
+    public boolean hasInventory() {
+        return false;
+    }
 
-	public boolean hasInvSpace() {
-		return false;
-	}
+    public boolean hasInvSpace() {
+        return false;
+    }
 
-	public void updateEntity(float delta) {
-		position.mulAdd(velocity.cpy(), delta);
-		bounds.x = position.x;
-		bounds.y = position.y;
-	}
+    public void updateEntity(float delta) {
+        position.mulAdd(velocity.cpy(), delta);
+        bounds.x = position.x;
+        bounds.y = position.y;
+    }
 }

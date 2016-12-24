@@ -25,22 +25,22 @@ import com.xemplar.games.android.nerdshooter.entities.Entity;
 
 public abstract class AbstractAI extends EntityController {
 
-	public enum Direction{
-		HORIZONTAL,
-		VERTICAL,
-		BOTH;
-	}
+    public enum Direction{
+        HORIZONTAL,
+        VERTICAL,
+        BOTH;
+    }
 
-	public void bindWithEntity(Entity e){
-		this.entity = e;
-	}
-	
-	public void update(float delta){
-		if(entity != null){
+    public void bindWithEntity(Entity e){
+        this.entity = e;
+    }
+    
+    public void update(float delta){
+        if(entity != null){
             super.update(delta);
-			updateAI(delta);
-		}
-	}
-	
-	public abstract void updateAI(float delta);
+            updateAI(delta);
+        }
+    }
+    
+    public abstract void updateAI(float delta);
 }

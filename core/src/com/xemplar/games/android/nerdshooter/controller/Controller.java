@@ -21,5 +21,5 @@
 package com.xemplar.games.android.nerdshooter.controller;
 
 public interface Controller {
-	public void update(float delta);
+    public void update(float delta);
 }

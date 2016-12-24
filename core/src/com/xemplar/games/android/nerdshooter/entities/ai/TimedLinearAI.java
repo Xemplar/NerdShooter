@@ -23,37 +23,37 @@ package com.xemplar.games.android.nerdshooter.entities.ai;
 import static com.xemplar.games.android.nerdshooter.screens.GameScreen.gameTicks;
 
 public class TimedLinearAI extends AbstractAI{
-	protected final Direction movement;
-	protected final long period;
-	protected final float speed;
-	protected int dir = 1;
-	
-	public TimedLinearAI(long period, float speed, Direction movement) {
-		this.movement = movement;
-		this.period = period;
-		this.speed = speed;
-	}
+    protected final Direction movement;
+    protected final long period;
+    protected final float speed;
+    protected int dir = 1;
+    
+    public TimedLinearAI(long period, float speed, Direction movement) {
+        this.movement = movement;
+        this.period = period;
+        this.speed = speed;
+    }
 
-	public void updateAI(float delta) {
-		if((gameTicks % period) == 0){
-			dir *= -1;
-			entity.getVelocity().set(0, 0);
-		}
-		if(movement == Direction.HORIZONTAL) {
-			if (Math.abs(entity.getVelocity().x) < speed) {
-				entity.getVelocity().add(speed * dir, 0);
-			}
-		} else if(movement == Direction.VERTICAL){
-			if (Math.abs(entity.getVelocity().y) < speed) {
-				entity.getVelocity().add(0, speed * dir);
-			}
-		} else {
-			if (Math.abs(entity.getVelocity().x) < speed) {
-				entity.getVelocity().add(speed * dir, 0);
-			}
-			if (Math.abs(entity.getVelocity().y) < speed) {
-				entity.getVelocity().add(0, speed * dir);
-			}
-		}
-	}
+    public void updateAI(float delta) {
+        if((gameTicks % period) == 0){
+            dir *= -1;
+            entity.getVelocity().set(0, 0);
+        }
+        if(movement == Direction.HORIZONTAL) {
+            if (Math.abs(entity.getVelocity().x) < speed) {
+                entity.getVelocity().add(speed * dir, 0);
+            }
+        } else if(movement == Direction.VERTICAL){
+            if (Math.abs(entity.getVelocity().y) < speed) {
+                entity.getVelocity().add(0, speed * dir);
+            }
+        } else {
+            if (Math.abs(entity.getVelocity().x) < speed) {
+                entity.getVelocity().add(speed * dir, 0);
+            }
+            if (Math.abs(entity.getVelocity().y) < speed) {
+                entity.getVelocity().add(0, speed * dir);
+            }
+        }
+    }
 }

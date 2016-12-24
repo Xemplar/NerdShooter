@@ -41,8 +41,8 @@ public class BlockMob extends Mob{
         return true;
     }
 
-    public boolean isCollideable(){
-        return b.isCollideable();
+    public boolean isCollidable(){
+        return b.isCollidable();
     }
 
     public void onTouch(Entity e){

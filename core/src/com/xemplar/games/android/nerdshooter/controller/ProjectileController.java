@@ -31,42 +31,42 @@ import com.xemplar.games.android.nerdshooter.model.World;
 import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class ProjectileController implements Controller{
-	private Array<Rectangle> collisionRects = new Array<Rectangle>();
-	private static final float GRAVITY = -20f;
+    private Array<Rectangle> collisionRects = new Array<Rectangle>();
+    private static final float GRAVITY = -20f;
 
     private static Pool<Rectangle> rectPool = new Pool<Rectangle>() {
-		protected Rectangle newObject() {
-			return new Rectangle();
-		}
-	};
+        protected Rectangle newObject() {
+            return new Rectangle();
+        }
+    };
     
-	private Array<Block> collidable = new Array<Block>();
+    private Array<Block> collidable = new Array<Block>();
     private boolean grounded = false;
-	protected Projectile projectile;
-	
-	public ProjectileController(Projectile projectile) {
-		this.projectile = projectile;
-	}
-	
-	public void update(float delta) {
-		if(projectile.affectWithGravity()){
-			if (grounded && projectile.getState().equals(Entity.State.JUMPING)) {
-				projectile.setState(Entity.State.IDLE);
-			}
-
-        	projectile.getAcceleration().y = GRAVITY;
-        	projectile.getVelocity().mulAdd(projectile.getAcceleration(), delta);
-		}
-		
-		if(projectile.collideWithEntities() || projectile.collideWithBlocks()){
-			checkCollisionWithBlocks(delta);
-		}
-		
-		projectile.getVelocity().x *= projectile.getSpeedDamper();
+    protected Projectile projectile;
+    
+    public ProjectileController(Projectile projectile) {
+        this.projectile = projectile;
     }
-	
-	private void checkCollisionWithBlocks(float delta) {
-		Rectangle projectileRect = rectPool.obtain();
+    
+    public void update(float delta) {
+        if(projectile.affectWithGravity()){
+            if (grounded && projectile.getState().equals(Entity.State.JUMPING)) {
+                projectile.setState(Entity.State.IDLE);
+            }
+
+            projectile.getAcceleration().y = GRAVITY;
+            projectile.getVelocity().mulAdd(projectile.getAcceleration(), delta);
+        }
+        
+        if(projectile.collideWithEntities() || projectile.collideWithBlocks()){
+            checkCollisionWithBlocks(delta);
+        }
+        
+        projectile.getVelocity().x *= projectile.getSpeedDamper();
+    }
+    
+    private void checkCollisionWithBlocks(float delta) {
+        Rectangle projectileRect = rectPool.obtain();
         projectileRect.set(projectile.getBounds().x, projectile.getBounds().y, projectile.getBounds().width, projectile.getBounds().height);
 
         populateCollidableBlocks();
@@ -74,27 +74,27 @@ public class ProjectileController implements Controller{
         collisionRects.clear();
 
         for (Block block : collidable) {
-        	if (block == null) continue;
+            if (block == null) continue;
 
             if (projectileRect.overlaps(block.getBounds()) && block.isTouchable()) {
                 block.onTouch(projectile);
             }
             
-            if (projectileRect.overlaps(block.getBounds()) && block.isCollideable()) {
-            	projectile.getVelocity().x = 0;
+            if (projectileRect.overlaps(block.getBounds()) && block.isCollidable()) {
+                projectile.getVelocity().x = 0;
                 collisionRects.add(block.getBounds());
-            	
+                
                 if (projectile.getBounds().overlaps(block.getBounds())) {
-                	float entityX = projectile.getPosition().x;
-                	float blockX = block.getPosition().x;
+                    float entityX = projectile.getPosition().x;
+                    float blockX = block.getPosition().x;
 
-                	System.out.println("got stuck on: " + block.regionID);
+                    System.out.println("got stuck on: " + block.regionID);
 
-                	if (entityX < blockX) {
-                		projectile.getPosition().x = block.getPosition().x - projectile.getBounds().getWidth();
-                	} else {
-                		projectile.getPosition().x = block.getPosition().x + block.getBounds().getWidth();
-                	}
+                    if (entityX < blockX) {
+                        projectile.getPosition().x = block.getPosition().x - projectile.getBounds().getWidth();
+                    } else {
+                        projectile.getPosition().x = block.getPosition().x + block.getBounds().getWidth();
+                    }
                 }
             }
             break;
@@ -106,15 +106,15 @@ public class ProjectileController implements Controller{
         projectileRect.y += projectile.getVelocity().y;
 
         for (Block block : collidable) {
-        	if (block == null) continue;
-        	
-        	boolean collides = projectileRect.overlaps(block.getBounds());
-        	
-			if (collides && block.isTouchable()) {
+            if (block == null) continue;
+            
+            boolean collides = projectileRect.overlaps(block.getBounds());
+            
+            if (collides && block.isTouchable()) {
                 block.onTouch(projectile);
             }
 
-            if (collides && block.isCollideable()) {
+            if (collides && block.isCollidable()) {
                 if (projectile.getVelocity().y < 0) {
                     grounded = true;
                 }
@@ -128,49 +128,49 @@ public class ProjectileController implements Controller{
     }
 
     private void populateCollidableBlocks() {
-    	World world = GameScreen.instance.world;
-    	
+        World world = GameScreen.instance.world;
+        
         collidable.clear();
 
         Vector2 pos = projectile.getPosition().cpy();
         
         if(projectile.collideWithBlocks()){
-        	int length = world.getLevel().getBlocks().length;
-        	Block[] blocks = world.getLevel().getBlocks();
+            int length = world.getLevel().getBlocks().length;
+            Block[] blocks = world.getLevel().getBlocks();
             
-    		for (int i = 0; i < length; i++) {
+            for (int i = 0; i < length; i++) {
                 Block current = blocks[i];
                 
-    			if (current != null) {
-                    if (current.isCollideable() || current.isTouchable()) {
-    				    float xDist = Math.abs(current.getPosition().x - pos.x);
-    				    float yDist = Math.abs(current.getPosition().y - pos.y);
+                if (current != null) {
+                    if (current.isCollidable() || current.isTouchable()) {
+                        float xDist = Math.abs(current.getPosition().x - pos.x);
+                        float yDist = Math.abs(current.getPosition().y - pos.y);
 
-    				    if (xDist < 1F && yDist < 1F) {
-    				    	collidable.add(current);
-    				    }
+                        if (xDist < 1F && yDist < 1F) {
+                            collidable.add(current);
+                        }
                     }
-    			}
-    		}
+                }
+            }
         }
         
         if(projectile.collideWithEntities()){
-        	int size = world.getEntities().size;
-        	for(int i = 0; i < size; i++){
-            	Entity current = world.getEntities().get(i);
-            	
-            	if(current.isHidden()) continue;
-            	if(current.equals(projectile)) continue;
-            	
-            	if (current.isCollideable() || current.isTouchable()) {
-                	float xDist = Math.abs(current.getPosition().x - pos.x);
-                	float yDist = Math.abs(current.getPosition().y - pos.y);
+            int size = world.getEntities().size;
+            for(int i = 0; i < size; i++){
+                Entity current = world.getEntities().get(i);
+                
+                if(current.isHidden()) continue;
+                if(current.equals(projectile)) continue;
+                
+                if (current.isCollidable() || current.isTouchable()) {
+                    float xDist = Math.abs(current.getPosition().x - pos.x);
+                    float yDist = Math.abs(current.getPosition().y - pos.y);
 
-                	if (xDist < 1F && yDist < 1F) {
-                    	collidable.add(current);
-                	}
-            	}
-        	}
+                    if (xDist < 1F && yDist < 1F) {
+                        collidable.add(current);
+                    }
+                }
+            }
         }
     }
 }

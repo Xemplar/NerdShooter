@@ -30,10 +30,10 @@ import com.xemplar.games.android.nerdshooter.inventory.Inventory;
 import com.xemplar.games.android.nerdshooter.model.World;
 
 public abstract class Entity extends Block{
-	public enum State {
+    public enum State {
         IDLE, WALKING, JUMPING, DYING
-	}
-	
+    }
+    
     public static final float SPEED = 5f;  // unit per second
     public static final float JUMP_VELOCITY = 1f;
     public static final int UNLIMITED = 0xFFFFFF;
@@ -44,7 +44,7 @@ public abstract class Entity extends Block{
     protected boolean hidden, reset, hasSpawned;
     protected Controller controller;
 
-	protected float stateTime = 0;
+    protected float stateTime = 0;
     protected Vector2 acceleration = new Vector2();
     protected Vector2 velocity = new Vector2();
     protected State state = State.IDLE;
@@ -154,51 +154,56 @@ public abstract class Entity extends Block{
         return stateTime;
     }
     
-	public void setPosition(Vector2 position) {
-		this.position = position;
-		this.bounds.setPosition(this.position);
-	}
+    public void setPosition(Vector2 position) {
+        this.position = position;
+        this.bounds.setPosition(this.position);
+    }
 
     public void setCheckPoint(Vector2 point){
         this.spawnPoint = point.cpy();
         this.spawnPoint.add(0.025F, 0);
         
         if(this.hasInventory()){
-        	this.inventory.hitCheckPoint();
+            this.inventory.hitCheckPoint();
         }
     }
     
-	public void respawn(){
+    public void respawn(){
         this.health = maxHealth;
         this.hidden = false;
         velocity.set(0F, 0F);
-		setPosition(spawnPoint.cpy());
-		
-		if(this.hasInventory()){
-			this.inventory.clear();
-		}
+        setPosition(spawnPoint.cpy());
+        
+        if(this.hasInventory()){
+            this.inventory.clear();
+        }
         
         reset = false;
-	}
-	
-	public Rectangle getBounds(){
-		return bounds;
     }
 
-	public Vector2 getVelocity(){
-		return velocity;
-	}
+    public void warpTo(Vector2 loc){
+        velocity.set(0F, 0F);
+        setPosition(loc.cpy());
+    }
 
-	public Vector2 getAcceleration(){
-		return acceleration;
-	}
+    public Rectangle getBounds(){
+        return bounds;
+    }
 
-	public Vector2 getPosition(){
-		return position;
+    public Vector2 getVelocity(){
+        return velocity;
+    }
+
+    public Vector2 getAcceleration(){
+        return acceleration;
+    }
+
+    public Vector2 getPosition(){
+        return position;
     }
     
     public Controller getController(){
-    	return controller;
+        return controller;
     }
     
     public void kill(){
@@ -207,12 +212,12 @@ public abstract class Entity extends Block{
     }
     
     protected void onKill(){
-    	World.despawnEntity(this);
+        World.despawnEntity(this);
     }
     
     public final void hurt(int amt){
         if(!isDead()){
-            this.health = this.health - amt;
+            this.health -= amt;
         }
     }
 
