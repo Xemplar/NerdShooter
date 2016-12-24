@@ -27,63 +27,63 @@ HUDRight
   index: -1
 brick
   rotate: false
-  xy: 506, 16
+  xy: 650, 166
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 brick1
   rotate: false
-  xy: 568, 16
+  xy: 506, 16
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 brick2
   rotate: false
-  xy: 729, 736
+  xy: 729, 664
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 brick3
   rotate: false
-  xy: 729, 674
+  xy: 758, 736
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 brick4
   rotate: false
-  xy: 791, 737
+  xy: 820, 737
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 brick5
   rotate: false
-  xy: 791, 675
+  xy: 882, 737
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 brick6
   rotate: false
-  xy: 853, 737
+  xy: 944, 737
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 brick7
   rotate: false
-  xy: 853, 675
+  xy: 791, 674
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 brick8
   rotate: false
-  xy: 915, 737
+  xy: 853, 675
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
@@ -97,7 +97,7 @@ brick9
   index: -1
 bullet
   rotate: false
-  xy: 492, 780
+  xy: 2, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -340,30 +340,16 @@ dirtRight
   orig: 70, 70
   offset: 0, 0
   index: -1
-door_closedMid
+door_locked
   rotate: false
   xy: 146, 606
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
-door_closedTop
+door_open
   rotate: false
   xy: 146, 534
-  size: 70, 70
-  orig: 70, 70
-  offset: 0, 0
-  index: -1
-door_openMid
-  rotate: false
-  xy: 146, 462
-  size: 70, 70
-  orig: 70, 70
-  offset: 0, 0
-  index: -1
-door_openTop
-  rotate: false
-  xy: 146, 390
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
@@ -377,133 +363,133 @@ exit
   index: -1
 gemBlue
   rotate: false
-  xy: 146, 318
+  xy: 146, 462
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 gemGreen
   rotate: false
-  xy: 146, 246
+  xy: 146, 390
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 gemRed
   rotate: false
-  xy: 146, 174
+  xy: 146, 318
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 gemYellow
   rotate: false
-  xy: 146, 102
+  xy: 146, 246
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 grass
   rotate: false
-  xy: 146, 30
+  xy: 146, 174
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 grassCenter
   rotate: false
-  xy: 204, 725
+  xy: 146, 102
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandCenter
   rotate: false
-  xy: 204, 725
+  xy: 146, 102
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 grassCliffLeft
   rotate: false
-  xy: 218, 606
+  xy: 146, 30
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 grassCliffLeftAlt
   rotate: false
-  xy: 218, 534
+  xy: 204, 725
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 grassCliffRight
   rotate: false
-  xy: 218, 462
+  xy: 218, 606
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 grassCliffRightAlt
   rotate: false
-  xy: 218, 390
+  xy: 218, 534
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 grassHalf
   rotate: false
-  xy: 218, 318
+  xy: 218, 462
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 grassHalfLeft
   rotate: false
-  xy: 218, 246
+  xy: 218, 390
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 grassHalfMid
   rotate: false
-  xy: 218, 174
+  xy: 218, 318
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 grassHalfRight
   rotate: false
-  xy: 218, 102
+  xy: 218, 246
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 grassLeft
   rotate: false
-  xy: 218, 30
+  xy: 218, 174
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 grassMid
   rotate: false
-  xy: 214, 813
+  xy: 218, 102
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 grassRight
   rotate: false
-  xy: 286, 813
+  xy: 218, 30
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 gun
   rotate: false
-  xy: 2, 2
+  xy: 977, 719
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -552,42 +538,42 @@ jaxon02
   index: -1
 keyBlue
   rotate: false
-  xy: 358, 813
+  xy: 214, 813
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 keyGreen
   rotate: false
-  xy: 276, 741
+  xy: 286, 813
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 keyRed
   rotate: false
-  xy: 348, 741
+  xy: 358, 813
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 keyYellow
   rotate: false
-  xy: 297, 669
+  xy: 276, 741
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 ladder_mid
   rotate: false
-  xy: 290, 597
+  xy: 348, 741
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 ladder_top
   rotate: false
-  xy: 290, 525
+  xy: 297, 669
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
@@ -601,7 +587,7 @@ lava
   index: -1
 lavaTop
   rotate: false
-  xy: 290, 453
+  xy: 290, 597
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
@@ -615,154 +601,175 @@ lavaTop_mid
   index: -1
 lock_blue
   rotate: false
-  xy: 290, 381
+  xy: 290, 525
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 lock_green
   rotate: false
-  xy: 290, 309
+  xy: 290, 453
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 lock_red
   rotate: false
-  xy: 290, 237
+  xy: 290, 381
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 lock_yellow
   rotate: false
-  xy: 290, 165
+  xy: 290, 309
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 options
   rotate: false
-  xy: 650, 156
+  xy: 650, 228
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
+rat00
+  rotate: false
+  xy: 492, 748
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+rat01
+  rotate: false
+  xy: 650, 116
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+rat02
+  rotate: false
+  xy: 644, 66
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
 sand
   rotate: false
-  xy: 290, 93
+  xy: 290, 237
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandCliffLeft
   rotate: false
-  xy: 290, 21
+  xy: 290, 165
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandCliffLeftAlt
   rotate: false
-  xy: 369, 669
+  xy: 290, 93
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandCliffRight
   rotate: false
-  xy: 362, 597
+  xy: 290, 21
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandCliffRightAlt
   rotate: false
-  xy: 362, 525
+  xy: 369, 669
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandHalf
   rotate: false
-  xy: 362, 453
+  xy: 362, 597
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandHalfLeft
   rotate: false
-  xy: 362, 381
+  xy: 362, 525
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandHalfMid
   rotate: false
-  xy: 362, 309
+  xy: 362, 453
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandHalfRight
   rotate: false
-  xy: 362, 237
+  xy: 362, 381
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandLeft
   rotate: false
-  xy: 362, 165
+  xy: 362, 309
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandMid
   rotate: false
-  xy: 362, 93
+  xy: 362, 237
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandRight
   rotate: false
-  xy: 362, 21
+  xy: 362, 165
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandSpikesDown
   rotate: false
-  xy: 420, 741
+  xy: 362, 93
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandSpikesLeft
   rotate: false
-  xy: 441, 669
+  xy: 362, 21
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandSpikesRight
   rotate: false
-  xy: 434, 597
+  xy: 420, 741
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sandSpikesUp
   rotate: false
-  xy: 434, 525
+  xy: 441, 669
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sanic
   rotate: false
-  xy: 650, 90
+  xy: 578, 84
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -776,329 +783,329 @@ sanic_bg0
   index: -1
 sanic_bg1
   rotate: false
-  xy: 464, 875
+  xy: 758, 726
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 sanic_bg2
   rotate: false
-  xy: 464, 865
+  xy: 464, 875
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 sanic_half_bg0
   rotate: false
-  xy: 276, 731
+  xy: 768, 726
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 sanic_half_bg1
   rotate: false
-  xy: 146, 20
+  xy: 778, 726
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 sanic_half_bg2
   rotate: false
-  xy: 650, 80
+  xy: 464, 865
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 snow
   rotate: false
-  xy: 434, 453
+  xy: 434, 597
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 snowCliffLeft
   rotate: false
-  xy: 434, 381
+  xy: 434, 525
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 snowCliffLeftAlt
   rotate: false
-  xy: 434, 309
+  xy: 434, 453
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 snowCliffRight
   rotate: false
-  xy: 434, 237
+  xy: 434, 381
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 snowCliffRightAlt
   rotate: false
-  xy: 434, 165
+  xy: 434, 309
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 snowHalf
   rotate: false
-  xy: 434, 93
+  xy: 434, 237
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 snowHalfLeft
   rotate: false
-  xy: 434, 21
+  xy: 434, 165
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 snowHalfMid
   rotate: false
-  xy: 492, 798
+  xy: 434, 93
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 snowHalfRight
   rotate: false
-  xy: 564, 798
+  xy: 434, 21
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 snowLeft
   rotate: false
-  xy: 636, 798
+  xy: 492, 798
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 snowMid
   rotate: false
-  xy: 708, 798
+  xy: 564, 798
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 snowRight
   rotate: false
-  xy: 780, 799
+  xy: 636, 798
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 spikesDown
   rotate: false
-  xy: 852, 799
+  xy: 708, 798
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 spikesLeft
   rotate: false
-  xy: 924, 799
+  xy: 780, 799
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 spikesRight
   rotate: false
-  xy: 513, 726
+  xy: 852, 799
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 spikesUp
   rotate: false
-  xy: 585, 726
+  xy: 924, 799
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stone
   rotate: false
-  xy: 657, 726
+  xy: 542, 726
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneCenter
   rotate: false
-  xy: 513, 654
+  xy: 614, 726
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneCliffLeft
   rotate: false
-  xy: 585, 654
+  xy: 686, 726
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneCliffLeftAlt
   rotate: false
-  xy: 657, 654
+  xy: 513, 654
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneCliffRight
   rotate: false
-  xy: 506, 582
+  xy: 585, 654
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneCliffRightAlt
   rotate: false
-  xy: 506, 510
+  xy: 657, 654
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneHalf
   rotate: false
-  xy: 578, 582
+  xy: 506, 582
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneHalfLeft
   rotate: false
-  xy: 506, 438
+  xy: 506, 510
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneHalfMid
   rotate: false
-  xy: 578, 510
+  xy: 578, 582
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneHalfRight
   rotate: false
-  xy: 650, 582
+  xy: 506, 438
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneLeft
   rotate: false
-  xy: 506, 366
+  xy: 578, 510
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneMid
   rotate: false
-  xy: 578, 438
+  xy: 650, 582
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneRight
   rotate: false
-  xy: 650, 510
+  xy: 506, 366
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneSpikesDown
   rotate: false
-  xy: 506, 294
+  xy: 578, 438
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneSpikesLeft
   rotate: false
-  xy: 578, 366
+  xy: 650, 510
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneSpikesRight
   rotate: false
-  xy: 650, 438
+  xy: 506, 294
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 stoneSpikesUp
   rotate: false
-  xy: 506, 222
+  xy: 578, 366
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 switchLeft
   rotate: false
-  xy: 578, 294
+  xy: 650, 438
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 switchMid
   rotate: false
-  xy: 650, 366
+  xy: 506, 222
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 switchRight
   rotate: false
-  xy: 506, 150
+  xy: 578, 294
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 tochLit
   rotate: false
-  xy: 578, 222
+  xy: 650, 366
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 torch
   rotate: false
-  xy: 650, 294
+  xy: 506, 150
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 water
   rotate: false
-  xy: 506, 78
+  xy: 578, 222
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 waterTop
   rotate: false
-  xy: 578, 150
+  xy: 650, 294
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 waterTop_mid
   rotate: false
-  xy: 650, 222
+  xy: 506, 78
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 window
   rotate: false
-  xy: 578, 78
+  xy: 578, 150
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
