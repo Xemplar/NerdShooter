@@ -24,22 +24,22 @@ import com.badlogic.gdx.math.Vector2;
 import com.xemplar.games.android.nerdshooter.entities.Projectile;
 
 public class Ammo extends Item {
-	protected Projectile pro;
-	
-	protected Ammo(int id, int maxStack, Projectile pro) {
-		super(id, maxStack, pro.regionID);
-		this.pro = pro;
-	}
-	
-	public void launch(Vector2 pos, float speed, float deg){
-		this.pro.launch(pos, speed, deg);
-	}
-	
-	public Ammo clone(){
+    protected Projectile pro;
+    
+    protected Ammo(int id, int maxStack, Projectile pro) {
+        super(id, maxStack, pro.regionID);
+        this.pro = pro;
+    }
+    
+    public void launch(Vector2 pos, float speed, float deg){
+        this.pro.launch(pos, speed, deg);
+    }
+    
+    public Ammo clone(){
         return new Ammo(id, maxStack, pro);
     }
-	
-	public boolean stayInInventory(){
-		return true;
-	}
+    
+    public boolean stayInInventory(){
+        return true;
+    }
 }

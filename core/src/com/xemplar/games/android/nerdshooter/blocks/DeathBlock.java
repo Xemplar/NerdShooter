@@ -45,7 +45,7 @@ public class DeathBlock extends Block {
     }
     
     public DeathBlock clone(Vector2 pos){
-		DeathBlock b = new DeathBlock(pos, regionID, bounds.width, bounds.height);
-		return b;
-	}
+        DeathBlock b = new DeathBlock(pos, regionID, bounds.width, bounds.height);
+        return b;
+    }
 }

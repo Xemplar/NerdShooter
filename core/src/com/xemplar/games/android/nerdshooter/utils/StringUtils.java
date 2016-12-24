@@ -77,5 +77,5 @@ public final class StringUtils {
         return out;
     }
 
-	private StringUtils(){}
+    private StringUtils(){}
 }

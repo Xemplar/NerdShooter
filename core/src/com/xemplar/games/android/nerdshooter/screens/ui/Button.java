@@ -42,8 +42,8 @@ public class Button extends Label{
     
     public Button(BitmapFont font, String text, float x, float y, float width, float height){
         super(font, text, x, y, width, height);
-    	
-    	this.text = text;
+        
+        this.text = text;
         this.font = font;
 
         array_pressed = new float[]{0.5F, 0.5F, 0.5F, 1.0F};
@@ -61,7 +61,7 @@ public class Button extends Label{
     }
     
     public Button(BitmapFont font, String text, float[] colors, float x, float y, float width, float height){
-    	super(font, text, x, y, width, height);
+        super(font, text, x, y, width, height);
 
         array_pressed = colors;
         array_not_pressed = colors;
@@ -78,7 +78,7 @@ public class Button extends Label{
     }
     
     public Button(BitmapFont font, String text, float[] colors, float[] pressedColors, float x, float y, float width, float height){
-    	super(font, text, x, y, width, height);
+        super(font, text, x, y, width, height);
 
         array_pressed = colors;
         array_not_pressed = pressedColors;
@@ -134,7 +134,7 @@ public class Button extends Label{
     }
 
     public Button(BitmapFont font, TextureRegion tex, float[] colors, float x, float y, float width, float height){
-    	super(font, "", x, y, width, height);
+        super(font, "", x, y, width, height);
 
         Pixmap map = tex.getTexture().getTextureData().consumePixmap();
 
@@ -159,7 +159,7 @@ public class Button extends Label{
     }
     
     public Button(BitmapFont font, TextureRegion tex, float[] colors, float[] pressedColors, float x, float y, float width, float height){
-    	super(font, "", x, y, width, height);
+        super(font, "", x, y, width, height);
 
         Pixmap map = tex.getTexture().getTextureData().consumePixmap();
 
@@ -220,7 +220,7 @@ public class Button extends Label{
     }
     
     public boolean isPressed(){
-    	return pressed;
+        return pressed;
     }
     
     public void render(SpriteBatch batch){
@@ -230,13 +230,13 @@ public class Button extends Label{
         } else {
             batch.draw(pressed ? tex_pressed : tex_not_pressed, x, y, width, height);
         }
-    	if(tex != null){
+        if(tex != null){
             batch.draw(tex, x, y, width, height);
-    	} else {
-    		NerdShooter.layout.setText(this.font, text);
-    		float width = NerdShooter.layout.width;
+        } else {
+            NerdShooter.layout.setText(this.font, text);
+            float width = NerdShooter.layout.width;
         
-    		font.draw(batch, text, bounds.getX() + ((bounds.width / 2) - (width / 2)), bounds.getY() + ((bounds.getHeight() / 2F) + (font.getLineHeight() / 4F)));
-    	}
+            font.draw(batch, text, bounds.getX() + ((bounds.width / 2) - (width / 2)), bounds.getY() + ((bounds.getHeight() / 2F) + (font.getLineHeight() / 4F)));
+        }
     }
 }

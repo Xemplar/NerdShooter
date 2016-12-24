@@ -46,7 +46,7 @@ public class Item {
     }
     
     public boolean stayInInventory(){
-    	return false;
+        return false;
     }
     
     public Item clone(){
@@ -66,5 +66,5 @@ public class Item {
     
     public String getRegionID(){
         return regionID;
-	}
+    }
 }

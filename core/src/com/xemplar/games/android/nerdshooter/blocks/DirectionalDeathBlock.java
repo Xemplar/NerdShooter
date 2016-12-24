@@ -24,9 +24,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 
 public class DirectionalDeathBlock extends DeathBlock{
-	protected final int direction;
-	
-	protected DirectionalDeathBlock(Vector2 pos, String regionID, int dirs){
+    protected final int direction;
+    
+    protected DirectionalDeathBlock(Vector2 pos, String regionID, int dirs){
         super(pos, regionID);
         direction = dirs;
     }
@@ -57,32 +57,32 @@ public class DirectionalDeathBlock extends DeathBlock{
     }
     
     public void onTouch(Entity e){
-    	boolean up = ((direction >> 3) & 0x01) == 1;
-    	boolean down = ((direction >> 2) & 0x01) == 1;
-    	boolean left = ((direction >> 0) & 0x01) == 1;
-    	boolean right = ((direction >> 1) & 0x01) == 1;
+        boolean up = ((direction >> 3) & 0x01) == 1;
+        boolean down = ((direction >> 2) & 0x01) == 1;
+        boolean left = ((direction >> 0) & 0x01) == 1;
+        boolean right = ((direction >> 1) & 0x01) == 1;
 
-    	Vector2 center = new Vector2(bounds.x + (right ? 0.98F : -e.bounds.width), bounds.y + (up ? 1F : -0.5F));
-    	
-    	boolean kill = false;
-    	kill |= (e.getPosition().x < center.x && left);
-    	kill |= (e.getPosition().x > center.x && right);
-    	kill |= (e.getPosition().y < center.y && down);
-    	kill |= (e.getPosition().y > center.y && up);
+        Vector2 center = new Vector2(bounds.x + (right ? 0.98F : -e.bounds.width), bounds.y + (up ? 1F : -0.5F));
+        
+        boolean kill = false;
+        kill |= (e.getPosition().x < center.x && left);
+        kill |= (e.getPosition().x > center.x && right);
+        kill |= (e.getPosition().y < center.y && down);
+        kill |= (e.getPosition().y > center.y && up);
 
         System.out.println("up = " + up + ", delt = " + down + ", left = " + left + ", right = " + right);
         System.out.println("center x = " + center.x + ", center y = " + center.y);
 
-    	if(kill){
-    		super.onTouch(e);
-    	}
+        if(kill){
+            super.onTouch(e);
+        }
     }
     
     private int toInt(boolean bool){
-    	return bool ? 1 : 0;
+        return bool ? 1 : 0;
     }
     
     public DirectionalDeathBlock clone(Vector2 pos){
-    	return new DirectionalDeathBlock(pos, regionID, bounds.width, bounds.height, direction);
+        return new DirectionalDeathBlock(pos, regionID, bounds.width, bounds.height, direction);
     }
 }

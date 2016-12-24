@@ -23,5 +23,5 @@ package com.xemplar.games.android.nerdshooter.items;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 
 public interface Equippable {
-	public boolean onEquip(Entity e);
+    public boolean onEquip(Entity e);
 }

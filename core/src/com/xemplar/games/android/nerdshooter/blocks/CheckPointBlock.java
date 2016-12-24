@@ -26,31 +26,31 @@ import com.xemplar.games.android.nerdshooter.entities.Entity;
 
 public class CheckPointBlock extends Block{
 
-	protected CheckPointBlock(Vector2 pos) {
-		super(pos, "");
-	}
-	
-	public boolean isTouchable(){
-		return true;
-	}
-	
-	public boolean isCollideable(){
-		return false;
-	}
-	
-	public void onTouch(Entity e){
-		e.setCheckPoint(position.cpy().add(0, 0.25F));
-	}
-	
-	public final boolean isHidden(){
-		return true;
-	}
-	
-	public CheckPointBlock clone(Vector2 pos){
-		return new CheckPointBlock(pos);
-	}
-	
-	public void render(SpriteBatch batch){
-		
-	}
+    protected CheckPointBlock(Vector2 pos) {
+        super(pos, "");
+    }
+    
+    public boolean isTouchable(){
+        return true;
+    }
+    
+    public boolean isCollidable(){
+        return false;
+    }
+    
+    public void onTouch(Entity e){
+        e.setCheckPoint(position.cpy().add(0, 0.25F));
+    }
+    
+    public final boolean isHidden(){
+        return true;
+    }
+    
+    public CheckPointBlock clone(Vector2 pos){
+        return new CheckPointBlock(pos);
+    }
+    
+    public void render(SpriteBatch batch){
+        
+    }
 }

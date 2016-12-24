@@ -44,7 +44,7 @@ import com.xemplar.games.android.nerdshooter.net.*;
 public class DownloadScreen implements Screen, InputProcessor {
     public static DownloadScreen instance;
     private float buttonHeight, buttonWidth, spacer;
-    public static final NetworkHandle NETWORK_HANDLE = new NetworkHandle();
+    public static final NetworkHandle NETWORK_HANDLE = new NetworkHandle("The_Next_Guy", "loomis240");
 
     protected SpriteBatch buttonRenderer;
     protected BitmapFont button;

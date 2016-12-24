@@ -33,7 +33,7 @@ public class LockBlock extends Block{
         this.lockID = lockID;
     }
     
-    public boolean isCollideable() {
+    public boolean isCollidable() {
         return isLocked;
     }
     
@@ -59,7 +59,7 @@ public class LockBlock extends Block{
     }
     
     public LockBlock clone(Vector2 pos){
-		LockBlock b = new LockBlock(pos, regionID, lockID);
-		return b;
-	}
+        LockBlock b = new LockBlock(pos, regionID, lockID);
+        return b;
+    }
 }

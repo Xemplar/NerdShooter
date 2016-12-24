@@ -21,5 +21,5 @@
 package com.xemplar.games.android.nerdshooter.items;
 
 public interface Fireable {
-	public boolean onFire();
+    public boolean onFire();
 }

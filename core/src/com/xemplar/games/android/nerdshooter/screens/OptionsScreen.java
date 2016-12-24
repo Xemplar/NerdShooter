@@ -36,8 +36,8 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 public class OptionsScreen implements Screen, InputProcessor {
     public static OptionsScreen instance;
-	private float buttonHeight, buttonWidth, spacer;
-	
+    private float buttonHeight, buttonWidth, spacer;
+    
     protected SpriteBatch buttonRenderer;
     protected BitmapFont button;
 
@@ -51,35 +51,35 @@ public class OptionsScreen implements Screen, InputProcessor {
     protected SwitchButton debug;
     protected Button back;
     
-	protected Array<View> views = new Array<View>();
-	protected float width, height;
+    protected Array<View> views = new Array<View>();
+    protected float width, height;
 
-	public OptionsScreen(){
-		instance = this;
-	}
-	
-	public void render(float delta) {
-		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
+    public OptionsScreen(){
+        instance = this;
+    }
+    
+    public void render(float delta) {
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
-		
+        
         buttonRenderer.begin(); {
-		    for(View view : views){
+            for(View view : views){
                 view.render(buttonRenderer);
             }
-		} buttonRenderer.end();
-	}
-	
-	public void resize(int width, int height) {
-		this.width = width;
-		this.height = height;
+        } buttonRenderer.end();
+    }
+    
+    public void resize(int width, int height) {
+        this.width = width;
+        this.height = height;
 
-		this.buttonHeight = height / 9F;
+        this.buttonHeight = height / 9F;
 
-		this.spacer = buttonHeight / 10F;
-		this.buttonWidth = (width * ((3F / 4F) / 2F));
+        this.spacer = buttonHeight / 10F;
+        this.buttonWidth = (width * ((3F / 4F) / 2F));
         
         button = NerdShooter.label_small;
-		button.setColor(0, 0, 0, 1);
+        button.setColor(0, 0, 0, 1);
         
         lbl_audio = new Label(NerdShooter.text, "Enable Audio", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), buttonWidth, buttonHeight);
         lbl_debug = new Label(NerdShooter.text, "Show Debug info", (width / 2F) - (buttonWidth), height - ((buttonHeight + spacer) * 2), buttonWidth, buttonHeight);
@@ -107,145 +107,145 @@ public class OptionsScreen implements Screen, InputProcessor {
         views.add(back);
         
         loadSettings();
-	}
+    }
 
-	public void show() {
-		buttonRenderer = new SpriteBatch();
-		Gdx.input.setInputProcessor(this);
-	}
-	public void dispose() {
-		Gdx.input.setInputProcessor(null);
-	}
-	public void hide() {
-		Gdx.input.setInputProcessor(null);
-	}
+    public void show() {
+        buttonRenderer = new SpriteBatch();
+        Gdx.input.setInputProcessor(this);
+    }
+    public void dispose() {
+        Gdx.input.setInputProcessor(null);
+    }
+    public void hide() {
+        Gdx.input.setInputProcessor(null);
+    }
 
-	
-	public void pause() {
-		
-	}
-	public void resume() {
-		
-	}
-	
-	public void loadSettings(){
-		Array<View> saveAbles = new Array<View>();
-		for(View v : views){
-			if(v instanceof SwitchButton){
-				saveAbles.add(v);
-			}
-		}
-		
-		for(View v : saveAbles){
-			if(v instanceof SwitchButton){
-				SwitchButton b = (SwitchButton)v;
-				String pref = NerdShooter.prefs.getString(b.getKey());
-				if(pref != null){
-					b.setFromSave(pref);
-				}
-			}
-		}
-	}
-	
-	public void saveSettings(){
-		Array<View> saveAbles = new Array<View>();
-		for(View v : views){
-			if(v instanceof SwitchButton){
-				saveAbles.add(v);
-			}
-		}
-		
-		for(View v : saveAbles){
-			if(v instanceof SwitchButton){
-				SwitchButton b = (SwitchButton)v;
-				NerdShooter.prefs.putString(b.getKey(), b.getSaveState());
-			}
-		}
-		NerdShooter.prefs.flush();
-		NerdShooter.reloadSettings();
-	}
-	
-	public void doAction(int action){
-        if(action == 1){
-        	saveSettings();
-        	NerdShooter.shooter.setScreen(StartScreen.instance);
+    
+    public void pause() {
+        
+    }
+    public void resume() {
+        
+    }
+    
+    public void loadSettings(){
+        Array<View> saveAbles = new Array<View>();
+        for(View v : views){
+            if(v instanceof SwitchButton){
+                saveAbles.add(v);
+            }
+        }
+        
+        for(View v : saveAbles){
+            if(v instanceof SwitchButton){
+                SwitchButton b = (SwitchButton)v;
+                String pref = NerdShooter.prefs.getString(b.getKey());
+                if(pref != null){
+                    b.setFromSave(pref);
+                }
+            }
         }
     }
-	
-	public boolean touchDown(int pX, int pY, int pointer, int button) {
+    
+    public void saveSettings(){
+        Array<View> saveAbles = new Array<View>();
+        for(View v : views){
+            if(v instanceof SwitchButton){
+                saveAbles.add(v);
+            }
+        }
+        
+        for(View v : saveAbles){
+            if(v instanceof SwitchButton){
+                SwitchButton b = (SwitchButton)v;
+                NerdShooter.prefs.putString(b.getKey(), b.getSaveState());
+            }
+        }
+        NerdShooter.prefs.flush();
+        NerdShooter.reloadSettings();
+    }
+    
+    public void doAction(int action){
+        if(action == 1){
+            saveSettings();
+            NerdShooter.shooter.setScreen(StartScreen.instance);
+        }
+    }
+    
+    public boolean touchDown(int pX, int pY, int pointer, int button) {
         float x = pX;
         float y = height - pY;
         
         boolean value = false;
         
         for(int i = 0; i < views.size; i++){
-        	View current = views.get(i);
+            View current = views.get(i);
             if(current.isInside(x, y)){
-            	if(current instanceof SwitchButton){
-            		continue;
-            	} else if(current instanceof Button){
-            		((Button)current).setPressed(true);
-            	}
+                if(current instanceof SwitchButton){
+                    continue;
+                } else if(current instanceof Button){
+                    ((Button)current).setPressed(true);
+                }
                 value |= true;
             }
         }
         
         return value;
-	}
+    }
 
-	public boolean touchUp(int pX, int pY, int pointer, int button) {
-		float x = pX;
+    public boolean touchUp(int pX, int pY, int pointer, int button) {
+        float x = pX;
         float y = height - pY;
 
         boolean value = false;
 
         for(int i = 0; i < views.size; i++){
-        	View current = views.get(i);
+            View current = views.get(i);
             if(current.isInside(x, y)){
-            	if(current instanceof SwitchButton){
-            		((SwitchButton)current).toggle();
-            	} else if(current instanceof Button){
-            		((Button)current).setPressed(false);
+                if(current instanceof SwitchButton){
+                    ((SwitchButton)current).toggle();
+                } else if(current instanceof Button){
+                    ((Button)current).setPressed(false);
                     doAction(((Button)current).getAction());
-            	}
+                }
                 value |= true;
             }
         }
 
         return value;
-	}
+    }
 
-	public boolean touchDragged(int pX, int pY, int pointer) {
+    public boolean touchDragged(int pX, int pY, int pointer) {
         float x = pX;
         float y = height - pY;
         
         for(int i = 0; i < views.size; i++){
-        	View current = views.get(i);
+            View current = views.get(i);
             if(current.isInside(x, y)){
-            	if(current instanceof SwitchButton){
-            		continue;
-            	} else if(current instanceof Button){
-            		((Button)current).setPressed(current.isInside(x, y));
-            	}
+                if(current instanceof SwitchButton){
+                    continue;
+                } else if(current instanceof Button){
+                    ((Button)current).setPressed(current.isInside(x, y));
+                }
             }
         }
         
-		return false;
-	}
-	
-	public boolean keyDown(int key) {
-		return false;
-	}
-	public boolean keyTyped(char key) {
-		return false;
-	}
-	public boolean keyUp(int key) {
-		return false;
-	}
-	public boolean mouseMoved(int p1, int p2) {
-		return false;
-	}
-	public boolean scrolled(int e) {
-		return false;
-	}	
+        return false;
+    }
+    
+    public boolean keyDown(int key) {
+        return false;
+    }
+    public boolean keyTyped(char key) {
+        return false;
+    }
+    public boolean keyUp(int key) {
+        return false;
+    }
+    public boolean mouseMoved(int p1, int p2) {
+        return false;
+    }
+    public boolean scrolled(int e) {
+        return false;
+    }   
 }

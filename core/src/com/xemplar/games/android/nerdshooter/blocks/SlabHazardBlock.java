@@ -30,17 +30,17 @@ import com.xemplar.games.android.nerdshooter.entities.Entity;
 import com.xemplar.games.android.nerdshooter.screens.GameScreen;
 
 public class SlabHazardBlock extends SlabBlock {
-	private static TextureRegion texR;
-	private static TextureRegion texY;
-	private static TextureRegion texB;
+    private static TextureRegion texR;
+    private static TextureRegion texY;
+    private static TextureRegion texB;
 
     static{
-    	TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("textures/nerdshooter.atlas"));
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("textures/nerdshooter.atlas"));
         texR = atlas.findRegion("sanic_half_bg0");
         texY = atlas.findRegion("sanic_half_bg1");
         texB = atlas.findRegion("sanic_half_bg2");
-	}
-	
+    }
+    
     protected int hurtAmount = 0;
     
     protected SlabHazardBlock(Vector2 pos, String regionID, float width, float height, boolean top, int removeHealth){
@@ -57,9 +57,9 @@ public class SlabHazardBlock extends SlabBlock {
     }
     
     public SlabHazardBlock clone(Vector2 pos){
-    	SlabHazardBlock b = new SlabHazardBlock(pos, regionID, bounds.width, bounds.height, top, hurtAmount);
-		return b;
-	}
+        SlabHazardBlock b = new SlabHazardBlock(pos, regionID, bounds.width, bounds.height, top, hurtAmount);
+        return b;
+    }
     
     public TextureRegion getTexture(){
         if(!NerdShooter.sanic){
@@ -75,5 +75,5 @@ public class SlabHazardBlock extends SlabBlock {
         default:
             return texR;
         }
-	}
+    }
 }

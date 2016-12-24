@@ -152,5 +152,5 @@ public class XPMLItem {
         }
 
         return returnValue;
-	}
+    }
 }

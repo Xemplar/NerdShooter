@@ -61,14 +61,14 @@ public class CompletedLevel implements Screen, InputProcessor {
     private Texture rickmas;
     
     public CompletedLevel(){
-    	rickmas = new Texture(Gdx.files.internal("ValenRick.png"));
+        rickmas = new Texture(Gdx.files.internal("rickmas.png"));
         instance = this;
     }
     
     public void render(float delta) {
         Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
-		
+        
         NerdShooter.layout.setText(text, message);
         float font = NerdShooter.layout.width;
         
@@ -79,7 +79,7 @@ public class CompletedLevel implements Screen, InputProcessor {
             float height = buttonHeight * 4;
             
             if(NerdShooter.sanic){
-            	batch.draw(rickmas, (this.width / 2F) - (width / 2F), (this.height / 2F) - (height / 4F), width, height);
+                batch.draw(rickmas, (this.width / 2F) - (width / 2F), (this.height / 2F) - (height / 4F), width, height);
             }
             
             replay.render(batch);
@@ -149,8 +149,8 @@ public class CompletedLevel implements Screen, InputProcessor {
     }
     
     public boolean touchDown(int pX, int pY, int pointer, int button) {
-    	set = true;
-    	
+        set = true;
+        
         float x = pX;
         float y = height - pY;
 
@@ -214,5 +214,5 @@ public class CompletedLevel implements Screen, InputProcessor {
         return false;
     }
     public boolean keyUp(int p1) { return false; }
-	public boolean keyTyped(char p1) { return false; }
+    public boolean keyTyped(char p1) { return false; }
 }

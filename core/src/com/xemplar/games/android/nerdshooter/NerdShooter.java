@@ -20,6 +20,7 @@
  */
 package com.xemplar.games.android.nerdshooter;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -32,14 +33,15 @@ import com.xemplar.games.android.nerdshooter.screens.*;
 import com.xemplar.games.android.nerdshooter.utils.InterScreenData;
 
 public class NerdShooter extends Game {
-	public static boolean PREF_AUDIO = false;
-	public static boolean PREF_LEFTY = false;
-	public static boolean PREF_SLIDE = false;
-	public static boolean PREF_DEBUG = false;
-	
-	public static Preferences prefs;
-	public static final float BUTTON_HEIGHT = 6F;
-	
+    public static boolean PREF_AUDIO = false;
+    public static boolean PREF_LEFTY = false;
+    public static boolean PREF_SLIDE = false;
+    public static boolean PREF_DEBUG = false;
+    
+    public static Preferences prefs;
+    public static final float BUTTON_HEIGHT = 6F;
+    public static float GUI_SCALE = 0.5F;
+    
     public static final int START_SCREEN = 0x000001;
     public static final int GAME_SCREEN = 0x000002;
     
@@ -54,12 +56,16 @@ public class NerdShooter extends Game {
     public static GlyphLayout layout;
     public static TextureAtlas atlas;
     
-	public static NerdShooter shooter;
+    public static NerdShooter shooter;
     private int screen;
     
     public void create() {
         shooter = this;
-        
+
+        if(Gdx.app.getType() == Application.ApplicationType.Android){
+            GUI_SCALE = 0.75F;
+        }
+
         layout = new GlyphLayout();
         prefs = Gdx.app.getPreferences("settings");
         
@@ -67,9 +73,9 @@ public class NerdShooter extends Game {
         
         keys = (int[])InterScreenData.getInstance("desktop_keys").getData();
         if(keys != null){
-        	useKeys = true;
+            useKeys = true;
         } else {
-        	useKeys = false;
+            useKeys = false;
         }
         
         setScreen(new SplashScreen());
@@ -80,10 +86,10 @@ public class NerdShooter extends Game {
     }
     
     public static void reloadSettings(){
-    	PREF_AUDIO = Boolean.parseBoolean(prefs.getString("audio", Boolean.toString(false)));
-    	PREF_LEFTY = Boolean.parseBoolean(prefs.getString("lefty", Boolean.toString(false)));
-    	PREF_SLIDE = Boolean.parseBoolean(prefs.getString("lefty", Boolean.toString(false)));
-    	PREF_DEBUG = Boolean.parseBoolean(prefs.getString("debug", Boolean.toString(false)));
+        PREF_AUDIO = Boolean.parseBoolean(prefs.getString("audio", Boolean.toString(false)));
+        PREF_LEFTY = Boolean.parseBoolean(prefs.getString("lefty", Boolean.toString(false)));
+        PREF_SLIDE = Boolean.parseBoolean(prefs.getString("lefty", Boolean.toString(false)));
+        PREF_DEBUG = Boolean.parseBoolean(prefs.getString("debug", Boolean.toString(false)));
     }
     
     public int getCurrentScreen(){

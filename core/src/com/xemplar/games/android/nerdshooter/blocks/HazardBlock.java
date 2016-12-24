@@ -50,7 +50,7 @@ public class HazardBlock extends Block {
     }
     
     public HazardBlock clone(Vector2 pos){
-		HazardBlock b = new HazardBlock(pos, regionID, bounds.width, bounds.height, hurtAmount);
-		return b;
-	}
+        HazardBlock b = new HazardBlock(pos, regionID, bounds.width, bounds.height, hurtAmount);
+        return b;
+    }
 }

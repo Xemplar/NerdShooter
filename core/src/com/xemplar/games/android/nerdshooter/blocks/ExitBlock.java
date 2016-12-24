@@ -36,7 +36,7 @@ public class ExitBlock extends Block {
         this.exitCode = exitCode;
     }
     
-    public boolean isCollideable() {
+    public boolean isCollidable() {
         return false;
     }
     
@@ -50,7 +50,7 @@ public class ExitBlock extends Block {
     }
     
     public ExitBlock clone(Vector2 pos){
-		ExitBlock b = new ExitBlock(pos, regionID, exitCode);
-		return b;
-	}
+        ExitBlock b = new ExitBlock(pos, regionID, exitCode);
+        return b;
+    }
 }

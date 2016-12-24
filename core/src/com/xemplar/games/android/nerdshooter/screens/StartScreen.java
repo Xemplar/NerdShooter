@@ -39,10 +39,10 @@ public class StartScreen implements Screen, InputProcessor {
     public static StartScreen instance;
     private float buttonHeight, buttonWidth, spacer;
 
-	protected Button levelExp;
+    protected Button levelExp;
 
     protected Button download;
-	protected Button options;
+    protected Button options;
     protected Button exit;
 
     protected Button[] worlds;
@@ -50,14 +50,14 @@ public class StartScreen implements Screen, InputProcessor {
 
     protected SpriteBatch buttonRenderer;
     protected BitmapFont text, button;
-	
-	protected float width, height;
-	protected Array<Button> buttons = new Array<Button>();
+    
+    protected float width, height;
+    protected Array<Button> buttons = new Array<Button>();
 
     private static Music aud;
     private static Texture tex;
-	
-	public StartScreen(){
+    
+    public StartScreen(){
         instance = this;
         tex = new Texture(Gdx.files.internal("images/options.png"));
 
@@ -65,21 +65,21 @@ public class StartScreen implements Screen, InputProcessor {
         if(!downloaded.exists()){
             downloaded.writeString("<none>", false);
         }
-	}
-	
-	public void render(float delta) {
-		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
+    }
+    
+    public void render(float delta) {
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
-		
-		buttonRenderer.begin(); {
-		    for(Button button : buttons){
+        
+        buttonRenderer.begin(); {
+            for(Button button : buttons){
                 button.render(buttonRenderer);
             }
-		} buttonRenderer.end();
-	}
+        } buttonRenderer.end();
+    }
 
-	public void resize(int width, int height) {
-		NerdShooter.shooter.setCurrentScreen(NerdShooter.START_SCREEN);
+    public void resize(int width, int height) {
+        NerdShooter.shooter.setCurrentScreen(NerdShooter.START_SCREEN);
 
         this.width = width;
         this.height = height;
@@ -90,12 +90,12 @@ public class StartScreen implements Screen, InputProcessor {
         this.buttonWidth = (width * ((3F / 4F) / 2F));
         
         text = NerdShooter.label;
-		text.setColor(0, 0, 0, 1);
+        text.setColor(0, 0, 0, 1);
 
         button = NerdShooter.label_small;
         button.setColor(0, 0, 0, 1);
 
-		levelExp = new Button(text, NerdShooter.button, "External Level", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
+        levelExp = new Button(text, NerdShooter.button, "External Level", (width / 2F) - (buttonWidth), height - (buttonHeight + spacer), (buttonWidth * 2F), buttonHeight);
         
         options = new Button(text, NerdShooter.button, "", ((width / 2F) - (buttonWidth)) + ((buttonWidth * 2F) - buttonHeight), spacer, buttonHeight, buttonHeight);
         exit = new Button(text, NerdShooter.button, "Exit", (width / 2F) - (buttonWidth), spacer, (buttonWidth * 2F)  - (buttonHeight + spacer), buttonHeight);
@@ -118,7 +118,7 @@ public class StartScreen implements Screen, InputProcessor {
         buttons.add(exit.setActionNumber(-2));
 
         checkLevels();
-	}
+    }
 
     private void checkLevels(){
         Array<String> levels = getPackList();
@@ -154,63 +154,63 @@ public class StartScreen implements Screen, InputProcessor {
         return ret;
     }
 
-	@Override
-	public void show() {
-		buttonRenderer = new SpriteBatch();
+    @Override
+    public void show() {
+        buttonRenderer = new SpriteBatch();
         
-		if(aud != null && !NerdShooter.PREF_AUDIO){
-			aud.stop();
-			aud.dispose();
-			aud = null;
-		}
-		
-		if(aud == null && NerdShooter.PREF_AUDIO) {
+        if(aud != null && !NerdShooter.PREF_AUDIO){
+            aud.stop();
+            aud.dispose();
+            aud = null;
+        }
+        
+        if(aud == null && NerdShooter.PREF_AUDIO) {
             if (!NerdShooter.sanic) {
-                aud = Gdx.audio.newMusic(Gdx.files.internal("music/Game.mp3"));
+                aud = Gdx.audio.newMusic(Gdx.files.internal("music/Game.ogg"));
             } else {
-                aud = Gdx.audio.newMusic(Gdx.files.internal("music/SANIC.mp3"));
+                aud = Gdx.audio.newMusic(Gdx.files.internal("music/SANIC.ogg"));
             }
             aud.play();
             aud.setLooping(true);
         }
 
-		Gdx.input.setInputProcessor(this);
-	}
+        Gdx.input.setInputProcessor(this);
+    }
 
-	public static void reloadMusic(){
-		if(NerdShooter.PREF_AUDIO){
-			aud.stop();
-			aud.dispose();
-			aud = null;
-			if(!NerdShooter.sanic){
-				aud = Gdx.audio.newMusic(Gdx.files.internal("music/Game.mp3"));
-			} else {
-				aud = Gdx.audio.newMusic(Gdx.files.internal("music/SANIC.mp3"));
-			}
-			aud.play();
-			aud.setLooping(true);
-		}
-	}
-	
-	@Override
-	public void hide() {
-		Gdx.input.setInputProcessor(null);
-	}
+    public static void reloadMusic(){
+        if(NerdShooter.PREF_AUDIO){
+            aud.stop();
+            aud.dispose();
+            aud = null;
+            if(!NerdShooter.sanic){
+                aud = Gdx.audio.newMusic(Gdx.files.internal("music/Game.ogg"));
+            } else {
+                aud = Gdx.audio.newMusic(Gdx.files.internal("music/SANIC.ogg"));
+            }
+            aud.play();
+            aud.setLooping(true);
+        }
+    }
+    
+    @Override
+    public void hide() {
+        Gdx.input.setInputProcessor(null);
+    }
 
-	@Override
-	public void pause() {
-		
-	}
-	
-	public void resume() {
-		
-	}
-	
-	public void dispose() {
-		Gdx.input.setInputProcessor(null);
-		aud.dispose();
-	}
-	
+    @Override
+    public void pause() {
+        
+    }
+    
+    public void resume() {
+        
+    }
+    
+    public void dispose() {
+        Gdx.input.setInputProcessor(null);
+        aud.dispose();
+    }
+    
     public void doAction(String text, int action){
         if(action == -1){
             NerdShooter.shooter.setScreen(new GameScreen("", -1));
@@ -225,7 +225,7 @@ public class StartScreen implements Screen, InputProcessor {
         }
     }
     
-	public boolean touchDown(int pX, int pY, int pointer, int button) {
+    public boolean touchDown(int pX, int pY, int pointer, int button) {
         float x = pX;
         float y = height - pY;
         
@@ -239,10 +239,10 @@ public class StartScreen implements Screen, InputProcessor {
         }
         
         return value;
-	}
+    }
 
-	public boolean touchUp(int pX, int pY, int pointer, int button) {
-		float x = pX;
+    public boolean touchUp(int pX, int pY, int pointer, int button) {
+        float x = pX;
         float y = height - pY;
 
         boolean value = false;
@@ -257,9 +257,9 @@ public class StartScreen implements Screen, InputProcessor {
         }
 
         return value;
-	}
+    }
 
-	public boolean touchDragged(int pX, int pY, int pointer) {
+    public boolean touchDragged(int pX, int pY, int pointer) {
         float x = pX;
         float y = height - pY;
         
@@ -267,19 +267,19 @@ public class StartScreen implements Screen, InputProcessor {
             buttons.get(i).setPressed(buttons.get(i).isInside(x, y));
         }
         
-		return false;
-	}
+        return false;
+    }
 
-	public boolean mouseMoved(int p1, int p2) { return touchDragged(p1, p2, 0); }
-	public boolean scrolled(int p1) { return false; }
-	public boolean keyDown(int keycode) {
+    public boolean mouseMoved(int p1, int p2) { return touchDragged(p1, p2, 0); }
+    public boolean scrolled(int p1) { return false; }
+    public boolean keyDown(int keycode) {
         if ((keycode == Keys.BACK) || (keycode == Keys.ESCAPE)){
             Gdx.app.exit();
         }
         
         return false;
     }
-	public boolean keyUp(int p1) { return false; }
-	public boolean keyTyped(char p1) { return false; }
-	
+    public boolean keyUp(int p1) { return false; }
+    public boolean keyTyped(char p1) { return false; }
+    
 }

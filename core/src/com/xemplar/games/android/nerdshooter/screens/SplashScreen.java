@@ -58,7 +58,7 @@ public class SplashScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(1.0F, 1.0F, 1.0F, 1F);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
-		
+        
         float line = label.getLineHeight();
         
         batch.begin();{

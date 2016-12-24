@@ -24,21 +24,21 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Label extends View{
-	protected BitmapFont font;
-	protected String text;
-	
-	public Label(BitmapFont font, String text, float x, float y, float width, float height){
-		super(x, y, width, height);
-		this.font = font;
-		this.text = text;
-		
-	}
+    protected BitmapFont font;
+    protected String text;
     
-	public void setText(String text){
+    public Label(BitmapFont font, String text, float x, float y, float width, float height){
+        super(x, y, width, height);
+        this.font = font;
+        this.text = text;
+        
+    }
+    
+    public void setText(String text){
         this.text = text;
     }
     
-	public void render(SpriteBatch batch) {
+    public void render(SpriteBatch batch) {
         font.draw(batch, text, bounds.getX(), bounds.getY() + ((bounds.getHeight() / 2F) + (font.getLineHeight() / 4F)));
-	}
+    }
 }

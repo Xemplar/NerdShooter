@@ -36,7 +36,7 @@ public class ItemBlock extends Block{
         items.add(item);
         this.stack = new ItemStack(items);
         for(Item i : items){
-        	i.setBlock(this);
+            i.setBlock(this);
         }
     }
     
@@ -48,7 +48,7 @@ public class ItemBlock extends Block{
         items.add(item);
         this.stack = new ItemStack(items);
         for(Item i : items){
-        	i.setBlock(this);
+            i.setBlock(this);
         }
     }
 
@@ -60,7 +60,7 @@ public class ItemBlock extends Block{
         items.add(item);
         this.stack = new ItemStack(items);
         for(Item i : items){
-        	i.setBlock(this);
+            i.setBlock(this);
         }
     }
     
@@ -68,11 +68,11 @@ public class ItemBlock extends Block{
         super(pos, item.regionID);
         Array<Item> items = new Array<Item>();
         for(int i = 0; i < qnt; i++){
-        	items.add(item.clone());
+            items.add(item.clone());
         }
         this.stack = new ItemStack(items);
         for(Item i : items){
-        	i.setBlock(this);
+            i.setBlock(this);
         }
     }
     
@@ -82,11 +82,11 @@ public class ItemBlock extends Block{
         this.bounds.height = size;
         Array<Item> items = new Array<Item>();
         for(int i = 0; i < qnt; i++){
-        	items.add(item.clone());
+            items.add(item.clone());
         }
         this.stack = new ItemStack(items);
         for(Item i : items){
-        	i.setBlock(this);
+            i.setBlock(this);
         }
     }
 
@@ -96,15 +96,15 @@ public class ItemBlock extends Block{
         this.bounds.height = height;
         Array<Item> items = new Array<Item>();
         for(int i = 0; i < qnt; i++){
-        	items.add(item.clone());
+            items.add(item.clone());
         }
         this.stack = new ItemStack(items);
         for(Item i : items){
-        	i.setBlock(this);
+            i.setBlock(this);
         }
     }
     
-    public boolean isCollideable() {
+    public boolean isCollidable() {
         return false;
     }
     
@@ -117,7 +117,7 @@ public class ItemBlock extends Block{
     }
     
     public void returnItem(Item i){
-    	stack.add(i);
+        stack.add(i);
         canBeTaken = true;
     }
     
@@ -129,12 +129,12 @@ public class ItemBlock extends Block{
     }
     
     public ItemBlock clone(Vector2 pos){
-		ItemBlock b = new ItemBlock(pos, bounds.width, bounds.height, stack.getMock(), stack.getCount());
-		return b;
-	}
+        ItemBlock b = new ItemBlock(pos, bounds.width, bounds.height, stack.getMock(), stack.getCount());
+        return b;
+    }
     
     public ItemBlock clone(Vector2 pos, int qnt){
-		ItemBlock b = new ItemBlock(pos, bounds.width, bounds.height, stack.getMock(), qnt);
-		return b;
-	}
+        ItemBlock b = new ItemBlock(pos, bounds.width, bounds.height, stack.getMock(), qnt);
+        return b;
+    }
 }

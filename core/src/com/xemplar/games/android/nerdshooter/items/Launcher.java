@@ -24,45 +24,45 @@ import com.badlogic.gdx.math.Vector2;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 
 public class Launcher extends Item implements Fireable, Equippable{
-	protected int rounds;
-	protected Entity e;
-	
-	protected Launcher(int id, String regionID){
+    protected int rounds;
+    protected Entity e;
+    
+    protected Launcher(int id, String regionID){
         super(id, 1, regionID);
     }
-	
-	public Launcher clone(){
+    
+    public Launcher clone(){
         return new Launcher(id, regionID);
     }
-	
-	public boolean stayInInventory(){
-		return true;
-	}
-	
-	public boolean onEquip(Entity e){
-		if(e.hasInventory()){
-			this.e = e;
-			return true;
-		}
-		
-		return false;
-	}
-	
-	public boolean onFire(){
-		if(e != null){
-			int res = e.inventory.invHasItemType(Ammo.class);
-			if(res != -1){
-				ItemStack stack = e.inventory.getItem(res);
-				Ammo amm = (Ammo)stack.getItem(0);
-				
-				Vector2 pos = e.getPosition().cpy();
-				float addX = e.isFacingLeft() ? -(0.1F + amm.pro.getBounds().getWidth()) : (0.1F + e.getBounds().getWidth());
-				float deg = e.isFacingLeft() ? 180F : 0F;
-				
-				pos.add(addX, 0);
-				amm.launch(pos, 20F, deg);
-			}
-		}
-		return false;
-	}
+    
+    public boolean stayInInventory(){
+        return true;
+    }
+    
+    public boolean onEquip(Entity e){
+        if(e.hasInventory()){
+            this.e = e;
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public boolean onFire(){
+        if(e != null){
+            int res = e.inventory.invHasItemType(Ammo.class);
+            if(res != -1){
+                ItemStack stack = e.inventory.getItem(res);
+                Ammo amm = (Ammo)stack.getItem(0);
+                
+                Vector2 pos = e.getPosition().cpy();
+                float addX = e.isFacingLeft() ? -(0.1F + amm.pro.getBounds().getWidth()) : (0.1F + e.getBounds().getWidth());
+                float deg = e.isFacingLeft() ? 180F : 0F;
+                
+                pos.add(addX, 0);
+                amm.launch(pos, 20F, deg);
+            }
+        }
+        return false;
+    }
 }
