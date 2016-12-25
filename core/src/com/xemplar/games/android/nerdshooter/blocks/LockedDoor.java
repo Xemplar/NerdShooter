@@ -31,6 +31,7 @@ public class LockedDoor extends DoorBlock implements Switchable, Uncloneable{
     }
 
     public void addSwitchable(Switchable s){
+        if(s == null) return;
         sw.add(s);
         yet.add(s);
     }

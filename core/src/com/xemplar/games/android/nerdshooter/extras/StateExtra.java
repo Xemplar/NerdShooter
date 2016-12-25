@@ -51,6 +51,7 @@ public class StateExtra extends Extra implements Switchable {
     }
 
     public void addSwitchable(Switchable s){
+        if(s == null) return;
         sw.add(s);
     }
 

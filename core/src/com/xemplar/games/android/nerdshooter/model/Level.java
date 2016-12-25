@@ -22,9 +22,9 @@ package com.xemplar.games.android.nerdshooter.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ArrayMap;
 import com.xemplar.games.android.nerdshooter.blocks.*;
 import com.xemplar.games.android.nerdshooter.entities.Entity;
 import com.xemplar.games.android.nerdshooter.entities.ai.AbsoluteLinearAI;
@@ -32,7 +32,6 @@ import com.xemplar.games.android.nerdshooter.entities.ai.AbstractAI;
 import com.xemplar.games.android.nerdshooter.entities.mobs.BlockMob;
 import com.xemplar.games.android.nerdshooter.entities.mobs.EnemyMob;
 import com.xemplar.games.android.nerdshooter.extras.Extra;
-import com.xemplar.games.android.nerdshooter.extras.StateExtra;
 import com.xemplar.games.android.nerdshooter.extras.TorchExtra;
 
 import java.io.File;
@@ -41,6 +40,7 @@ import static com.xemplar.games.android.nerdshooter.blocks.Block.*;
 import static com.xemplar.games.android.nerdshooter.extras.Extra.*;
 
 public class Level {
+    public ArrayMap<Integer, Array<Swatch>> swatches = new ArrayMap<Integer, Array<Swatch>>();
     public Vector2 jaxonStart;
     private int width;
     private int height;
@@ -53,7 +53,6 @@ public class Level {
     public int getWidth() {
         return width;
     }
-
     public void setWidth(int width) {
         this.width = width;
     }
@@ -61,7 +60,6 @@ public class Level {
     public int getHeight() {
         return height;
     }
-
     public void setHeight(int height) {
         this.height = height;
     }
@@ -69,7 +67,6 @@ public class Level {
     public void setEntites(Array<Entity> entities){
         this.entities = entities;
     }
-    
     public Array<Entity> getEntities(){
         return entities;
     }
@@ -77,15 +74,12 @@ public class Level {
     public Block[] getBlocks() {
         return blocks;
     }
-
     public Array<Extra> getExtras(){
         return extras;
     }
-    
     public void setBlocks(Block[] blocks) {
         this.blocks = blocks;
     }
-    
     public void setExtras(Array<Extra> extras){
         this.extras = extras;
     }
@@ -93,7 +87,6 @@ public class Level {
     public Level(String pack, int levelNum){
         jaxonStart = loadLevel(pack, levelNum);
     }
-    
     public Block get(int i) {
         return blocks[i];
     }
@@ -175,6 +168,7 @@ public class Level {
                 addExtra(line[col]);
             }
         }
+        setupSwatches();
         return value;
     }
     
@@ -236,20 +230,19 @@ public class Level {
                     int x = Integer.parseInt(options[1]);
                     int y = Integer.parseInt(options[2]);
                     int s = Integer.parseInt(options[3]);
-                    for(int i = 0; i < blocks.length; i++){
-                        if(blocks[i] == null) {
-                            continue;
-                        }
-                    }
+
+                    System.out.println("Y Choord: " + y);
 
                     TorchExtra torch = new TorchExtra(new Vector2(x, y), s);
+                    Array<Swatch> swatchArray = new Array<Swatch>();
                     for(int i = 4; i < options.length; i+=2){
-                        int sx = Integer.parseInt(options[i]);
-                        int sy = height - Integer.parseInt(options[i + 1]) - 1;
+                        boolean isExtra = options[i].startsWith("x");
+                        int sx = Integer.parseInt(options[i].substring(isExtra ? 1 : 0));
+                        int sy = height - (Integer.parseInt(options[i + 1].substring(isExtra ? 1 : 0)) + 1);
 
-                        Switchable sw = (SwitchBlock)blocks[sx + sy * width];
-                        torch.addSwitchable(sw);
+                        swatchArray.add(new Swatch(torch, sx, sy, isExtra));
                     }
+                    swatches.put(x + y * width, swatchArray);
 
                     return torch;
                 }
@@ -274,10 +267,29 @@ public class Level {
         return null;
     }
 
+    private void setupSwatches(){
+        for(int i = 0; i < swatches.size; i++){
+            int key = swatches.getKeyAt(i);
+            Array<Swatch> swatch = swatches.get(key);
+            Block b = swatch.get(0).getParent();
+
+            if(b instanceof TorchExtra){
+                TorchExtra t = (TorchExtra)b;
+                for(int j = 0; j < swatch.size; j++){
+                    t.addSwitchable(swatch.get(j).getSwatch());
+                }
+            } else if(b instanceof LockedDoor){
+                LockedDoor d = (LockedDoor)b;
+                for(int j = 0; j < swatch.size; j++){
+                    d.addSwitchable(swatch.get(j).getSwatch());
+                }
+            }
+        }
+    }
+
     private Block parseID(String id, int x, int y){
         id = id.toLowerCase();
         id = id.trim();
-        
 
         if(id.equals("gm"))
             return grass_mid;
@@ -560,22 +572,17 @@ public class Level {
                 int lx = Integer.parseInt(options[1]);
                 int ly = Integer.parseInt(options[2]);
                 int s = Integer.parseInt(options[3]);
-                for(int i = 0; i < blocks.length; i++){
-                    if(blocks[i] == null) {
-                        continue;
-                    }
-                }
 
                 LockedDoor door = new LockedDoor(new Vector2(x, y), "door_locked", "door_open", new Vector2(lx, ly), s);
+                Array<Swatch> swatchArray = new Array<Swatch>();
                 for(int i = 4; i < options.length; i+=2){
-                    int sx = Integer.parseInt(options[i]);
-                    int sy = height - Integer.parseInt(options[i + 1]) - 1;
+                    boolean isExtra = options[i].startsWith("x");
+                    int sx = Integer.parseInt(options[i].substring(isExtra ? 1 : 0));
+                    int sy = height - Integer.parseInt(options[i + 1].substring(isExtra ? 1 : 0)) - 1;
 
-                    Switchable sw = (SwitchBlock)blocks[sx + sy * width];
-                    door.addSwitchable(sw);
-
-                    System.out.println("Selected: " + blocks[sx + sy * width].getClass() + ", X: " + sx + ", Y: " + sy);
+                    swatchArray.add(new Swatch(door, sx, sy, isExtra));
                 }
+                swatches.put(x + y * width, swatchArray);
                 return door;
             }
             }
@@ -587,8 +594,39 @@ public class Level {
     public void spawnEntity(Entity e){
         entities.add(e);
     }
-    
     public void despawnEntity(Entity e){
         entities.removeValue(e, false);
+    }
+
+    private final class Swatch{
+        private boolean isExtra;
+        private Block parent;
+        private int x, y;
+
+        public Swatch(Block parent, int x, int y, boolean isExtra){
+            this.x = x;
+            this.y = y;
+
+            this.parent = parent;
+            this.isExtra = isExtra;
+        }
+
+        public Block getParent(){
+            return parent;
+        }
+
+        public Switchable getSwatch(){
+            if(isExtra){
+                for(int i = 0; i < extras.size; i++){
+                    Vector2 curr = extras.get(i).getPosition();
+                    if(curr.x == this.x && curr.y == this.y){
+                        return (Switchable) extras.get(i);
+                    }
+                }
+            } else {
+                return (Switchable) blocks[this.x + this.y * width];
+            }
+            return null;
+        }
     }
 }
