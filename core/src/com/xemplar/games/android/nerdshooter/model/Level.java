@@ -222,16 +222,16 @@ public class Level {
             String[] options = parse.split("#");
             int name = Integer.parseInt(options[0]);
             System.out.println("YEETE: " + name);
+
+            int x = Integer.parseInt(options[1]);
+            int y = Integer.parseInt(options[2]);
+            y = ((y+1) - height) * -1;
             switch(name){
                 case 0:{
 
                 }
                 case 1:{
-                    int x = Integer.parseInt(options[1]);
-                    int y = Integer.parseInt(options[2]);
                     int s = Integer.parseInt(options[3]);
-
-                    System.out.println("Y Choord: " + y);
 
                     TorchExtra torch = new TorchExtra(new Vector2(x, y), s);
                     Array<Swatch> swatchArray = new Array<Swatch>();
@@ -247,15 +247,9 @@ public class Level {
                     return torch;
                 }
                 case 2:{
-                    int x = Integer.parseInt(options[1]);
-                    int y = Integer.parseInt(options[2]);
-
                     return window.clone(new Vector2(x, y));
                 }
                 case 3: {
-                    int x = Integer.parseInt(options[1]);
-                    int y = Integer.parseInt(options[2]);
-
                     int h = Integer.parseInt(options[3]);
 
                     spawnEntity(new EnemyMob(new Vector2(x, y), 0.3F, 0.5F, h));
