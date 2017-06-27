@@ -15,3 +15,7 @@ are a few rules you have to follow:
   OX1 refers to first Option,
   OX2 refers to second Option,
   OXN refers to last Option.
+
+## Know Versions
+
+- Life of Jaxon By Xemplar Softworks (Same of whom developed Nerd Shooter)
